@@ -1,13 +1,16 @@
 // Import react and other dependencies
 import { React, useState, useEffect } from 'react';
+import PropTypes from 'prop-types'
 import axios from 'axios';
 
 // Import styling
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea, CardContent } from '@material-ui/core'; //Card Styling
-import { AppBar, Tabs, Tab, Box, PropTypes } from '@material-ui/core'; //Tab Styling
+import { AppBar, Tabs, Tab, Box } from '@material-ui/core'; //Tab Styling
 import { List, ListItem, ListItemText, Divider } from '@material-ui/core'; //List Styling
 import { Input, InputLabel, InputAdornment, FormControl } from '@material-ui/core'; //Form Styling
+import { useSnackbar } from 'notistack';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
@@ -15,11 +18,11 @@ import Button from '@material-ui/core/Button';
 
 
 // Import Icons
-import { PersonIcon, SettingsIcon, EmailIcon, BookmarkIcon } from '@material-ui/icons'; //Grid Bar Icons
+import { Person, Settings, Email, Bookmark } from '@material-ui/icons'; //Grid Bar Icons
 import BarChartIcon from '@material-ui/icons/BarChart'; //Stats
-import { CreateIcon, CommentIcon, ThumbUpIcon, ThumbsUpDownIcon } from '@material-ui/icons'; //Stats Icons
+import { Create, Comment, ThumbUp, ThumbsUpDown } from '@material-ui/icons'; //Stats Icons
 import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline'; //Member Info
-import { AccountCircle, LockIcon } from '@material-ui/icons'; //Form Icons
+import { AccountCircle, Lock, Face } from '@material-ui/icons'; //Form Icons
 
 // Set up functions to be used in the render
 function TabPanel(props) {
@@ -125,7 +128,7 @@ export default function Profile() {
 }, [])
 
   // Call In functions for the render
-  const tab = tabStyles();
+  const tabbed = tabStyles();
   const card = cardStyles();
   const list = listStyles();
   const form = formStyles();
@@ -134,6 +137,7 @@ export default function Profile() {
   
 
   // Set up functions to be used immediately
+  const { enqueueSnackbar } = useSnackbar();
   // This should add the message at the bottom of the page to notify fail or success of submission
   const handleClickVariant = (variant, message) => () => {
     // Variant could be success, error, warning, info, or default
@@ -182,23 +186,23 @@ export default function Profile() {
         </div>
       </section>
       {/* Content bar for checking profile stats, changing account information(edit), checking messages and subscriptions(favorites) */}
-      <div className={tab.root}>
+      <div className={tabbed.root}>
         <AppBar position="static">
-          <Tabs value={value} onChange={handleTabChange} aria-label="simple tabs example">
-            <Tab label="Profile" icon={<PersonIcon/>} {...a11yProps(0)} />
-            <Tab label="Account" icon={<SettingsIcon/>} {...a11yProps(1)} />
-            <Tab label="Messages" icon={<Badge className={badge.margin} badgeContent={4} color="primary"> <EmailIcon/> </Badge>} {...a11yProps(2)} />
-            <Tab label="Bookmarks" icon={<BookmarkIcon/>} {...a11yProps(3)} />
+          <Tabs value={tab} onChange={handleTabChange} aria-label="simple tabs example">
+            <Tab label="Profile" icon={<Person/>} {...a11yProps(0)} />
+            <Tab label="Account" icon={<Settings/>} {...a11yProps(1)} />
+            <Tab label="Messages" icon={<Badge className={badge.margin} badgeContent={4} color="primary"> <Email/> </Badge>} {...a11yProps(2)} />
+            <Tab label="Bookmarks" icon={<Bookmark/>} {...a11yProps(3)} />
           </Tabs>
         </AppBar>
-        <TabPanel value={value} index={0}>
+        <TabPanel value={tab} index={0}>
           {/* Mid section for member overall account activity */}
           <section className = 'mid_section'>
             <BarChartIcon/><h3 className = 'title'>Member Activity</h3>
             <div className = 'statsContent'>
               <Card className={card.card}>
                 <CardActionArea>
-                  <CreateIcon/>
+                  <Create/>
                   <CardContent>
                     <h2> 100 </h2>
                     <p> Forum Posts </p>
@@ -207,7 +211,7 @@ export default function Profile() {
               </Card>
               <Card className={card.card}>
                 <CardActionArea>
-                  <CommentIcon/>
+                  <Comment/>
                   <CardContent>
                     <h2> 1000 </h2>
                     <p> Forum Comments </p>
@@ -216,7 +220,7 @@ export default function Profile() {
               </Card>
               <Card className={card.card}>
                 <CardActionArea>
-                  <ThumbUpIcon/>
+                  <ThumbUp/>
                   <CardContent>
                     <h2> 10 </h2>
                     <p> Likes </p>
@@ -225,7 +229,7 @@ export default function Profile() {
               </Card>
               <Card className={card.card}>
                 <CardActionArea>
-                  <ThumbsUpDownIcon/>
+                  <ThumbsUpDown/>
                   <CardContent>
                     <h2> 1 </h2>
                     <p> Received Likes </p>
@@ -271,7 +275,7 @@ export default function Profile() {
             </List>
           </div>
         </TabPanel>
-        <TabPanel value={value} index={1}>
+        <TabPanel value={tab} index={1}>
           {/* Account settings tab */}
           {edit ?
           <FormControl className={form.margin} onSubmit={handleSubmit()}>
@@ -282,7 +286,7 @@ export default function Profile() {
               onChange={handleChange('user_avatar')}
               startAdornment={
                 <InputAdornment position="start">
-                  <FaceIcon />
+                  <Face />
                 </InputAdornment>
               }
             />
@@ -304,7 +308,7 @@ export default function Profile() {
               onChange={handleChange('email')}
               startAdornment={
                 <InputAdornment position="start">
-                  <EmailIcon />
+                  <Email />
                 </InputAdornment>
               }
             />
@@ -316,7 +320,7 @@ export default function Profile() {
               onChange={handleChange('password')}
               startAdornment={
                 <InputAdornment position="start">
-                  <LockIcon />
+                  <Lock />
                 </InputAdornment>
               }
               endAdornment={
@@ -338,7 +342,7 @@ export default function Profile() {
               onChange={handleChange('confirm_password')}
               startAdornment={
                 <InputAdornment position="start">
-                  <LockIcon />
+                  <Lock />
                 </InputAdornment>
               }
               endAdornment={
@@ -364,7 +368,7 @@ export default function Profile() {
               disabled={true}
               startAdornment={
                 <InputAdornment position="start">
-                  <FaceIcon />
+                  <Face />
                 </InputAdornment>
               }
             />
@@ -386,7 +390,7 @@ export default function Profile() {
               disabled={true}
               startAdornment={
                 <InputAdornment position="start">
-                  <EmailIcon />
+                  <Email />
                 </InputAdornment>
               }
             />
@@ -398,23 +402,23 @@ export default function Profile() {
               disabled={true}
               startAdornment={
                 <InputAdornment position="start">
-                  <LockIcon />
+                  <Lock />
                 </InputAdornment>
               }
             />
             <Button onClick={handleEditButton()}>edit</Button>
           </FormControl>}
         </TabPanel>
-        <TabPanel value={value} index={2}>
+        <TabPanel value={tab} index={2}>
           {/* Messages tab */}
           <p> show me the message! </p>
         </TabPanel>
-        <TabPanel value={value} index={3}>
+        <TabPanel value={tab} index={3}>
           {/* Bookmarks tab */}
           <div>
-            {values.favorite_posts.map( e => {
+            {/* {values.favorite_posts.map( e => {
               // display post cards
-            })}
+            })} */}
           </div>
         </TabPanel>
       </div>

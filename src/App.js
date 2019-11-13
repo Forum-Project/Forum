@@ -9,6 +9,7 @@ import Navbar from './components/navbar/Navbar';
 import Routes from './routes/Routes';
 
 import './App.css';
+import Filter from './components/filter/Filter';
 
 const theme = createMuiTheme({
   /* theme for v1.x */
@@ -30,12 +31,11 @@ const themeV0 = getMuiTheme({
 
 function App() {
   return (
-    <MuiThemeProvider theme={theme}>
-      <V0MuiThemeProvider muiTheme={themeV0}>
-        <Navbar />
-        <Routes />
-      </V0MuiThemeProvider>
-    </MuiThemeProvider>
+    <div className="App">
+      <header className="App-header">
+        <Filter />
+      </header>
+    </div>
   );
 }
 
