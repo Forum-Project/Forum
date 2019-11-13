@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 // image imports
-import firefly from '../../assets/Firefly.svg'
+import noImage from '../../assets/noImage.png'
 // css and styles
 import { postCardStyle } from './postCardStyle'
 
@@ -49,8 +49,8 @@ const PostCard = (props) => {
       />
       <CardMedia
         className={classes.media}
-        image={post.post_img ? post.post_img : firefly}
-        title={post.post_img_description ? post.post_img_description : 'A firefly'}
+        image={post.post_img ? post.post_img : noImage}
+        title={post.post_img_description ? post.post_img_description : 'No image'}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">

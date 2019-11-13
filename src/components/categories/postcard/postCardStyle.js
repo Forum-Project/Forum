@@ -9,7 +9,8 @@ export const postCardStyle = makeStyles(theme => ({
     margin: '2rem',
   },
   media: {
-    height: 0,
+    maxHeight: 500,
+    height: '100%',
     paddingTop: '56.25%', // 16:9
     backgroundColor: grey[500],
   },
