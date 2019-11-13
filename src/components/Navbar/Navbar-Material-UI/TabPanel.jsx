@@ -41,7 +41,7 @@ function a11yProps(index) {
     'aria-controls': `simple-tabpanel-${index}`,
   };
 }
-
+ 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -73,17 +73,16 @@ export default function SimpleTabs() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <Signin />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Comments />
+        Item Two
       </TabPanel>
       <TabPanel value={value} index={2}>
         Item Three
-        </TabPanel>
+      </TabPanel>
       <TabPanel value={value} index={3}>
         Profile
-        </TabPanel>
+      </TabPanel>
     </div>
   );
 }
