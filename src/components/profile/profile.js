@@ -56,6 +56,14 @@ export default function Profile() {
   const classes = useStyles();
 
 
+  // Set up functions to be used immediately
+  // This should add the message at the bottom of the page to notify fail or success of submission
+  const handleClickVariant = (variant, message) => () => {
+    // variant could be success, error, warning, info, or default
+    enqueueSnackbar(`${message}`, { variant });
+  }; 
+
+
   return(
     <div className = 'container'>
       {/* Top section dedicated to basic info on the user along with profile image */}
@@ -72,13 +80,21 @@ export default function Profile() {
       </section>
       {/* Content bar for checking profile stats, changing account information(edit), checking messages and subscriptions(favorites) */}
       <Grid container alignItems="left" className={classes.root}>
-        <profile icon>profile</profile>
+        <Tooltip title="Profile" placement="bottom">
+          <profile icon>profile</profile>
+        </Tooltip>
         <Divider orientation="vertical" />
-        <account icon>account</account>
+        <Tooltip title="Account" placement="bottom">
+          <account icon>account</account>
+        </Tooltip>
         <Divider orientation="vertical" />
-        <messages icon>messages</messages>
+        <Tooltip title="Messages" placement="bottom">
+          <messages icon>messages</messages>
+        </Tooltip>
         <Divider orientation="vertical" />
-        <subscriptions icon>subscriptions</subscriptions>
+        <Tooltip title="Booking" placement="bottom">
+          <subscriptions icon>subscriptions</subscriptions>
+        </Tooltip>
       </Grid>
       {/* Mid section for member overall account activity */}
       <section className = 'mid_section'>
