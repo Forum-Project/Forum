@@ -17,4 +17,7 @@ export const postCardStyle = makeStyles(theme => ({
   avatar: {
     backgroundColor: green[600],
   },
+  tag: {
+    fontSize: '0.750rem'
+  },
 }));

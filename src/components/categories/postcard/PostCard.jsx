@@ -9,6 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 // image imports
 import noImage from '../../assets/noImage.png'
@@ -57,15 +58,17 @@ const PostCard = (props) => {
           {trimBody(post.post_body)}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        {/* map over tags here */}
-        {post.post_category.map(tag => {
-          return (
-            <Button onClick={() => console.log(`${tag} brings you to a different page with only ${tag}-related results`)}>
-              #{tag}
-            </Button>
-          )
-        })}
+      <CardActions>
+        <Box dispay='flex'>
+          {/* map over tags here */}
+          {post.post_category.map(tag => {
+            return (
+              <Button className={classes.tag} onClick={() => console.log(`${tag} brings you to a different page with only ${tag}-related results`)}>
+                #{tag}
+              </Button>
+            )
+          })}
+        </Box> 
       </CardActions>
     </Card>
   );
