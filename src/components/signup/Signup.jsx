@@ -60,7 +60,7 @@ export default function SignUp() {
         if (user.username && user.email && user.password) {
             event.preventDefault();
             console.log('This is what is being sent to ', user)
-            axios.post('http://localhost:5000/', user)
+            axios.post('http://localhost:5000/users', user)
                 .then(res => console.log('You created a user!', res))
                 .catch(err => console.log('You failed to Create a New User', err))
         } else {

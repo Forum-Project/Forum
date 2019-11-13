@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
+import axios from 'axios';
+import jwtDecode from 'jwt-decode'
 
 function Copyright() {
     return (
@@ -54,6 +57,30 @@ const useStyles = makeStyles(theme => ({
 export default function SignIn() {
     const classes = useStyles();
 
+    const [user, setUser] = useState({});
+
+    const onSumbit = event => {
+        event.preventDefault();
+        if (user.username && user.password) {
+            console.log('This is what is being sent to ', user)
+            // const decode = jwtDecode(localStorage.getItem('token'))
+            axios.post(`http://localhost:5000/users/login`, user)
+                .then(res => {
+                    console.log('Logged in', res)
+                    // history.push('/')
+                })
+                .catch(err => console.log('You failed to Login', err))
+        } else {
+            console.log('Validate')
+        }
+    }
+
+    const handleChange = event => {
+        const updatedUser = { ...user, [event.target.name]: event.target.value }
+        setUser(updatedUser)
+        console.log(updatedUser)
+    }
+
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -64,17 +91,18 @@ export default function SignIn() {
                 <Typography component="h1" variant="h5">
                     Sign in
         </Typography>
-                <form className={classes.form} noValidate>
+                <form className={classes.form} Validate>
                     <TextField
                         variant="outlined"
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
+                        id="username"
+                        label="Username"
+                        name="username"
+                        autoComplete="username"
                         autoFocus
+                        onChange={handleChange}
                     />
                     <TextField
                         variant="outlined"
@@ -86,6 +114,7 @@ export default function SignIn() {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        onChange={handleChange}
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
@@ -97,15 +126,12 @@ export default function SignIn() {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        onClick={onSumbit}
                     >
                         Sign In
           </Button>
                     <Grid container>
-                        <Grid item xs>
-                            <Link href="#" variant="body2">
-                                Forgot password?
-              </Link>
-                        </Grid>
+
                         <Grid item>
                             <Link href="#" variant="body2">
                                 {"Don't have an account? Sign Up"}
