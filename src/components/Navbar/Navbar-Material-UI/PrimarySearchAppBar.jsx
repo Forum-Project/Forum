@@ -15,10 +15,12 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
+import { shadows } from '@material-ui/system';
+
 const useStyles = makeStyles(theme => ({
     grow: {
         flexGrow: 1,
-        boxShadow: 'none'
+        boxShadow: 0
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -78,7 +80,7 @@ const useStyles = makeStyles(theme => ({
     },
     menuBackground: {
         background: '#58AF23',
-        boxShadow: 'none'
+        boxShadow: 0
     }
 }));
 
@@ -167,7 +169,7 @@ export default function PrimarySearchAppBar() {
 
     return (
         <div className={classes.grow}>
-            <AppBar position="static" boxShadow={0} className={classes.menuBackground}>
+            <AppBar position="static" className={classes.menuBackground}>
                 <Toolbar>
                     <IconButton
                         edge="start"
