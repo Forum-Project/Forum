@@ -6,6 +6,10 @@ import Grid from '@material-ui/core/Grid';
 import Tooltip from '@material-ui/core/Tooltip';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
 
 // Import Icons
 import PersonIcon from '@material-ui/icons/Person'; //Profile
@@ -19,7 +23,7 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp'; //Likes Given/Likes receiv
 import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline'; //Member info
 
 // Set up functions to be used in the render
-const useStyles = makeStyles(theme => ({
+const gridStyles = makeStyles(theme => ({
   root: {
     width: 'fit-content',
     border: `1px solid ${theme.palette.divider}`,
@@ -34,6 +38,15 @@ const useStyles = makeStyles(theme => ({
     },
   },
 }));
+
+const cardStyles = makeStyles({
+  card: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 140,
+  },
+});
 
 export default function Profile() {
   // Set up state with hooks
@@ -53,7 +66,8 @@ export default function Profile() {
 
 
   // Call In functions for the render
-  const classes = useStyles();
+  const grid = gridStyles();
+  const card = cardStyles();
 
 
   // Set up functions to be used immediately
@@ -79,51 +93,67 @@ export default function Profile() {
         </div>
       </section>
       {/* Content bar for checking profile stats, changing account information(edit), checking messages and subscriptions(favorites) */}
-      <Grid container alignItems="left" className={classes.root}>
+      <Grid container alignItems="left" className={grid.root}>
         <Tooltip title="Profile" placement="bottom">
-          <profile icon>profile</profile>
+          <PersonIcon/><h3>Profile</h3>
         </Tooltip>
         <Divider orientation="vertical" />
         <Tooltip title="Account" placement="bottom">
-          <account icon>account</account>
+          <SettingsIcon/><h3>Account</h3>
         </Tooltip>
         <Divider orientation="vertical" />
         <Tooltip title="Messages" placement="bottom">
-          <messages icon>messages</messages>
+          <EmailIcon/><h3>Messages</h3>
         </Tooltip>
         <Divider orientation="vertical" />
-        <Tooltip title="Booking" placement="bottom">
-          <subscriptions icon>subscriptions</subscriptions>
+        <Tooltip title="Bookmark" placement="bottom">
+          <BookmarkIcon/><h3>Bookmarked</h3>
         </Tooltip>
       </Grid>
       {/* Mid section for member overall account activity */}
       <section className = 'mid_section'>
-        <h3 className = 'title'>Member Activity</h3>
+        <BarChartIcon/><h3 className = 'title'>Member Activity</h3>
         <div className = 'statsContent'>
-          <div className = 'contentBox'>
-            <icon></icon>
-            <data></data>
-            <p>posts</p>
-          </div>
-          <div className = 'contentBox'>
-            <icon></icon>
-            <data></data>
-            <p>comments</p>
-          </div>
-          <div className = 'contentBox'>
-            <icon></icon>
-            <data></data>
-            <p>likes</p>
-          </div>
-          <div className = 'contentBox'>
-            <icon></icon>
-            <data></data>
-            <p>received likes</p>
-          </div>
+          <Card className={card.card}>
+            <CardActionArea>
+              <CreateIcon/>
+              <CardContent>
+                <h2> 100 </h2>
+                <p> Forum Posts </p>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+          <Card className={card.card}>
+            <CardActionArea>
+              <CommentIcon/>
+              <CardContent>
+                <h2> 1000 </h2>
+                <p> Forum Comments </p>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+          <Card className={card.card}>
+            <CardActionArea>
+              <ThumbUpIcon/>
+              <CardContent>
+                <h2> 10 </h2>
+                <p> Likes </p>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+          <Card className={card.card}>
+            <CardActionArea>
+              <ThumbUpIcon/>
+              <CardContent>
+                <h2> 1 </h2>
+                <p> Received Likes </p>
+              </CardContent>
+            </CardActionArea>
+          </Card>
         </div>
       </section>
       {/* Bottom section containing the rest of the members info */}
-      <h3 className = 'title'>Member Information</h3>
+      <ViewHeadlineIcon/><h3 className = 'title'>Member Information</h3>
       <div className = 'infoContent'>
         <section className = 'leftside'>
           <h4 className = 'listItem'>Last Active</h4>
@@ -153,7 +183,7 @@ export default function Profile() {
         <input>
         avatar image
         </input>
-        <button>edit</button>
+        <button onClick={handleClickVariant('info', 'Loading...')}>edit</button>
       </form>
 
       {/* Messages tab */}
