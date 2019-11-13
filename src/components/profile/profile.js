@@ -4,8 +4,11 @@ import { React, useState, useEffect } from 'react';
 // Import styling
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea, CardContent } from '@material-ui/core'; //Card Styling
-import { AppBar, Tabs, Tab, Box } from '@material-ui/core'; //Tab Styling
+import { AppBar, Tabs, Tab, Box, PropTypes } from '@material-ui/core'; //Tab Styling
+import { List, ListItem, ListItemText, Divider } from '@material-ui/core'; //List Styling
 import Typography from '@material-ui/core/Typography';
+import Badge from '@material-ui/core/Badge';
+import Avatar from '@material-ui/core/Avatar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 
@@ -24,8 +27,8 @@ function TabPanel(props) {
       component="div"
       role="tabpanel"
       hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      id={`scrollable-auto-tabpanel-${index}`}
+      aria-labelledby={`scrollable-auto-tab-${index}`}
       {...other}
     >
       <Box p={3}>{children}</Box>
@@ -41,31 +44,15 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    id: `scrollable-auto-tab-${index}`,
+    'aria-controls': `scrollable-auto-tabpanel-${index}`,
   };
 }
 
-const tabs = tabStyles(theme => ({
+const tabStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
-  },
-}));
-
-const gridStyles = makeStyles(theme => ({
-  root: {
-    width: 'fit-content',
-    border: `1px solid ${theme.palette.divider}`,
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: theme.palette.background.paper,
-    color: theme.palette.text.secondary,
-    '& svg': {
-      margin: theme.spacing(2),
-    },
-    '& hr': {
-      margin: theme.spacing(0, 0.5),
-    },
   },
 }));
 
@@ -75,6 +62,34 @@ const cardStyles = makeStyles({
   },
   media: {
     height: 140,
+  },
+});
+
+const badgeStyles = makeStyles(theme => ({
+  margin: {
+    margin: theme.spacing(2),
+  },
+  padding: {
+    padding: theme.spacing(0, 2),
+  },
+}));
+
+const listStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+}));
+
+const avatarStyles = makeStyles({
+  avatar: {
+    margin: 10,
+  },
+  bigAvatar: {
+    margin: 10,
+    width: 60,
+    height: 60,
   },
 });
 
@@ -94,7 +109,10 @@ export default function Profile() {
 
   // Call In functions for the render
   const tab = tabStyles();
-  const card = cardStyles();  
+  const card = cardStyles();
+  const list = listStyles();
+  const badge = badgeStyles();
+  const avatar = avatarStyles();
 
 
   // Set up functions to be used immediately
@@ -112,7 +130,7 @@ export default function Profile() {
     <div className = 'container'>
       {/* Top section dedicated to basic info on the user along with profile image */}
       <section className = 'top_section'>
-        <img src = 'user_avater' alt = 'profile picture' /> 
+        <Avatar alt="Profile Picture" src="/static/images/avatar/1.jpg" className={avatar.bigAvatar} />
         <div className = 'user basic info'>
           <h2 className = 'Username'>username</h2>
           <div className = 'basicInfo'>
@@ -125,10 +143,10 @@ export default function Profile() {
       {/* Content bar for checking profile stats, changing account information(edit), checking messages and subscriptions(favorites) */}
       <div className={tab.root}>
         <AppBar position="static">
-          <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+          <Tabs value={value} onChange={handleTabChange} aria-label="simple tabs example">
             <Tab label="Profile" icon={<PersonIcon/>} {...a11yProps(0)} />
             <Tab label="Account" icon={<SettingsIcon/>} {...a11yProps(1)} />
-            <Tab label="Messages" icon={<EmailIcon/>} {...a11yProps(2)} />
+            <Tab label="Messages" icon={<Badge className={badge.margin} badgeContent={4} color="primary"> <EmailIcon/> </Badge>} {...a11yProps(2)} />
             <Tab label="Bookmarks" icon={<BookmarkIcon/>} {...a11yProps(3)} />
           </Tabs>
         </AppBar>
@@ -178,18 +196,38 @@ export default function Profile() {
           {/* Bottom section containing the rest of the members info */}
           <ViewHeadlineIcon/><h3 className = 'title'>Member Information</h3>
           <div className = 'infoContent'>
-            <section className = 'leftside'>
-              <h4 className = 'listItem'>Last Active</h4>
-              <h4 className = 'listItem'>Location</h4>
-              <h4 className = 'listItem'>Email</h4>
-              <h4 className = 'listItem'>Signature</h4>
-            </section>
-            <section className = 'rightside'>
-              <h4 className = 'listItem right'>time</h4>
-              <h4 className = 'listItem right'>3rd floor</h4>
-              <h4 className = 'listItem right'>test@me.com</h4>
-              <h4 className = 'listItem right'>We are all meant for greatness</h4>
-            </section>
+            <List component="nav" className={list.root} aria-label="mailbox folders">
+              <ListItem button>
+                <ListItemText primary="Last Active" />
+              </ListItem>
+              <Divider />
+              <ListItem button divider>
+                <ListItemText primary="Location" />
+              </ListItem>
+              <ListItem button>
+                <ListItemText primary="Email" />
+              </ListItem>
+              <Divider light />
+              <ListItem button>
+                <ListItemText primary="Signature" />
+              </ListItem>
+            </List>
+            <List component="nav" className={list.root} aria-label="mailbox folders">
+              <ListItem button>
+                <ListItemText primary="Time" />
+              </ListItem>
+              <Divider />
+              <ListItem button divider>
+                <ListItemText primary="3rd Floor" />
+              </ListItem>
+              <ListItem button>
+                <ListItemText primary="Test@Me.com" />
+              </ListItem>
+              <Divider light />
+              <ListItem button>
+                <ListItemText primary="We are all meant for greatness!" />
+              </ListItem>
+            </List>
           </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
