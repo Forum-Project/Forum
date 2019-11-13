@@ -8,6 +8,9 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
+//component imports 
+import Signin from '../../signin/Signin'; 
+
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
   
@@ -65,14 +68,20 @@ function TabPanel(props) {
             <Tab label="Item One" {...a11yProps(0)} />
             <Tab label="Item Two" {...a11yProps(1)} />
             <Tab label="Item Three" {...a11yProps(2)} />
+			{/* <Tab label="Item Four" {...allyProps(2)} /> */}
           </Tabs>
         </AppBar>
-        <Link as={TabPanel} value={value} index={0}>Profile</Link>
+		<TabPanel value={value} index={0}>
+          <Signin />
+        </TabPanel>
         <TabPanel value={value} index={1}>
           Item Two
         </TabPanel>
         <TabPanel value={value} index={2}>
           Item Three
+        </TabPanel>
+		<TabPanel value={value} index={3}>
+          Profile
         </TabPanel>
       </div>
     );
