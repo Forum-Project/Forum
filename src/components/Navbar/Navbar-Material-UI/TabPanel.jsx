@@ -72,7 +72,6 @@ function TabPanel(props) {
           </Tabs>
         </AppBar>
 		<TabPanel value={value} index={0}>
-          <Signin />
         </TabPanel>
         <TabPanel value={value} index={1}>
           Item Two

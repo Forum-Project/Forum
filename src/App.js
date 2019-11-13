@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 // component imports
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/navbar/Navbar';
 import Routes from './routes/Routes';
 
 function App() {
