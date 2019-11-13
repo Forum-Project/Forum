@@ -111,6 +111,30 @@ export default function Profile() {
           <h4 className = 'listItem right'>We are all meant for greatness</h4>
         </section>
       </div>
+
+      {/* Account settings tab */}
+      <form>
+        <input>
+        username
+        </input>
+        <input>
+        email
+        </input>
+        <input>
+        password
+        </input>
+        <input>
+        avatar image
+        </input>
+        <button>edit</button>
+      </form>
+
+      {/* Messages tab */}
+
+      {/* Subscriptions/Favorites/Starred tab */}
+      <div>
+        {/* {map posts cards} */}
+      </div>
     </div>
   )
 }
