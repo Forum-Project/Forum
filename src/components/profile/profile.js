@@ -6,17 +6,19 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea, CardContent } from '@material-ui/core'; //Card Styling
 import { AppBar, Tabs, Tab, Box, PropTypes } from '@material-ui/core'; //Tab Styling
 import { List, ListItem, ListItemText, Divider } from '@material-ui/core'; //List Styling
+import { Input, InputLabel, InputAdornment, FormControl } from '@material-ui/core'; //Form Styling
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
-import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
+
 
 // Import Icons
 import { PersonIcon, SettingsIcon, EmailIcon, BookmarkIcon } from '@material-ui/icons'; //Grid Bar Icons
 import BarChartIcon from '@material-ui/icons/BarChart'; //Stats
 import { CreateIcon, CommentIcon, ThumbUpIcon, ThumbsUpDownIcon } from '@material-ui/icons'; //Stats Icons
 import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline'; //Member Info
+import { AccountCircle, LockIcon } from '@material-ui/icons'; //Form Icons
 
 // Set up functions to be used in the render
 function TabPanel(props) {
@@ -93,16 +95,25 @@ const avatarStyles = makeStyles({
   },
 });
 
+const formStyles = makeStyles(theme => ({
+  margin: {
+    margin: theme.spacing(1),
+  },
+}));
+
 export default function Profile() {
   // Set up state with hooks
-  let [user, setUser] = useState({
+  let [values, setValues] = useState({
+    user_avatar: '',
     username: '',
     password: '',
+    confirm_password:'',
     email: '',
-    user_avatar: ''
+    showPassword: false,
+    favorite_posts: []
   });
   let [edit, setEdit] = useState(false)
-  const [value, setValue] = React.useState(0);
+  const [tab, setTab] = React.useState(0);
 
   // Grab user information on render
 
@@ -118,12 +129,30 @@ export default function Profile() {
   // Set up functions to be used immediately
   // This should add the message at the bottom of the page to notify fail or success of submission
   const handleClickVariant = (variant, message) => () => {
-    // variant could be success, error, warning, info, or default
+    // Variant could be success, error, warning, info, or default
     enqueueSnackbar(`${message}`, { variant });
   }; 
-  const handleTabChange = (event, newValue) => {
-    setValue(newValue);
+  // This handles the switch between tabs
+  const handleTabChange = (event, newTab) => {
+    setTab(newTab);
   };
+  // Input handler
+  const handleChange = prop => event => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+  // Change visibility
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
+  // Prevent page loading
+  const handleMouseDownPassword = event => {
+    event.preventDefault();
+  };
+  // Change edit
+  const handleEditButton = event => {
+    event.preventDefault();
+    setEdit(!edit);
+  }
 
 
   return(
@@ -232,21 +261,137 @@ export default function Profile() {
         </TabPanel>
         <TabPanel value={value} index={1}>
           {/* Account settings tab */}
-          <form>
-            <input>
-            username
-            </input>
-            <input>
-            email
-            </input>
-            <input>
-            password
-            </input>
-            <input>
-            avatar image
-            </input>
-            <button onClick={handleClickVariant('info', 'Loading...')}>edit</button>
-          </form>
+          {edit ?
+          <FormControl className={form.margin}>
+            <InputLabel htmlFor="input-with-icon-adornment">Avatar Image</InputLabel>
+            <Input
+              id="input-with-icon-adornment"
+              value={values.user_avatar}
+              onChange={handleChange('user_avatar')}
+              startAdornment={
+                <InputAdornment position="start">
+                  <FaceIcon />
+                </InputAdornment>
+              }
+            />
+            <InputLabel htmlFor="input-with-icon-adornment">Username</InputLabel>
+            <Input
+              id="input-with-icon-adornment"
+              value={values.username}
+              onChange={handleChange('username')}
+              startAdornment={
+                <InputAdornment position="start">
+                  <AccountCircle />
+                </InputAdornment>
+              }
+            />
+            <InputLabel htmlFor="input-with-icon-adornment">Email</InputLabel>
+            <Input
+              id="input-with-icon-adornment"
+              value={values.email}
+              onChange={handleChange('email')}
+              startAdornment={
+                <InputAdornment position="start">
+                  <EmailIcon />
+                </InputAdornment>
+              }
+            />
+            <InputLabel htmlFor="input-with-icon-adornment">Password</InputLabel>
+            <Input
+              id="standard-adornment-password"
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.password}
+              onChange={handleChange('password')}
+              startAdornment={
+                <InputAdornment position="start">
+                  <LockIcon />
+                </InputAdornment>
+              }
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            /><InputLabel htmlFor="input-with-icon-adornment">Confirm Password</InputLabel>
+            <Input
+              id="standard-adornment-password"
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.confirm_password}
+              onChange={handleChange('confirm_password')}
+              startAdornment={
+                <InputAdornment position="start">
+                  <LockIcon />
+                </InputAdornment>
+              }
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            <Button onClick={handleClickVariant('info', 'Loading...')}>Submit</Button>
+          </FormControl>
+          :
+          <FormControl className={form.margin}>
+            <InputLabel htmlFor="input-with-icon-adornment">Avatar Image</InputLabel>
+            <Input
+              id="input-with-icon-adornment"
+              value={values.user_avatar}
+              disabled={true}
+              startAdornment={
+                <InputAdornment position="start">
+                  <FaceIcon />
+                </InputAdornment>
+              }
+            />
+            <InputLabel htmlFor="input-with-icon-adornment">Username</InputLabel>
+            <Input
+              id="input-with-icon-adornment"
+              value={values.username}
+              disabled={true}
+              startAdornment={
+                <InputAdornment position="start">
+                  <AccountCircle />
+                </InputAdornment>
+              }
+            />
+            <InputLabel htmlFor="input-with-icon-adornment">Email</InputLabel>
+            <Input
+              id="input-with-icon-adornment"
+              value={values.email}
+              disabled={true}
+              startAdornment={
+                <InputAdornment position="start">
+                  <EmailIcon />
+                </InputAdornment>
+              }
+            />
+            <InputLabel htmlFor="input-with-icon-adornment">Password</InputLabel>
+            <Input
+              id="standard-adornment-password"
+              type={values.showPassword ? 'text' : 'password'}
+              value={values.password}
+              disabled={true}
+              startAdornment={
+                <InputAdornment position="start">
+                  <LockIcon />
+                </InputAdornment>
+              }
+            />
+            <Button onClick={handleEditButton()}>edit</Button>
+          </FormControl>}
         </TabPanel>
         <TabPanel value={value} index={2}>
           {/* Messages tab */}
