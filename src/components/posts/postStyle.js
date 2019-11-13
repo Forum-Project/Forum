@@ -2,7 +2,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import { green, grey } from '@material-ui/core/colors';
 
 export const postStyle = makeStyles(theme => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
   card: {
+    alignSelf: 'center',
     maxWidth: 1000,
     backgroundColor: grey[300],
     textAlign: 'left',

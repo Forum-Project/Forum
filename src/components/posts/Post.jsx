@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 // css and styles
 import { postStyle } from './postStyle'
@@ -23,7 +24,7 @@ const PostCard = (props) => {
   }
 
   return (
-    <>
+    <Container className={classes.container}>
       <Card className={classes.card}>
         <CardHeader
           avatar={
@@ -61,7 +62,13 @@ const PostCard = (props) => {
           </Typography>
         </CardContent>
       </Card>
-    </>
+
+      {/* form text area for adding comments */}
+      <div>New comment here</div>
+      
+      {/* map over comments here */}
+
+    </Container>
   );
 }
 
