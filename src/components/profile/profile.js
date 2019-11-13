@@ -1,11 +1,22 @@
 // Import react and other dependencies
 import { React, useState, useEffect } from 'react';
 
-//Import styling
+// Import styling
 import Grid from '@material-ui/core/Grid';
 import Tooltip from '@material-ui/core/Tooltip';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
+
+// Import Icons
+import PersonIcon from '@material-ui/icons/Person'; //Profile
+import SettingsIcon from '@material-ui/icons/Settings'; //Settings
+import EmailIcon from '@material-ui/icons/Email'; //Messages
+import BookmarkIcon from '@material-ui/icons/Bookmark'; //Favorites
+import BarChartIcon from '@material-ui/icons/BarChart'; //Stats
+import CreateIcon from '@material-ui/icons/Create'; //Posts made
+import CommentIcon from '@material-ui/icons/Comment'; //Comments made
+import ThumbUpIcon from '@material-ui/icons/ThumbUp'; //Likes Given/Likes received
+import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline'; //Member info
 
 // Set up functions to be used in the render
 const useStyles = makeStyles(theme => ({
