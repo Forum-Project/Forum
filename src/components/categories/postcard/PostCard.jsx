@@ -15,6 +15,17 @@ import firefly from '../../assets/Firefly.svg'
 // css and styles
 import { postCardStyle } from './postCardStyle'
 
+// function will trim length down to 140 characters
+function trimBody(text) {
+  if (text.length > 140) {
+    // initialize new string that cuts down to 140 characters
+    let trimmedString = text.substr(0, 140)
+    // trims off last word if incomplete and adds elipses
+    trimmedString = trimmedString.substr(0, Math.min(trimmedString.length, trimmedString.lastIndexOf(" "))) + '...'
+    return trimmedString
+  } else return text
+}
+
 const PostCard = (props) => {
   const { post } = props
   const classes = postCardStyle();
@@ -43,7 +54,7 @@ const PostCard = (props) => {
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          {post.post_body}
+          {trimBody(post.post_body)}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
