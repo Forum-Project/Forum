@@ -26,20 +26,12 @@ const themeV0 = getMuiTheme({
 
 function App() {
   return (
-<<<<<<< HEAD
     <MuiThemeProvider theme={theme}>
       <V0MuiThemeProvider muiTheme={themeV0}>
         <Navbar />
         <Routes />
       </V0MuiThemeProvider>
     </MuiThemeProvider>
-=======
-    <div className="App">
-      <header className="App-header">
-        <Filter />
-      </header>
-    </div>
->>>>>>> e466f506b59e6c4dc0224de824eb5e31b81ded98
   );
 }
 
