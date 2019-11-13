@@ -73,10 +73,44 @@ export default function Profile() {
       <section className = 'mid_section'>
         <h3 className = 'title'>Member Activity</h3>
         <div className = 'statsContent'>
-          
+          <div className = 'contentBox'>
+            <icon></icon>
+            <data></data>
+            <p>posts</p>
+          </div>
+          <div className = 'contentBox'>
+            <icon></icon>
+            <data></data>
+            <p>comments</p>
+          </div>
+          <div className = 'contentBox'>
+            <icon></icon>
+            <data></data>
+            <p>likes</p>
+          </div>
+          <div className = 'contentBox'>
+            <icon></icon>
+            <data></data>
+            <p>received likes</p>
+          </div>
         </div>
       </section>
+      {/* Bottom section containing the rest of the members info */}
+      <h3 className = 'title'>Member Information</h3>
+      <div className = 'infoContent'>
+        <section className = 'leftside'>
+          <h4 className = 'listItem'>Last Active</h4>
+          <h4 className = 'listItem'>Location</h4>
+          <h4 className = 'listItem'>Email</h4>
+          <h4 className = 'listItem'>Signature</h4>
+        </section>
+        <section className = 'rightside'>
+          <h4 className = 'listItem right'>time</h4>
+          <h4 className = 'listItem right'>3rd floor</h4>
+          <h4 className = 'listItem right'>test@me.com</h4>
+          <h4 className = 'listItem right'>We are all meant for greatness</h4>
+        </section>
+      </div>
     </div>
   )
-
 }
