@@ -68,6 +68,7 @@ export default function SignIn() {
                 .then(res => {
                     console.log('Logged in', res)
                     // history.push('/')
+                    localStorage.setItem('token', res.data.token)
                 })
                 .catch(err => console.log('You failed to Login', err))
         } else {
