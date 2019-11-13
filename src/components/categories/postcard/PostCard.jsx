@@ -59,7 +59,7 @@ const PostCard = (props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Box dispay='flex'>
+        <Box display='flex'>
           {/* map over tags here */}
           {post.post_category.map(tag => {
             return (
