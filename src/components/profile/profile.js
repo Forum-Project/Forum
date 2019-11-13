@@ -1,5 +1,6 @@
 // Import react and other dependencies
 import { React, useState, useEffect } from 'react';
+import axios from 'axios';
 
 // Import styling
 import { makeStyles } from '@material-ui/core/styles';
@@ -104,6 +105,7 @@ const formStyles = makeStyles(theme => ({
 export default function Profile() {
   // Set up state with hooks
   let [values, setValues] = useState({
+    _id: '',
     user_avatar: '',
     username: '',
     password: '',
@@ -116,21 +118,27 @@ export default function Profile() {
   const [tab, setTab] = React.useState(0);
 
   // Grab user information on render
-
+  useEffect(() => {
+    axios.get(``)
+      .then(res => setValues(res))
+      .catch(err => console.log(err))  
+}, [])
 
   // Call In functions for the render
   const tab = tabStyles();
   const card = cardStyles();
   const list = listStyles();
+  const form = formStyles();
   const badge = badgeStyles();
   const avatar = avatarStyles();
-
+  
 
   // Set up functions to be used immediately
   // This should add the message at the bottom of the page to notify fail or success of submission
   const handleClickVariant = (variant, message) => () => {
     // Variant could be success, error, warning, info, or default
     enqueueSnackbar(`${message}`, { variant });
+    setEdit(!edit);
   }; 
   // This handles the switch between tabs
   const handleTabChange = (event, newTab) => {
@@ -152,6 +160,10 @@ export default function Profile() {
   const handleEditButton = event => {
     event.preventDefault();
     setEdit(!edit);
+  }
+  // Handle submit
+  const handleSubmit = () => {
+
   }
 
 
@@ -262,7 +274,7 @@ export default function Profile() {
         <TabPanel value={value} index={1}>
           {/* Account settings tab */}
           {edit ?
-          <FormControl className={form.margin}>
+          <FormControl className={form.margin} onSubmit={handleSubmit()}>
             <InputLabel htmlFor="input-with-icon-adornment">Avatar Image</InputLabel>
             <Input
               id="input-with-icon-adornment"
@@ -395,11 +407,14 @@ export default function Profile() {
         </TabPanel>
         <TabPanel value={value} index={2}>
           {/* Messages tab */}
+          <p> show me the message! </p>
         </TabPanel>
         <TabPanel value={value} index={3}>
           {/* Bookmarks tab */}
           <div>
-            {/* {map posts cards} */}
+            {values.favorite_posts.map( e => {
+              // display post cards
+            })}
           </div>
         </TabPanel>
       </div>
