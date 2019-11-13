@@ -17,11 +17,6 @@ const theme = createMuiTheme({
       fontSize: '1rem',
     },
   },
-  '@global': {
-    '.MuiPaper-elevation4': {
-      boxShadows: 0
-    }
-  }
 });
 const themeV0 = getMuiTheme({
   /* theme for v0.x */

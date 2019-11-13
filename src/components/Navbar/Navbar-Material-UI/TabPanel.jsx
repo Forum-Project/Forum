@@ -46,7 +46,6 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     // backgroundColor: '#58AF23',
-    boxShadow: 'none'
   },
   tabpanel: {
     backgroundColor: '#58AF23',
