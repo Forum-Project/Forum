@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; 
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -66,9 +67,7 @@ function TabPanel(props) {
             <Tab label="Item Three" {...a11yProps(2)} />
           </Tabs>
         </AppBar>
-        <TabPanel value={value} index={0}>
-          Item One
-        </TabPanel>
+        <Link as={TabPanel} value={value} index={0}>Profile</Link>
         <TabPanel value={value} index={1}>
           Item Two
         </TabPanel>

@@ -3,13 +3,15 @@ import './App.css';
 
 // component imports
 import Navbar from './components/Navbar/Navbar';
+import Routes from './routes/Routes';
 
 function App() {
-  return (
-    <div className="App">
-		<Navbar />
-    </div>
-  );
+	return (
+		<>
+			<Navbar />
+			<Routes />
+		</>
+	);
 }
 
 export default App;
