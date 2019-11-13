@@ -28,7 +28,8 @@ function trimBody(text) {
 }
 
 const PostCard = (props) => {
-  const { post } = props
+  console.log('props',props)
+  const { post }  = props
   const classes = postCardStyle();
 
   return (
@@ -61,13 +62,13 @@ const PostCard = (props) => {
       <CardActions>
         <Box dispay='flex'>
           {/* map over tags here */}
-          {post.post_category.map(tag => {
+          {/* {post.post_category.map(tag => {
             return (
               <Button className={classes.tag} onClick={() => console.log(`${tag} brings you to a different page with only ${tag}-related results`)}>
                 #{tag}
               </Button>
             )
-          })}
+          })} */}
         </Box> 
       </CardActions>
     </Card>
