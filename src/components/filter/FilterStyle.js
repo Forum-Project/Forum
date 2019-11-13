@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
 
-const useStyles = makeStyles(theme => ({
+const styles = makeStyles(theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -25,4 +25,4 @@ export const FilterDiv = styled.div`
   flex-direction: column;
 `;
 
-export default useStyles;
+export default styles;

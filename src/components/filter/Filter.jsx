@@ -13,7 +13,13 @@ import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
-import styles, {FilterDiv} from './FilterStyle';
+import styles, { FilterDiv } from './FilterStyle';
+
+/*
+  Notes
+  - Do better validating on tag entries, right now you can enter a space or tab
+  - Need to verify responsiveness
+ */
 
 const options = ['Submit filter', 'Clear all tags'];
 
@@ -21,13 +27,38 @@ const Filter = (props) => {
   const [tags, setTags] = useState([]);
   const [tagField, setTagField] = useState('');
   const classes = styles();
+  let domain = 'localhost:5000';
+  let categoryID = props.categoryID || 0; // probably should get a better default
 
   const [open, setOpen] = useState(false); // for the submit button
   const anchorRef = useRef(null);
-  const [selectedIndex, setSelectedIndex] = useState(1);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  // const tagEscapedSymbols = ['?', '&', '+', '#'];
+
+  const updateField = event => setTagField(event.target.value);
+
+  // const sterilizeTag = tag => {
+  //   for(let symbol of tagEscapedSymbols) {
+  //     tag = tag.replace(symbol, `\\${symbol}`);
+  //   }
+  //   return tag;
+  // };
+  const buildRequest = () => {
+    let base = `http://${domain}/category/${categoryID}/?tags=`;
+    let reduced = tags.reduce((acc, tag) => {
+      tag = encodeURIComponent(tag);
+      return acc + '+' + tag;
+    });
+    console.log(reduced);
+    base += reduced;
+    console.log(base);
+    // request built, send it back through hook to controller
+  };
 
   const dropdownClick = () => {
     // do stuff for clicked item in dropdown
+    if(options[selectedIndex] === 'Submit filter') submitFilter();
+    else if(options[selectedIndex] === 'Clear all tags') clearTags();
   };
 
   const dropdownMenuItemClick = (event, index) => {
@@ -50,8 +81,8 @@ const Filter = (props) => {
 
   const addTag = event => {
     event.preventDefault();
-    if(typeof event.target.value === 'string' && event.target.value.length < 1) return; // maybe warn them to add something to the field (later)
-    if(tags.includes(event.target.value)) return false; // warn them the tag exists (later)
+    if(typeof tagField === 'string' && tagField.length < 1) return false; // maybe warn them to add something to the field (later)
+    if(tags.includes(tagField)) return false; // warn them the tag exists (later)
     setTags([...tags, tagField]);
     setTagField('');
   };
@@ -68,6 +99,8 @@ const Filter = (props) => {
 
   const submitFilter = () => {
     // generate the proper link to make the request and pass back to post list?
+    if(tags.length < 1) return false;
+    buildRequest();
   };
 
 
@@ -77,14 +110,15 @@ const Filter = (props) => {
       <Container maxWidth='sm'>
         <FilterDiv>
           <form className='tagFilter' onSubmit={addTag}>
-            <div>
+            <div style={{ display: 'flex', 'alignItems': 'center', 'justifyContent': 'center' }}>
               <TextField
                 id='tag'
                 className={classes.textField}
                 label='Tags'
                 margin='normal'
                 variant='filled'
-                onChange={setTagField}
+                onChange={updateField}
+                value={tagField}
               />
               <Button variant='contained' className={classes.button} onClick={addTag}>
                 Add Tag
