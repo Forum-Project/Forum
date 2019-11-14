@@ -5,8 +5,9 @@ import Container from '@material-ui/core/Container';
 
 // Importing Components
 import Posts from '../posts/Post'
-import PostCard from '../categories/postcard/PostCard'
 import Comments from '../comments/Comments'
+import CommentInput from '../comment-text/CommentAdd'
+
 
 export default function SimpleContainer() {
     return (
@@ -14,6 +15,7 @@ export default function SimpleContainer() {
             <CssBaseline />
             <Container maxWidth="sm">
                 <Posts />
+                <CommentInput />
                 <Comments />
             </Container>
         </React.Fragment>

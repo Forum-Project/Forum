@@ -9,30 +9,12 @@ import Navbar from './components/Navbar/Navbar';
 import Routes from './routes/Routes';
 
 
-import './App.css';
-import Filter from './components/filter/Filter';
-
-const theme = createMuiTheme({
-  /* theme for v1.x */
-  typography: {
-    button: {
-      fontSize: '1rem',
-    },
-  },
-});
-const themeV0 = getMuiTheme({
-  /* theme for v0.x */
-});
-
-
 function App() {
   return (
-    <MuiThemeProvider theme={theme}>
-      <V0MuiThemeProvider muiTheme={themeV0}>
-        <Navbar />
-        <Routes />
-      </V0MuiThemeProvider>
-    </MuiThemeProvider>
+    <>
+      <Navbar />
+      <Routes />
+    </>
   );
 }
 
