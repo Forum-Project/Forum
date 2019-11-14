@@ -26,107 +26,107 @@ import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline'; //Member Info
 import { AccountCircle, Lock, Face, Visibility, VisibilityOff } from '@material-ui/icons'; //Form Icons
 
 // Set up functions to be used in the render
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+// function TabPanel(props) {
+//   const { children, value, index, ...other } = props;
 
-  return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`scrollable-auto-tabpanel-${index}`}
-      aria-labelledby={`scrollable-auto-tab-${index}`}
-      {...other}
-    >
-      <Box p={3}>{children}</Box>
-    </Typography>
-  );
-}
+//   return (
+//     <Typography
+//       component="div"
+//       role="tabpanel"
+//       hidden={value !== index}
+//       id={`scrollable-auto-tabpanel-${index}`}
+//       aria-labelledby={`scrollable-auto-tab-${index}`}
+//       {...other}
+//     >
+//       <Box p={3}>{children}</Box>
+//     </Typography>
+//   );
+// }
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
+// TabPanel.propTypes = {
+//   children: PropTypes.node,
+//   index: PropTypes.any.isRequired,
+//   value: PropTypes.any.isRequired,
+// };
 
-function a11yProps(index) {
-  return {
-    id: `scrollable-auto-tab-${index}`,
-    'aria-controls': `scrollable-auto-tabpanel-${index}`,
-  };
-}
+// function a11yProps(index) {
+//   return {
+//     id: `scrollable-auto-tab-${index}`,
+//     'aria-controls': `scrollable-auto-tabpanel-${index}`,
+//   };
+// }
 
-const tabStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
+// const tabStyles = makeStyles(theme => ({
+//   root: {
+//     flexGrow: 1,
+//     backgroundColor: theme.palette.background.paper,
+//   },
+// }));
 
-const cardStyles = makeStyles({
-  card: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-  },
-});
+// const cardStyles = makeStyles({
+//   card: {
+//     maxWidth: 345,
+//   },
+//   media: {
+//     height: 140,
+//   },
+// });
 
-const badgeStyles = makeStyles(theme => ({
-  margin: {
-    margin: theme.spacing(2),
-  },
-  padding: {
-    padding: theme.spacing(0, 2),
-  },
-}));
+// const badgeStyles = makeStyles(theme => ({
+//   margin: {
+//     margin: theme.spacing(2),
+//   },
+//   padding: {
+//     padding: theme.spacing(0, 2),
+//   },
+// }));
 
-const listStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
+// const listStyles = makeStyles(theme => ({
+//   root: {
+//     width: '100%',
+//     maxWidth: 360,
+//     backgroundColor: theme.palette.background.paper,
+//   },
+// }));
 
-const avatarStyles = makeStyles({
-  avatar: {
-    margin: 10,
-  },
-  bigAvatar: {
-    margin: 10,
-    width: 60,
-    height: 60,
-  },
-});
+// const avatarStyles = makeStyles({
+//   avatar: {
+//     margin: 10,
+//   },
+//   bigAvatar: {
+//     margin: 10,
+//     width: 60,
+//     height: 60,
+//   },
+// });
 
-const formStyles = makeStyles(theme => ({
-  margin: {
-    margin: theme.spacing(1),
-  },
-}));
+// const formStyles = makeStyles(theme => ({
+//   margin: {
+//     margin: theme.spacing(1),
+//   },
+// }));
 
-const snackStyles = makeStyles(theme => ({
-  close: {
-    padding: theme.spacing(0.5),
-  },
-}));
+// const snackStyles = makeStyles(theme => ({
+//   close: {
+//     padding: theme.spacing(0.5),
+//   },
+// }));
 
-export default function Profile() {
-  // Set up state with hooks
-  let [values, setValues] = useState({
-    _id: '',
-    user_avatar: '',
-    username: '',
-    password: '',
-    confirm_password:'',
-    email: '',
-    showPassword: false,
-    // favorite_posts: []
-  });
-  let [edit, setEdit] = useState(false)
-  const [tab, setTab] = React.useState(0);
-  // const [open, setOpen] = React.useState(false);
+const Profile = (props) => {
+  // // Set up state with hooks
+  // const [edit, setEdit] = useState(false)
+  // const [tab, setTab] = useState(0);
+  // // const [open, setOpen] = React.useState(false);
+  // const [values, setValues] = useState({
+  //   _id: '',
+  //   user_avatar: '',
+  //   username: '',
+  //   password: '',
+  //   confirm_password:'',
+  //   email: '',
+  //   showPassword: false,
+  //   favorite_posts: []
+  // });
 
   // Grab user information on render
   // useEffect(() => {
@@ -136,13 +136,13 @@ export default function Profile() {
   // }, [])
 
   // Call In functions for the render
-  const tabbed = tabStyles();
-  const card = cardStyles();
-  const list = listStyles();
-  const form = formStyles();
-  const snack = snackStyles();
-  const badge = badgeStyles();
-  const avatar = avatarStyles();
+  // const tabbed = tabStyles();
+  // const card = cardStyles();
+  // const list = listStyles();
+  // const form = formStyles();
+  // const snack = snackStyles();
+  // const badge = badgeStyles();
+  // const avatar = avatarStyles();
   
 
   // Set up functions to be used immediately
@@ -154,36 +154,36 @@ export default function Profile() {
   //   setEdit(!edit);
   // }; 
   // This handles the switch between tabs
-  const handleTabChange = (event, newTab) => {
-    setTab(newTab);
-  };
-  // Input handler
-  const handleChange = event => {
-    setValues({ ...values, [event.target.name]: event.target.value });
-  };
-  // Change visibility
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
-  // Prevent page loading
-  const handleMouseDownPassword = event => {
-    event.preventDefault();
-  };
-  // Change edit
-  const handleEditButton = event => {
-    event.preventDefault();
-    setEdit(!edit);
-  }
-  // Handle submit
-  const handleSubmit = () => {
+  // const handleTabChange = (event, newTab) => {
+  //   setTab(newTab);
+  // };
+  // // Input handler
+  // const handleChange = event => {
+  //   setValues({ ...values, [event.target.name]: event.target.value });
+  // };
+  // // Change visibility
+  // const handleClickShowPassword = () => {
+  //   setValues({ ...values, showPassword: !values.showPassword });
+  // };
+  // // Prevent page loading
+  // const handleMouseDownPassword = event => {
+  //   event.preventDefault();
+  // };
+  // // Change edit
+  // const handleEditButton = event => {
+  //   event.preventDefault();
+  //   setEdit(!edit);
+  // }
+  // // Handle submit
+  // const handleSubmit = () => {
 
-  }
+  // }
 
 
   return(
     <div className = 'container'>
       {/* Top section dedicated to basic info on the user along with profile image */}
-      <section className = 'top_section'>
+      {/* <section className = 'top_section'>
         <Avatar alt="Profile Picture" src="/static/images/avatar/1.jpg" className={avatar.bigAvatar} />
         <div className = 'user basic info'>
           <h2 className = 'Username'>username</h2>
@@ -193,9 +193,9 @@ export default function Profile() {
             <p>title: <span>receptionist</span></p>
           </div>
         </div>
-      </section>
+      </section> */}
       {/* Content bar for checking profile stats, changing account information(edit), checking messages and subscriptions(favorites) */}
-      <div className={tabbed.root}>
+      {/* <div className={tabbed.root}>
         <AppBar position="static">
           <Tabs value={tab} onChange={handleTabChange} aria-label="simple tabs example">
             <Tab label="Profile" icon={<Person/>} {...a11yProps(0)} />
@@ -204,9 +204,9 @@ export default function Profile() {
             <Tab label="Bookmarks" icon={<Bookmark/>} {...a11yProps(3)} />
           </Tabs>
         </AppBar>
-        <TabPanel value={tab} index={0}>
+        <TabPanel value={tab} index={0}> */}
           {/* Mid section for member overall account activity */}
-          <section className = 'mid_section'>
+          {/* <section className = 'mid_section'>
             <BarChartIcon/><h3 className = 'title'>Member Activity</h3>
             <div className = 'statsContent'>
               <Card className={card.card}>
@@ -246,9 +246,9 @@ export default function Profile() {
                 </CardActionArea>
               </Card>
             </div>
-          </section>
+          </section> */}
           {/* Bottom section containing the rest of the members info */}
-          <ViewHeadlineIcon/><h3 className = 'title'>Member Information</h3>
+          {/* <ViewHeadlineIcon/><h3 className = 'title'>Member Information</h3>
           <div className = 'infoContent'>
             <List component="nav" className={list.root} aria-label="mailbox folders">
               <ListItem button>
@@ -284,9 +284,9 @@ export default function Profile() {
             </List>
           </div>
         </TabPanel>
-        <TabPanel value={tab} index={1}>
+        <TabPanel value={tab} index={1}> */}
           {/* Account settings tab */}
-          {edit ?
+          {/* {edit ?
           <FormControl className={form.margin} onSubmit={handleSubmit()}>
             <InputLabel htmlFor="input-with-icon-adornment">Avatar Image</InputLabel>
             <Input
@@ -365,9 +365,9 @@ export default function Profile() {
                   </IconButton>
                 </InputAdornment>
               }
-            />
+            /> */}
             {/* <Button onClick={handleClickVariant('info', 'Loading...')}>Submit</Button> */}
-          </FormControl>
+          {/* </FormControl>
           :
           <FormControl className={form.margin}>
             <InputLabel htmlFor="input-with-icon-adornment">Avatar Image</InputLabel>
@@ -418,19 +418,21 @@ export default function Profile() {
             <Button onClick={handleEditButton()}>edit</Button>
           </FormControl>}
         </TabPanel>
-        <TabPanel value={tab} index={2}>
+        <TabPanel value={tab} index={2}> */}
           {/* Messages tab */}
-          <p> show me the message! </p>
+          {/* <p> show me the message! </p>
         </TabPanel>
-        <TabPanel value={tab} index={3}>
+        <TabPanel value={tab} index={3}> */}
           {/* Bookmarks tab */}
-          <div>
+          {/* <div> */}
             {/* {values.favorite_posts.map( e => {
               // display post cards
             })} */}
-          </div>
-        </TabPanel>
-      </div>
+          {/* </div> */}
+        {/* </TabPanel> */}
+      {/* </div> */}
     </div>
   )
 }
+
+export default Profile;
