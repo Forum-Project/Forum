@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
@@ -69,34 +69,31 @@ const StyledToggleButtonGroup = withStyles(theme => ({
 
 
 
- function CommentAdd() {
+function CommentAdd() {
   const [alignment, setAlignment] = useState('left');
   const [formats, setFormats] = useState(() => ['italic']);
   const [comments, setComments] = useState();
   const [loading, setLoading] = useState(false);
-<<<<<<< HEAD
   const commentForm = useForm(() => null);
 
-=======
->>>>>>> 15a7ec45f7d9cd588a9078ec1898215405b9a5e5
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);
   };
 
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment);
-  
+
   };
 
   const classes = useStyles();
   return (
     <form className={classes.container}
-     noValidate 
-     onSubmit = {event => {
-       event.preventDefault();
-       commentForm.handleSubmit(event);
-     }}
-     autoComplete="off">
+      noValidate
+      onSubmit={event => {
+        event.preventDefault();
+        commentForm.handleSubmit(event);
+      }}
+      autoComplete="off">
       <div>
         <TextField
           id="filled-basic"
@@ -109,56 +106,56 @@ const StyledToggleButtonGroup = withStyles(theme => ({
           name='comment'
           onChange={commentForm.handleChange}
         />
-   
-   
-      <Paper elevation={0} className={classes.paper}>
-        <StyledToggleButtonGroup
-          size="small"
-          value={alignment}
-          exclusive
-          onChange={handleAlignment}
-          aria-label="text alignment"
-        >
-          <ToggleButton value="left" aria-label="left aligned">
-            <FormatAlignLeftIcon />
-          </ToggleButton>
-          <ToggleButton value="center" aria-label="centered">
-            <FormatAlignCenterIcon />
-          </ToggleButton>
-          <ToggleButton value="right" aria-label="right aligned">
-            <FormatAlignRightIcon />
-          </ToggleButton>
-          <ToggleButton value="justify" aria-label="justified" disabled>
-            <FormatAlignJustifyIcon />
-          </ToggleButton>
-        </StyledToggleButtonGroup>
-        <Divider orientation="vertical" className={classes.divider} />
-        <StyledToggleButtonGroup
-          size="small"
-          value={formats}
-          onChange={handleFormat}
-          arial-label="text formatting"
-        >
-          <ToggleButton value="bold" aria-label="bold">
-            <FormatBoldIcon />
-          </ToggleButton>
-          <ToggleButton value="italic" aria-label="italic">
-            <FormatItalicIcon />
-          </ToggleButton>
-          <ToggleButton value="underlined" aria-label="underlined">
-            <FormatUnderlinedIcon />
-          </ToggleButton>
-          <ToggleButton value="color" aria-label="color" disabled>
-            <FormatColorFillIcon />
-            <ArrowDropDownIcon />
-          </ToggleButton>
-        </StyledToggleButtonGroup>
-        <Button 
-        type="submit"
-        variant="contained" 
-        color="primary" 
-        className={classes.button}>
-        Submit
+
+
+        <Paper elevation={0} className={classes.paper}>
+          <StyledToggleButtonGroup
+            size="small"
+            value={alignment}
+            exclusive
+            onChange={handleAlignment}
+            aria-label="text alignment"
+          >
+            <ToggleButton value="left" aria-label="left aligned">
+              <FormatAlignLeftIcon />
+            </ToggleButton>
+            <ToggleButton value="center" aria-label="centered">
+              <FormatAlignCenterIcon />
+            </ToggleButton>
+            <ToggleButton value="right" aria-label="right aligned">
+              <FormatAlignRightIcon />
+            </ToggleButton>
+            <ToggleButton value="justify" aria-label="justified" disabled>
+              <FormatAlignJustifyIcon />
+            </ToggleButton>
+          </StyledToggleButtonGroup>
+          <Divider orientation="vertical" className={classes.divider} />
+          <StyledToggleButtonGroup
+            size="small"
+            value={formats}
+            onChange={handleFormat}
+            arial-label="text formatting"
+          >
+            <ToggleButton value="bold" aria-label="bold">
+              <FormatBoldIcon />
+            </ToggleButton>
+            <ToggleButton value="italic" aria-label="italic">
+              <FormatItalicIcon />
+            </ToggleButton>
+            <ToggleButton value="underlined" aria-label="underlined">
+              <FormatUnderlinedIcon />
+            </ToggleButton>
+            <ToggleButton value="color" aria-label="color" disabled>
+              <FormatColorFillIcon />
+              <ArrowDropDownIcon />
+            </ToggleButton>
+          </StyledToggleButtonGroup>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className={classes.button}>
+            Submit
       </Button>
         </Paper>
       </div>

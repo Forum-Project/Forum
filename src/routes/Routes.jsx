@@ -2,13 +2,12 @@ import React from 'react'
 import { Route } from 'react-router-dom';
 
 //component imports 
-import Navbar from '../components/navbar/Navbar'; 
-import Signup from '../components/signup/Signup'; 
-import Signin from '../components/signin/Signin'; 
-import Profile from '../components/profile/Profile'; 
+import Navbar from '../components/Navbar/Navbar';
+import Signup from '../components/signup/Signup';
+import Signin from '../components/signin/Signin';
+import Profile from '../components/profile/profile';
 import Categories from '../components/categories/Categories';
 import CreatePost from '../components/categories/postcard/CreatePost'
-
 
 const Routes = () => {
 
@@ -22,8 +21,6 @@ const Routes = () => {
         </>
     );
 }
-
-
 
 
 export default Routes;

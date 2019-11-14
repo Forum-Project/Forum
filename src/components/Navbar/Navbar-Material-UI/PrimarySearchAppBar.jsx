@@ -14,7 +14,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import Box from '@material-ui/core/Box'; 
+import Box from '@material-ui/core/Box';
 
 import { shadows } from '@material-ui/system';
 
@@ -136,7 +136,7 @@ export default function PrimarySearchAppBar() {
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
-            className={classes.menuBackground} 
+            className={classes.menuBackground}
         >
             {/* <MenuItem>
                 <IconButton aria-label="show 4 new mails" color="inherit">
@@ -169,12 +169,7 @@ export default function PrimarySearchAppBar() {
 
     return (
         <div className={classes.grow}>
-<<<<<<< HEAD
-            <Box boxShadow={0}>
-            <AppBar position="static" boxShadow={0} className={classes.menuBackground}>
-=======
             <AppBar position="static" className={classes.menuBackground}>
->>>>>>> origin/onboarding
                 <Toolbar>
                     <IconButton
                         edge="start"
@@ -202,20 +197,6 @@ export default function PrimarySearchAppBar() {
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-<<<<<<< HEAD
-                        {/* <IconButton aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton> */}
-                        {/* <IconButton aria-label="show 17 new notifications" color="inherit">
-                            <Badge badgeContent={17} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton> */}
-=======
-
->>>>>>> origin/onboarding
                         <IconButton
                             edge="end"
                             aria-label="account of current user"
@@ -240,9 +221,6 @@ export default function PrimarySearchAppBar() {
                     </div>
                 </Toolbar>
             </AppBar>
-            </Box>
-            {renderMobileMenu}
-            {renderMenu}
         </div>
     );
 }
