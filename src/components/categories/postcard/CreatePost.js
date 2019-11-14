@@ -17,6 +17,9 @@ import ToggleButton from '@material-ui/lab/ToggleButton'
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
 import axios from 'axios'
 
+// component imports 
+import Navbar from '../../Navbar/Navbar';
+
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
@@ -110,88 +113,91 @@ const StyledToggleButtonGroup = withStyles(theme => ({
   const classes = useStyles();
 
   return (
-    <form className={classes.container}
-     noValidate 
-     onSubmit = {onSubmit}
-     autoComplete="off">
-      <div>
-        <TextField
-          id="filled-basic"
-          className={classes.textField, classes.flex}
-          multiline={true}
-          rows={10}
-          label="Enter Your Title"
-          margin="normal"
-          variant="filled"
-          name='post_title'
-          onChange={handleChange}
-        />
+    <div>
+      {/* <Navbar /> */}
+      <form className={classes.container}
+      noValidate 
+      onSubmit = {onSubmit}
+      autoComplete="off">
+        <div>
+          <TextField
+            id="filled-basic"
+            className={classes.textField, classes.flex}
+            multiline={true}
+            rows={10}
+            label="Enter Your Title"
+            margin="normal"
+            variant="filled"
+            name='post_title'
+            onChange={handleChange}
+          />
 
-        <TextField
-          id="filled-basic"
-          className={classes.textField}
-          multiline={true}
-          rows={10}
-          label="Enter Your Post"
-          margin="normal"
-          variant="filled"
-          name='post_body'
-          onChange={handleChange}
-        />
-   
-   
-      <Paper elevation={0} className={classes.paper}>
-        <StyledToggleButtonGroup
-          size="small"
-          value={alignment}
-          exclusive
-          onChange={handleAlignment}
-          aria-label="text alignment"
-        >
-          <ToggleButton value="left" aria-label="left aligned">
-            <FormatAlignLeftIcon />
-          </ToggleButton>
-          <ToggleButton value="center" aria-label="centered">
-            <FormatAlignCenterIcon />
-          </ToggleButton>
-          <ToggleButton value="right" aria-label="right aligned">
-            <FormatAlignRightIcon />
-          </ToggleButton>
-          <ToggleButton value="justify" aria-label="justified" disabled>
-            <FormatAlignJustifyIcon />
-          </ToggleButton>
-        </StyledToggleButtonGroup>
-        <Divider orientation="vertical" className={classes.divider} />
-        <StyledToggleButtonGroup
-          size="small"
-          value={formats}
-          onChange={handleFormat}
-          arial-label="text formatting"
-        >
-          <ToggleButton value="bold" aria-label="bold">
-            <FormatBoldIcon />
-          </ToggleButton>
-          <ToggleButton value="italic" aria-label="italic">
-            <FormatItalicIcon />
-          </ToggleButton>
-          <ToggleButton value="underlined" aria-label="underlined">
-            <FormatUnderlinedIcon />
-          </ToggleButton>
-          <ToggleButton value="color" aria-label="color" disabled>
-            <FormatColorFillIcon />
-            <ArrowDropDownIcon />
-          </ToggleButton>
-        </StyledToggleButtonGroup>
-        <Button 
-        type="submit"
-        variant="contained" 
-        color="primary" 
-        className={classes.button}>
-        Submit
-      </Button>
-      </Paper>
-      </div>
-    </form>
+          <TextField
+            id="filled-basic"
+            className={classes.textField}
+            multiline={true}
+            rows={10}
+            label="Enter Your Post"
+            margin="normal"
+            variant="filled"
+            name='post_body'
+            onChange={handleChange}
+          />
+    
+    
+        <Paper elevation={0} className={classes.paper}>
+          <StyledToggleButtonGroup
+            size="small"
+            value={alignment}
+            exclusive
+            onChange={handleAlignment}
+            aria-label="text alignment"
+          >
+            <ToggleButton value="left" aria-label="left aligned">
+              <FormatAlignLeftIcon />
+            </ToggleButton>
+            <ToggleButton value="center" aria-label="centered">
+              <FormatAlignCenterIcon />
+            </ToggleButton>
+            <ToggleButton value="right" aria-label="right aligned">
+              <FormatAlignRightIcon />
+            </ToggleButton>
+            <ToggleButton value="justify" aria-label="justified" disabled>
+              <FormatAlignJustifyIcon />
+            </ToggleButton>
+          </StyledToggleButtonGroup>
+          <Divider orientation="vertical" className={classes.divider} />
+          <StyledToggleButtonGroup
+            size="small"
+            value={formats}
+            onChange={handleFormat}
+            arial-label="text formatting"
+          >
+            <ToggleButton value="bold" aria-label="bold">
+              <FormatBoldIcon />
+            </ToggleButton>
+            <ToggleButton value="italic" aria-label="italic">
+              <FormatItalicIcon />
+            </ToggleButton>
+            <ToggleButton value="underlined" aria-label="underlined">
+              <FormatUnderlinedIcon />
+            </ToggleButton>
+            <ToggleButton value="color" aria-label="color" disabled>
+              <FormatColorFillIcon />
+              <ArrowDropDownIcon />
+            </ToggleButton>
+          </StyledToggleButtonGroup>
+          <Button 
+          type="submit"
+          variant="contained" 
+          color="primary" 
+          className={classes.button}>
+          Submit
+        </Button>
+        </Paper>
+        </div>
+      </form>
+    </div>
   );
 }
 
