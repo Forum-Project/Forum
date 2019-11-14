@@ -5,6 +5,7 @@ import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import Routes from './routes/Routes';
 
+
 function App() {
 	return (
 		<>
