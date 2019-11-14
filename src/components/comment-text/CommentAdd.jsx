@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
@@ -15,6 +15,8 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import useForm from '../Hooks/useForm';
+
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -27,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     border: `.5px solid ${theme.palette.divider}`,
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    width: 599
+    width: 600
   },
   divider: {
     alignSelf: 'stretch',
@@ -68,9 +70,12 @@ const StyledToggleButtonGroup = withStyles(theme => ({
 
 
 
-export default function CommentAdd() {
-  const [alignment, setAlignment] = React.useState('left');
-  const [formats, setFormats] = React.useState(() => ['italic']);
+ function CommentAdd() {
+  const [alignment, setAlignment] = useState('left');
+  const [formats, setFormats] = useState(() => ['italic']);
+  const [comments, setComments] = useState();
+  const [loading, setLoading] = useState(false);
+  const commentForm = useForm(() => null);
 
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);
@@ -78,12 +83,18 @@ export default function CommentAdd() {
 
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment);
+  
   };
 
   const classes = useStyles();
-
   return (
-    <form className={classes.container} noValidate autoComplete="off">
+    <form className={classes.container}
+     noValidate 
+     onSubmit = {event => {
+       event.preventDefault();
+       commentForm.handleSubmit(event);
+     }}
+     autoComplete="off">
       <div>
         <TextField
           id="filled-basic"
@@ -93,56 +104,65 @@ export default function CommentAdd() {
           label="Enter Your Comment"
           margin="normal"
           variant="filled"
+          name='comment'
+          onChange={commentForm.handleChange}
         />
-
-
-        <Paper elevation={0} className={classes.paper}>
-          <StyledToggleButtonGroup
-            size="small"
-            value={alignment}
-            exclusive
-            onChange={handleAlignment}
-            aria-label="text alignment"
-          >
-            <ToggleButton value="left" aria-label="left aligned">
-              <FormatAlignLeftIcon />
-            </ToggleButton>
-            <ToggleButton value="center" aria-label="centered">
-              <FormatAlignCenterIcon />
-            </ToggleButton>
-            <ToggleButton value="right" aria-label="right aligned">
-              <FormatAlignRightIcon />
-            </ToggleButton>
-            <ToggleButton value="justify" aria-label="justified" disabled>
-              <FormatAlignJustifyIcon />
-            </ToggleButton>
-          </StyledToggleButtonGroup>
-          <Divider orientation="vertical" className={classes.divider} />
-          <StyledToggleButtonGroup
-            size="small"
-            value={formats}
-            onChange={handleFormat}
-            arial-label="text formatting"
-          >
-            <ToggleButton value="bold" aria-label="bold">
-              <FormatBoldIcon />
-            </ToggleButton>
-            <ToggleButton value="italic" aria-label="italic">
-              <FormatItalicIcon />
-            </ToggleButton>
-            <ToggleButton value="underlined" aria-label="underlined">
-              <FormatUnderlinedIcon />
-            </ToggleButton>
-            <ToggleButton value="color" aria-label="color" disabled>
-              <FormatColorFillIcon />
-              <ArrowDropDownIcon />
-            </ToggleButton>
-          </StyledToggleButtonGroup>
-          <Button variant="contained" color="primary" className={classes.button}>
-            Submit
+   
+   
+      <Paper elevation={0} className={classes.paper}>
+        <StyledToggleButtonGroup
+          size="small"
+          value={alignment}
+          exclusive
+          onChange={handleAlignment}
+          aria-label="text alignment"
+        >
+          <ToggleButton value="left" aria-label="left aligned">
+            <FormatAlignLeftIcon />
+          </ToggleButton>
+          <ToggleButton value="center" aria-label="centered">
+            <FormatAlignCenterIcon />
+          </ToggleButton>
+          <ToggleButton value="right" aria-label="right aligned">
+            <FormatAlignRightIcon />
+          </ToggleButton>
+          <ToggleButton value="justify" aria-label="justified" disabled>
+            <FormatAlignJustifyIcon />
+          </ToggleButton>
+        </StyledToggleButtonGroup>
+        <Divider orientation="vertical" className={classes.divider} />
+        <StyledToggleButtonGroup
+          size="small"
+          value={formats}
+          onChange={handleFormat}
+          arial-label="text formatting"
+        >
+          <ToggleButton value="bold" aria-label="bold">
+            <FormatBoldIcon />
+          </ToggleButton>
+          <ToggleButton value="italic" aria-label="italic">
+            <FormatItalicIcon />
+          </ToggleButton>
+          <ToggleButton value="underlined" aria-label="underlined">
+            <FormatUnderlinedIcon />
+          </ToggleButton>
+          <ToggleButton value="color" aria-label="color" disabled>
+            <FormatColorFillIcon />
+            <ArrowDropDownIcon />
+          </ToggleButton>
+        </StyledToggleButtonGroup>
+        <Button 
+        type="submit"
+        variant="contained" 
+        color="primary" 
+        className={classes.button}>
+        Submit
       </Button>
         </Paper>
       </div>
     </form>
   );
 }
+
+
+export default CommentAdd
