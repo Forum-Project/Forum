@@ -7,9 +7,9 @@ export const postStyle = makeStyles(theme => ({
     maxWidth: 1000,
     backgroundColor: grey[300],
     textAlign: 'left',
-    margin: '2rem',
-    width: 599,
-    justifyContent: 'center'
+    // margin: '2rem',
+    // width: 599,
+    // justifyContent: 'center'
 
   },
   body: {
