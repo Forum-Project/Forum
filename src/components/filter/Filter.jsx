@@ -33,16 +33,9 @@ const Filter = (props) => {
   const [open, setOpen] = useState(false); // for the submit button
   const anchorRef = useRef(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  // const tagEscapedSymbols = ['?', '&', '+', '#'];
 
   const updateField = event => setTagField(event.target.value);
 
-  // const sterilizeTag = tag => {
-  //   for(let symbol of tagEscapedSymbols) {
-  //     tag = tag.replace(symbol, `\\${symbol}`);
-  //   }
-  //   return tag;
-  // };
   const buildRequest = () => {
     let base = `http://${domain}/category/${categoryID}/?tags=`;
     let reduced = tags.reduce((acc, tag) => {
@@ -54,6 +47,25 @@ const Filter = (props) => {
     console.log(base);
     // request built, send it back through hook to controller
   };
+
+  const decodeRequest = () => {
+    let query = props.match.params.query;
+    if(!query) return false;
+    if(query.indexOf('?') === 0) query = query.replace('?', '');
+    let params = query.split('&');
+    let attributes = {};
+    for(let property of params) {
+      let pair = property.split('=');
+      if(pair.length < 2) continue;
+      let paramVals = pair[1].split('+');
+      if(Array.isArray(paramVals) && paramVals.length) {
+        paramVals = paramVals.map(val => decodeURIComponent(val));
+      }
+      attributes[pair[0]] = paramVals; // these should be our key value pairs, with the value holding an array of 'state', or values
+    }
+    //make request maybe? Nah, send back the request with the params added
+  };
+  //decodeRequest();
 
   const dropdownClick = () => {
     // do stuff for clicked item in dropdown
