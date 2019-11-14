@@ -21,7 +21,7 @@ const Post = (props) => {
     post_title: "Another test post",
     post_body: 'this is a really long body description just to test if i can use a function that limits the amount of characters that will be seen in the post body. We want the user to be enticed by what is about to be said in the post so that they have to click on it and be redirected to the entirety of the post',
     post_date: 'November 12, 2019',
-    post_category: ['test', 'moretests', 'evenmoretest', 'plsno'],
+    post_category: ['test', 'moretests', 'evenmoretest', 'plsno', 'what', 'whatever', 'duh'],
   }
 
   return (
@@ -43,7 +43,7 @@ const Post = (props) => {
         subheader={
           <Box>
             {post.post_date}
-            <Box display='flex' justifyContent="flex-end">
+            <Box display='flex' justifyContent="flex-end" flexWrap='wrap' maxWidth='200' width='100%'>
               {/* map over tags here */}
               {post.post_category.map(tag => {
                 return (
