@@ -15,8 +15,8 @@ const postPageStyle = makeStyles(theme => ({
         flexDirection: 'column',
         justifyContent: 'center',
         alignContent: 'center',
-        maxWidth: 600,
-        width: '100%',
+        maxWidth: 600, //change this to adjust container width
+        width: '100%', //makes it responsive
     },
 }));
 
