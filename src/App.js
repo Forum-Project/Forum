@@ -6,29 +6,18 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 // component imports
 import Navbar from './components/navbar/Navbar';
+import Routes from './routes/Routes';
 // import Routes from './routes/Routes';
 import CommentAdd from './components/comment-text/CommentAdd'
 
 
 function App() {
-<<<<<<< HEAD
   return (
     <>
       <Navbar />
       <Routes />
     </>
   );
-=======
-
-	return (
-		<>
-			{/* <Navbar />
-			<Routes /> */}
-			<CommentAdd />
-      <Filter />
-		</>
-	);
->>>>>>> origin/andy-commentbox
 }
 
 export default App;

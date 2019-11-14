@@ -17,7 +17,6 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import useForm from '../Hooks/useForm';
 
-
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
@@ -75,8 +74,11 @@ const StyledToggleButtonGroup = withStyles(theme => ({
   const [formats, setFormats] = useState(() => ['italic']);
   const [comments, setComments] = useState();
   const [loading, setLoading] = useState(false);
+<<<<<<< HEAD
   const commentForm = useForm(() => null);
 
+=======
+>>>>>>> 15a7ec45f7d9cd588a9078ec1898215405b9a5e5
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);
   };
