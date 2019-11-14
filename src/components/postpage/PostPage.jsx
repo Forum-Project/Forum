@@ -1,4 +1,5 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -8,12 +9,24 @@ import Posts from '../posts/Post'
 import Comments from '../comments/Comments'
 import CommentInput from '../comment-text/CommentAdd'
 
+const postPageStyle = makeStyles(theme => ({
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignContent: 'center',
+        maxWidth: 600,
+        width: '100%',
+    },
+}));
 
 export default function SimpleContainer() {
+    const classes = postPageStyle()
+
     return (
         <React.Fragment>
             <CssBaseline />
-            <Container>
+            <Container className={classes.container}>
                 <Posts />
                 <CommentInput />
                 <Comments />
