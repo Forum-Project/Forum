@@ -1,7 +1,7 @@
 import React from 'react';
 
 // component imports 
-import PrimarySearchAppBar from './Navbar-Material-UI/TabPanel';
+import PrimarySearchAppBar from './TabPanel';
 import TabPanel from './Navbar-Material-UI/PrimarySearchAppBar';
 
 const Navbar = () => {

@@ -8,6 +8,7 @@ import Container from '@material-ui/core/Container';
 import Posts from '../posts/Post'
 import Comments from '../comments/Comments'
 import CommentInput from '../comment-text/CommentAdd'
+import Navbar from '../Navbar/Navbar'; 
 
 const postPageStyle = makeStyles(theme => ({
     container: {
@@ -17,6 +18,7 @@ const postPageStyle = makeStyles(theme => ({
         alignContent: 'center',
         maxWidth: 600, //change this to adjust container width
         width: '100%', //makes it responsive
+        marginTop: '1.5rem' 
     },
 }));
 
@@ -25,6 +27,7 @@ export default function SimpleContainer() {
 
     return (
         <React.Fragment>
+            <Navbar />
             <CssBaseline />
             <Container className={classes.container}>
                 <Posts />

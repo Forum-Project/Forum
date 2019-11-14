@@ -8,16 +8,15 @@ import Signin from '../components/signin/Signin';
 import Profile from '../components/profile/profile';
 import Categories from '../components/categories/Categories';
 import CreatePost from '../components/categories/postcard/CreatePost'
+import PostPage from '../components/postpage/PostPage';
 
 const Routes = () => {
 
     return (
         <>
-            <Route path="/" exact component={Signup} />
-            <Route path="/login" exact component={Signin} />
             <Route path="/profile" exact component={Profile} />
             <Route path="/categories" component={Categories} />
-            <Route path="/post" component={CreatePost} />
+            <Route path="/postpage" component={PostPage} />
         </>
     );
 }
