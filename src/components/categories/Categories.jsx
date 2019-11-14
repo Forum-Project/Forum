@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import Filter from '../filter/Filter';
 
 import Post from './postcard/PostCard'
 
-export default function Categories() {
+export default function Categories(props) {
     const [posts, setPosts] = useState([])
     // const [chrisMadeMeWriteThis, setChrisMadeMeWriteThis] = useState()
+    const [tags, setTags] = useState([]);
+
+    let domain = process.env.DOMAIN || 'localhost:5000';
+    let categoryID = props.categoryID || 1; // probably should get a better default
+    let [query, setQuery] = useState(props.history); // this wont work, its an array. Just testing rn
+    let base = `http://${domain}/categories/${categoryID}/posts/`;
+    let request = `${base + query}`; // add two strings with room to modify end result
+    console.log(query);
+
 
     useEffect(() => {
-        axios.get('http://localhost:5000/posts')
+        axios.get(request) // add the query when necessary
         .then(res => {
             console.log(res)
             setPosts(res.data.data)
@@ -16,14 +26,52 @@ export default function Categories() {
         .catch(err => console.log('err',err))
     }, [])
 
+    const submitQuery = () => {
+        // build query onto request
+        buildTags();
+    };
+
+    const buildTags = () => {
+        let base = `?tags=`;
+        let reduced = tags.reduce((acc, tag) => {
+            tag = encodeURIComponent(tag);
+            return acc + '+' + tag;
+        });
+        console.log(reduced);
+        setQuery(base + reduced);
+        console.log(base);
+        // request built, send it back through hook to controller
+    };
+
+    const decodeRequest = () => {
+        let query = props.match.params.query;
+        if(!query) return false;
+        if(query.indexOf('?') === 0) query = query.replace('?', '');
+        let params = query.split('&');
+        let attributes = {};
+        for(let property of params) {
+            let pair = property.split('=');
+            if(pair.length < 2) continue;
+            let paramVals = pair[1].split('+');
+            if(Array.isArray(paramVals) && paramVals.length) {
+                paramVals = paramVals.map(val => decodeURIComponent(val));
+            }
+            attributes[pair[0]] = paramVals; // these should be our key value pairs, with the value holding an array of 'state', or values
+        }
+
+    };
+
     console.log(posts)
 
     return (
+      <>
         <div>
             {/* (<Post post={post}/>) */}
             {posts && posts.map(post => {return (<Post post={post}/>)})}
             {/* something for chris */}
             {/* to comments */}
         </div>
+        <Filter {...props} tags={tags} setTags={setTags} />
+      </>
     )
 }
