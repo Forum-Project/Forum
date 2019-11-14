@@ -15,7 +15,7 @@ import axios from 'axios'
 import { postStyle } from './postStyle'
 
 //post preview will be wrapped in a link that has props passed down to this component?
-const PostCard = (props) => {
+const Post = (props) => {
   // const { post } = props
   const classes = postStyle();
   const [comments, setComments] = useState([])
@@ -33,7 +33,7 @@ const PostCard = (props) => {
   //   axios.get(`https://backend.web/posts/${post._id}/comments`)
   //   .then(res => setComments(res.data))
   //   .catch(err => alert('There was an error retrieving the comments.'))
-  // }, [useEffectCall])
+  // }, [useEffectCount])
 
   return (
     <Container className={classes.container}>
@@ -91,4 +91,4 @@ const PostCard = (props) => {
   );
 }
 
-export default PostCard
+export default Post
