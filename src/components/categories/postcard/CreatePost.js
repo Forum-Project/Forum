@@ -1,20 +1,21 @@
-import React, {useState} from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
-import FormatAlignCenterIcon from '@material-ui/icons/FormatAlignCenter';
-import FormatAlignRightIcon from '@material-ui/icons/FormatAlignRight';
-import FormatAlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
-import FormatBoldIcon from '@material-ui/icons/FormatBold';
-import FormatItalicIcon from '@material-ui/icons/FormatItalic';
-import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
-import FormatColorFillIcon from '@material-ui/icons/FormatColorFill';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import React, {useState} from 'react'
+import { makeStyles, withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField'
+import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft'
+import FormatAlignCenterIcon from '@material-ui/icons/FormatAlignCenter'
+import FormatAlignRightIcon from '@material-ui/icons/FormatAlignRight'
+import FormatAlignJustifyIcon from '@material-ui/icons/FormatAlignJustify'
+import FormatBoldIcon from '@material-ui/icons/FormatBold'
+import FormatItalicIcon from '@material-ui/icons/FormatItalic'
+import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined'
+import FormatColorFillIcon from '@material-ui/icons/FormatColorFill'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import Divider from '@material-ui/core/Divider'
+import Button from '@material-ui/core/Button'
+import Paper from '@material-ui/core/Paper'
+import ToggleButton from '@material-ui/lab/ToggleButton'
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
+import axios from 'axios'
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -75,9 +76,16 @@ const StyledToggleButtonGroup = withStyles(theme => ({
  function Post() {
   const [alignment, setAlignment] = useState('left');
   const [formats, setFormats] = useState(() => ['italic']);
-  const [post, setPost] = useState();
-  const [loading, setLoading] = useState(false);
 
+  const [post, setPost] = useState({
+    post_title: '',
+    post_body: '',
+    post_date: '',
+    post_comments: '',
+    post_category: ''
+  });
+
+  
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);
   };
@@ -88,15 +96,19 @@ const StyledToggleButtonGroup = withStyles(theme => ({
   };
 
   const handleChange = (e) => {
-      setPost({ ...post, })
+      setPost({ ...post, [e.target.name]: e.target.value })
+      console.log(post)
   }
+  
 
   const onSubmit = (e) => {
-      e.preventdefault()
+      e.preventDefault()
       console.log(post)
+      axios.post('localhost:5000/')
   }
 
   const classes = useStyles();
+
   return (
     <form className={classes.container}
      noValidate 
@@ -108,10 +120,10 @@ const StyledToggleButtonGroup = withStyles(theme => ({
           className={classes.textField, classes.flex}
           multiline={true}
           rows={10}
-          label="Enter Your Comment"
+          label="Enter Your Title"
           margin="normal"
           variant="filled"
-          name='comment'
+          name='post_title'
           onChange={handleChange}
         />
 
@@ -120,10 +132,10 @@ const StyledToggleButtonGroup = withStyles(theme => ({
           className={classes.textField}
           multiline={true}
           rows={10}
-          label="Enter Your Comment"
+          label="Enter Your Post"
           margin="normal"
           variant="filled"
-          name='comment'
+          name='post_body'
           onChange={handleChange}
         />
    

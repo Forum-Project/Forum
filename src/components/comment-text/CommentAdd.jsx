@@ -74,7 +74,6 @@ const StyledToggleButtonGroup = withStyles(theme => ({
   const [formats, setFormats] = useState(() => ['italic']);
   const [comments, setComments] = useState();
   const [loading, setLoading] = useState(false);
-
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);
   };
