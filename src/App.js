@@ -3,14 +3,16 @@ import './App.css';
 
 // component imports
 import Navbar from './components/Navbar/Navbar';
-import Routes from './routes/Routes';
+// import Routes from './routes/Routes';
+import CommentAdd from './components/comment-text/CommentAdd'
 
 
 function App() {
 	return (
 		<>
-			<Navbar />
-			<Routes />
+			{/* <Navbar />
+			<Routes /> */}
+			<CommentAdd />
 		</>
 	);
 }

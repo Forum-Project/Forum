@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
@@ -15,6 +15,8 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import useForm from '../Hooks/useForm';
+
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -27,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     border: `.5px solid ${theme.palette.divider}`,
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    width: 599
+    width: 600
   },
   divider: {
     alignSelf: 'stretch',
@@ -68,9 +70,11 @@ const StyledToggleButtonGroup = withStyles(theme => ({
 
 
 
-export default function CommentAdd() {
-  const [alignment, setAlignment] = React.useState('left');
-  const [formats, setFormats] = React.useState(() => ['italic']);
+ function CommentAdd() {
+  const [alignment, setAlignment] = useState('left');
+  const [formats, setFormats] = useState(() => ['italic']);
+  const [comments, setComments] = useState();
+  const [loading, setLoading] = useState(false);
 
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);
@@ -78,12 +82,15 @@ export default function CommentAdd() {
 
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment);
+  
   };
 
   const classes = useStyles();
-
   return (
-    <form className={classes.container} noValidate autoComplete="off">
+    <form className={classes.container}
+     noValidate 
+     onSubmit = {useForm().onSubmit}
+     autoComplete="off">
       <div>
         <TextField
           id="filled-basic"
@@ -93,6 +100,8 @@ export default function CommentAdd() {
           label="Enter Your Comment"
           margin="normal"
           variant="filled"
+          name='comment'
+          onChange={useForm().handleChange}
         />
    
    
@@ -138,7 +147,11 @@ export default function CommentAdd() {
             <ArrowDropDownIcon />
           </ToggleButton>
         </StyledToggleButtonGroup>
-        <Button variant="contained" color="primary" className={classes.button}>
+        <Button 
+        type="submit"
+        variant="contained" 
+        color="primary" 
+        className={classes.button}>
         Submit
       </Button>
       </Paper>
@@ -146,3 +159,6 @@ export default function CommentAdd() {
     </form>
   );
 }
+
+
+export default CommentAdd
