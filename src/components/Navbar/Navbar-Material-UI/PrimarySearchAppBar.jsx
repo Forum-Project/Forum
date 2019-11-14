@@ -16,10 +16,12 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Box from '@material-ui/core/Box'; 
 
+import { shadows } from '@material-ui/system';
+
 const useStyles = makeStyles(theme => ({
     grow: {
         flexGrow: 1,
-        boxShadow: 'none'
+        boxShadow: 0
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -79,7 +81,7 @@ const useStyles = makeStyles(theme => ({
     },
     menuBackground: {
         background: '#58AF23',
-        boxShadow: 'none'
+        boxShadow: 0
     }
 }));
 
@@ -167,8 +169,12 @@ export default function PrimarySearchAppBar() {
 
     return (
         <div className={classes.grow}>
+<<<<<<< HEAD
             <Box boxShadow={0}>
             <AppBar position="static" boxShadow={0} className={classes.menuBackground}>
+=======
+            <AppBar position="static" className={classes.menuBackground}>
+>>>>>>> origin/onboarding
                 <Toolbar>
                     <IconButton
                         edge="start"
@@ -196,6 +202,7 @@ export default function PrimarySearchAppBar() {
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
+<<<<<<< HEAD
                         {/* <IconButton aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="secondary">
                                 <MailIcon />
@@ -206,6 +213,9 @@ export default function PrimarySearchAppBar() {
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton> */}
+=======
+
+>>>>>>> origin/onboarding
                         <IconButton
                             edge="end"
                             aria-label="account of current user"
