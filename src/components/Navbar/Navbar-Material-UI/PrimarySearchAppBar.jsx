@@ -18,6 +18,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 const useStyles = makeStyles(theme => ({
     grow: {
         flexGrow: 1,
+        boxShadow: 'none'
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -75,6 +76,10 @@ const useStyles = makeStyles(theme => ({
             display: 'none',
         },
     },
+    menuBackground: {
+        background: '#58AF23',
+        boxShadow: 'none'
+    }
 }));
 
 export default function PrimarySearchAppBar() {
@@ -128,6 +133,7 @@ export default function PrimarySearchAppBar() {
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
+            className={classes.menuBackground}
         >
             <MenuItem>
                 <IconButton aria-label="show 4 new mails" color="inherit">
@@ -161,7 +167,7 @@ export default function PrimarySearchAppBar() {
 
     return (
         <div className={classes.grow}>
-            <AppBar position="static">
+            <AppBar position="static" boxShadow={0} className={classes.menuBackground}>
                 <Toolbar>
                     <IconButton
                         edge="start"
@@ -172,7 +178,7 @@ export default function PrimarySearchAppBar() {
                         <MenuIcon />
                     </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap>
-                        Material-UI
+                        Forum Project
           </Typography>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
@@ -228,23 +234,3 @@ export default function PrimarySearchAppBar() {
         </div>
     );
 }
-
-
-// Tabs below
-
-// <AppBar position="static">
-//     <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-//         <Tab label="Item One" {...a11yProps(0)} />
-//         <Tab label="Item Two" {...a11yProps(1)} />
-//         <Tab label="Item Three" {...a11yProps(2)} />
-//     </Tabs>
-// </AppBar>
-//     <TabPanel value={value} index={0}>
-//         Item One
-// </TabPanel>
-//     <TabPanel value={value} index={1}>
-//         Item Two
-// </TabPanel>
-//     <TabPanel value={value} index={2}>
-//         Item Three
-// </TabPanel>

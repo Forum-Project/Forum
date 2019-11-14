@@ -1,16 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Filter from './components/filter/Filter';
 
+// component imports
+import Navbar from './components/navbar/Navbar';
+// import Routes from './routes/Routes';
+import CommentAdd from './components/comment-text/CommentAdd'
+
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Filter />
-      </header>
-    </div>
-  );
+
+	return (
+		<>
+			{/* <Navbar />
+			<Routes /> */}
+			<CommentAdd />
+      <Filter />
+		</>
+	);
 }
 
 export default App;
