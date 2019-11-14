@@ -17,7 +17,6 @@ import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import useForm from '../Hooks/useForm';
 
-
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',

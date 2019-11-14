@@ -7,6 +7,7 @@ import Signup from '../components/signup/Signup';
 import Signin from '../components/signin/Signin'; 
 // import Profile from '../components/profile/Profile'; 
 import Categories from '../components/categories/Categories';
+import CreatePost from '../components/categories/postcard/CreatePost'
 
 
 const Routes = () => {
@@ -17,7 +18,7 @@ const Routes = () => {
             <Route path="/login" exact component={Signin} />
             {/* <Route path="/profile" component={Profile} /> */}
             <Route path="/categories" component={Categories} />
-            <Route path="/post" component={createPost} />
+            <Route path="/post" component={CreatePost} />
         </>
      );
 }
