@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 
 //component imports 
 import Signin from '../../signin/Signin'; 
+// import Profile from '../../'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -72,16 +73,13 @@ function TabPanel(props) {
           </Tabs>
         </AppBar>
 		<TabPanel value={value} index={0}>
-          <Signin />
+          Item One
         </TabPanel>
         <TabPanel value={value} index={1}>
           Item Two
         </TabPanel>
         <TabPanel value={value} index={2}>
           Item Three
-        </TabPanel>
-		<TabPanel value={value} index={3}>
-          Profile
         </TabPanel>
       </div>
     );
