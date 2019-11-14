@@ -8,6 +8,7 @@ import Signin from '../components/signin/Signin';
 // import Profile from '../components/profile/Profile'; 
 import Categories from '../components/categories/Categories';
 
+
 const Routes = () => {
 
     return ( 
@@ -16,6 +17,7 @@ const Routes = () => {
             <Route path="/login" exact component={Signin} />
             {/* <Route path="/profile" component={Profile} /> */}
             <Route path="/categories" component={Categories} />
+            <Route path="/post" component={createPost} />
         </>
      );
 }
