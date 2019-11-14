@@ -11,6 +11,7 @@ import Box from '@material-ui/core/Box';
 //component imports 
 import Signin from '../../signin/Signin';
 import Comments from '../../comments/Comments'
+import PostPage from '../../postpage/PostPage'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -78,11 +79,10 @@ export default function SimpleTabs() {
         <Comments />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
-        </TabPanel>
+        <PostPage />
+      </TabPanel>
       <TabPanel value={value} index={3}>
-        Profile
-        </TabPanel>
+      </TabPanel>
     </div>
   );
 }

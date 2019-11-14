@@ -8,6 +8,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Navbar from './components/Navbar/Navbar';
 import Routes from './routes/Routes';
 
+
 import './App.css';
 import Filter from './components/filter/Filter';
 
