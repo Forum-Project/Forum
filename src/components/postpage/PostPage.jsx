@@ -13,7 +13,7 @@ export default function SimpleContainer() {
     return (
         <React.Fragment>
             <CssBaseline />
-            <Container maxWidth="sm">
+            <Container>
                 <Posts />
                 <CommentInput />
                 <Comments />

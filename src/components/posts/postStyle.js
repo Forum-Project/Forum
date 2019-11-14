@@ -8,6 +8,9 @@ export const postStyle = makeStyles(theme => ({
     backgroundColor: grey[300],
     textAlign: 'left',
     margin: '2rem',
+    width: 599,
+    justifyContent: 'center'
+
   },
   body: {
     backgroundColor: grey[100],
