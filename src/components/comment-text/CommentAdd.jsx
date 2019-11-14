@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   divider: {
     alignSelf: 'stretch',
     height: 'auto',
-    margin: theme.spacing(1, -10.5),
+    margin: theme.spacing(1, -5),
     transform: 'skew(-15deg, -15deg)',
   },
   button: {
@@ -74,6 +74,7 @@ const StyledToggleButtonGroup = withStyles(theme => ({
   const [formats, setFormats] = useState(() => ['italic']);
   const [comments, setComments] = useState();
   const [loading, setLoading] = useState(false);
+
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);
   };

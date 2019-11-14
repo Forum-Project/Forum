@@ -8,6 +8,8 @@ import Signin from '../components/signin/Signin';
 // import Profile from '../components/profile/Profile'; 
 import Categories from '../components/categories/Categories';
 import CreatePost from '../components/categories/postcard/CreatePost'
+import CommentAdd from '../components/comment-text/CommentAdd'
+
 
 
 const Routes = () => {
@@ -19,6 +21,7 @@ const Routes = () => {
             {/* <Route path="/profile" component={Profile} /> */}
             <Route path="/categories" component={Categories} />
             <Route path="/post" component={CreatePost} />
+            <Route path="/comment" component={CommentAdd} />
         </>
      );
 }

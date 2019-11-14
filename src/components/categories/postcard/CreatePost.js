@@ -53,8 +53,14 @@ const useStyles = makeStyles(theme => ({
   },
   flex: {
       display: 'flex',
-      flexFlow: 'column nowrap'
-  }
+      flexFlow: 'column nowrap',
+      justifyContent: 'center',
+      alignItems: 'center'
+  },
+  flex2: {
+    display: 'flex',
+    flexFlow: 'column wrap',
+}
 }));
 
 const StyledToggleButtonGroup = withStyles(theme => ({
@@ -80,8 +86,8 @@ const StyledToggleButtonGroup = withStyles(theme => ({
   const [post, setPost] = useState({
     post_title: '',
     post_body: '',
-    post_date: '',
-    post_comments: '',
+    post_date: Date.now(),
+    post_tag: [],
     post_category: ''
   });
 
@@ -97,14 +103,17 @@ const StyledToggleButtonGroup = withStyles(theme => ({
 
   const handleChange = (e) => {
       setPost({ ...post, [e.target.name]: e.target.value })
-      console.log(post)
+      // console.log(post)
   }
   
 
   const onSubmit = (e) => {
-      e.preventDefault()
-      console.log(post)
-      axios.post('localhost:5000/')
+      e.preventDefault()     
+      // setPost({...post, post_date: Date.now()})
+      console.log('post',post)
+      axios.post('localhost:5000/posts', 'fail')
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
   }
 
   const classes = useStyles();
@@ -114,10 +123,10 @@ const StyledToggleButtonGroup = withStyles(theme => ({
      noValidate 
      onSubmit = {onSubmit}
      autoComplete="off">
-      <div>
+      <div classname={classes.flex}>
         <TextField
           id="filled-basic"
-          className={classes.textField, classes.flex}
+          className={classes.textField, classes.flex2}
           multiline={true}
           rows={10}
           label="Enter Your Title"
@@ -129,7 +138,7 @@ const StyledToggleButtonGroup = withStyles(theme => ({
 
         <TextField
           id="filled-basic"
-          className={classes.textField}
+          className={classes.textField, classes.flex2}
           multiline={true}
           rows={10}
           label="Enter Your Post"
