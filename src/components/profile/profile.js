@@ -9,7 +9,8 @@ import { Card, CardActionArea, CardContent } from '@material-ui/core'; //Card St
 import { AppBar, Tabs, Tab, Box } from '@material-ui/core'; //Tab Styling
 import { List, ListItem, ListItemText, Divider } from '@material-ui/core'; //List Styling
 import { Input, InputLabel, InputAdornment, FormControl } from '@material-ui/core'; //Form Styling
-import { useSnackbar } from 'notistack';
+// import { useSnackbar } from 'notistack';
+// import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
@@ -22,7 +23,7 @@ import { Person, Settings, Email, Bookmark } from '@material-ui/icons'; //Grid B
 import BarChartIcon from '@material-ui/icons/BarChart'; //Stats
 import { Create, Comment, ThumbUp, ThumbsUpDown } from '@material-ui/icons'; //Stats Icons
 import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline'; //Member Info
-import { AccountCircle, Lock, Face } from '@material-ui/icons'; //Form Icons
+import { AccountCircle, Lock, Face, Visibility, VisibilityOff } from '@material-ui/icons'; //Form Icons
 
 // Set up functions to be used in the render
 function TabPanel(props) {
@@ -105,6 +106,12 @@ const formStyles = makeStyles(theme => ({
   },
 }));
 
+const snackStyles = makeStyles(theme => ({
+  close: {
+    padding: theme.spacing(0.5),
+  },
+}));
+
 export default function Profile() {
   // Set up state with hooks
   let [values, setValues] = useState({
@@ -115,42 +122,44 @@ export default function Profile() {
     confirm_password:'',
     email: '',
     showPassword: false,
-    favorite_posts: []
+    // favorite_posts: []
   });
   let [edit, setEdit] = useState(false)
   const [tab, setTab] = React.useState(0);
+  // const [open, setOpen] = React.useState(false);
 
   // Grab user information on render
-  useEffect(() => {
-    axios.get(``)
-      .then(res => setValues(res))
-      .catch(err => console.log(err))  
-}, [])
+  // useEffect(() => {
+  //   axios.get(``)
+  //     .then(res => setValues(res))
+  //     .catch(err => console.log(err))  
+  // }, [])
 
   // Call In functions for the render
   const tabbed = tabStyles();
   const card = cardStyles();
   const list = listStyles();
   const form = formStyles();
+  const snack = snackStyles();
   const badge = badgeStyles();
   const avatar = avatarStyles();
   
 
   // Set up functions to be used immediately
-  const { enqueueSnackbar } = useSnackbar();
-  // This should add the message at the bottom of the page to notify fail or success of submission
-  const handleClickVariant = (variant, message) => () => {
-    // Variant could be success, error, warning, info, or default
-    enqueueSnackbar(`${message}`, { variant });
-    setEdit(!edit);
-  }; 
+  // const { enqueueSnackbar } = useSnackbar();
+  // // This should add the message at the bottom of the page to notify fail or success of submission
+  // const handleClickVariant = (variant, message) => () => {
+  //   // Variant could be success, error, warning, info, or default
+  //   enqueueSnackbar(`${message}`, { variant });
+  //   setEdit(!edit);
+  // }; 
   // This handles the switch between tabs
   const handleTabChange = (event, newTab) => {
     setTab(newTab);
   };
   // Input handler
-  const handleChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value });
+  const handleChange = event => {
+    setValues({ ...values, [event.target.name]: event.target.value });
   };
   // Change visibility
   const handleClickShowPassword = () => {
@@ -357,7 +366,7 @@ export default function Profile() {
                 </InputAdornment>
               }
             />
-            <Button onClick={handleClickVariant('info', 'Loading...')}>Submit</Button>
+            {/* <Button onClick={handleClickVariant('info', 'Loading...')}>Submit</Button> */}
           </FormControl>
           :
           <FormControl className={form.margin}>
