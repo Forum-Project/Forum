@@ -16,7 +16,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
-import useForm from '../Hooks/useForm';
+
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -72,9 +72,13 @@ const StyledToggleButtonGroup = withStyles(theme => ({
 
 function CreateComments() {
   const [alignment, setAlignment] = useState('left');
+  const [values, setValues] = useState({
+    comments_body: '',
+    comments_timestamp: Date.now(),
+  });
   const [formats, setFormats] = useState(() => ['italic']);
-  const api = 'http://localhost:5000/comments';
-  const commentForm = useForm(() => null);
+  const api = 'http://localhost:5000/comments'
+
 
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);
@@ -85,20 +89,28 @@ function CreateComments() {
 
   };
 
+  const handleChange = (event) => {
+    event.persist();
+    setValues(values => ({ ...values, [event.target.name]: event.target.value }));
+    // console.log('WHAT ARE THESE VALUES', values)
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post({api})
+    console.log('MOM WAS HERE', values)
+    axios.post( api, values )
       .then(function (response) {
-          console.log('WHOA THERE', response)
+        console.log('WHOA THERE', response)
       })
       .catch(function (error) {
-          console.log('SHOW THAT FUNKY ERROR', error)
-      }) 
-    }
+        console.log('SHOW THAT FUNKY ERROR', error)
+      })
+  }
 
   const classes = useStyles();
   return (
     <form className={classes.container}
+      onSubmit={handleSubmit}
       noValidate
       autoComplete="off">
       <div>
@@ -110,8 +122,8 @@ function CreateComments() {
           label="Enter Your Comment"
           margin="normal"
           variant="filled"
-          name='comment'
-          onChange={commentForm.handleChange}
+          name='comments_body'
+          onChange={handleChange}
         />
 
 
@@ -158,7 +170,7 @@ function CreateComments() {
             </ToggleButton>
           </StyledToggleButtonGroup>
           <Button
-            onSubmit={handleSubmit}
+
             type="submit"
             variant="contained"
             color="primary"
