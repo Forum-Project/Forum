@@ -8,7 +8,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Navbar from './components/navbar/Navbar';
 import Routes from './routes/Routes';
 
-import './App.css';
 import Filter from './components/filter/Filter';
 
 const theme = createMuiTheme({

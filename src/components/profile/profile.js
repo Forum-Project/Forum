@@ -89,7 +89,7 @@ const badgeStyles = makeStyles(theme => ({
 const listStyles = makeStyles(theme => ({
   root: {
     width: '100%',
-    maxWidth: 360,
+    minWidth: '30%',
     backgroundColor: theme.palette.background.paper,
   },
 }));
@@ -99,9 +99,11 @@ const avatarStyles = makeStyles({
     margin: 10,
   },
   bigAvatar: {
+    width: 120,
+    height: 120,
     margin: 10,
-    width: 60,
-    height: 60,
+    color: '#fff',
+    fontSize: '2rem * .625'
   },
 });
 
@@ -120,6 +122,7 @@ const snackStyles = makeStyles(theme => ({
 // Set Up Styled Components
 const Container = styled.div`
 width: 90%;
+max-width: 1200px;
 margin: 0 auto;
 `
 
@@ -135,6 +138,7 @@ const UserInfo = styled.div`
 display: flex;
 flex-direction: column;
 justify-content: center;
+align-items: flex-start;
 color: black;
 `
 
@@ -183,11 +187,13 @@ align-items: center;
 
 // Multiple Item Tags
 const Name = styled.h2`
-text-font: 1rem * .625;
+font-size: 3rem * .625;
 `
 
 const PTag = styled.p`
-text-font: 1rem * .625;
+font-size: 2rem * .625;
+line-height: 1;
+margin: 0;
 `
 
 const Title = styled.h3`
@@ -217,7 +223,7 @@ const Profile = (props) => {
     user_avatar: '',
     username: '',
     password: '',
-    confirm_password:'',
+    new_password:'',
     email: '',
     showPassword: false,
     favorite_posts: []
@@ -288,13 +294,13 @@ const Profile = (props) => {
     <Container>
       {/* Top section dedicated to basic info on the user along with profile image */}
       <TopSection>
-        <Avatar alt="Profile Picture" src="/static/images/avatar/1.jpg" className={avatar.bigAvatar} />
+        <Avatar className={avatar.bigAvatar} >T</Avatar>
         <UserInfo>
           <Name>username</Name>
           <UserInfoList>
-            <PTag>account status: <span>moderator</span></PTag>
-            <PTag>joined: <span>date</span></PTag>
-            <PTag>title: <span>receptionist</span></PTag>
+            <PTag>Account Status: <span>moderator</span></PTag>
+            <PTag>Joined: <span>date</span></PTag>
+            <PTag>Title: <span>receptionist</span></PTag>
           </UserInfoList>
         </UserInfo>
       </TopSection>
@@ -444,7 +450,7 @@ const Profile = (props) => {
               />
             </FormControl>
             <FormControl className={form.margin}>
-              <InputLabel htmlFor="input-with-icon-adornment">Password</InputLabel>
+              <InputLabel htmlFor="input-with-icon-adornment">Old Password</InputLabel>
               <Input
                 id="standard-adornment-password"
                 type={user.showPassword ? 'text' : 'password'}
@@ -470,12 +476,12 @@ const Profile = (props) => {
               />
             </FormControl>
             <FormControl className={form.margin}>
-              <InputLabel htmlFor="input-with-icon-adornment">Confirm Password</InputLabel>
+              <InputLabel htmlFor="input-with-icon-adornment">New Password</InputLabel>
               <Input
                 id="standard-adornment-password"
                 type={user.showPassword ? 'text' : 'password'}
-                value={user.confirm_password}
-                name='confirm_password'
+                value={user.new_password}
+                name='new_password'
                 onChange={handleChange}
                 startAdornment={
                   <InputAdornment position="start">
