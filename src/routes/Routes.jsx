@@ -9,6 +9,9 @@ import Profile from '../components/profile/profile';
 import Categories from '../components/categories/Categories';
 import CreatePost from '../components/categories/postcard/CreatePost'
 import PostPage from '../components/postpage/PostPage';
+import CreateComments from '../components/comment-text/CreateComments'
+
+
 
 const Routes = () => {
 
@@ -17,6 +20,8 @@ const Routes = () => {
             <Route path="/profile" exact component={Profile} />
             <Route path="/categories" component={Categories} />
             <Route path="/postpage" component={PostPage} />
+            <Route path="/post" component={CreatePost} />
+            <Route path="/comment" component={CreateComments} />
         </>
     );
 }

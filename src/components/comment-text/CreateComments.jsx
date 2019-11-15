@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios'
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
@@ -15,7 +16,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
-import useForm from '../Hooks/useForm';
+
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -69,12 +70,15 @@ const StyledToggleButtonGroup = withStyles(theme => ({
 
 
 
-function CommentAdd() {
+function CreateComments() {
   const [alignment, setAlignment] = useState('left');
+  const [values, setValues] = useState({
+    comments_body: '',
+    comments_timestamp: Date.now(),
+  });
   const [formats, setFormats] = useState(() => ['italic']);
-  const [comments, setComments] = useState();
-  const [loading, setLoading] = useState(false);
-  const commentForm = useForm(() => null);
+  const api = 'http://localhost:5000/comments'
+
 
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);
@@ -85,14 +89,29 @@ function CommentAdd() {
 
   };
 
+  const handleChange = (event) => {
+    event.persist();
+    setValues(values => ({ ...values, [event.target.name]: event.target.value }));
+    // console.log('WHAT ARE THESE VALUES', values)
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log('MOM WAS HERE', values)
+    axios.post( api, values )
+      .then(function (response) {
+        console.log('WHOA THERE', response)
+      })
+      .catch(function (error) {
+        console.log('SHOW THAT FUNKY ERROR', error)
+      })
+  }
+
   const classes = useStyles();
   return (
     <form className={classes.container}
+      onSubmit={handleSubmit}
       noValidate
-      onSubmit={event => {
-        event.preventDefault();
-        commentForm.handleSubmit(event);
-      }}
       autoComplete="off">
       <div>
         <TextField
@@ -103,8 +122,8 @@ function CommentAdd() {
           label="Enter Your Comment"
           margin="normal"
           variant="filled"
-          name='comment'
-          onChange={commentForm.handleChange}
+          name='comments_body'
+          onChange={handleChange}
         />
 
 
@@ -151,6 +170,7 @@ function CommentAdd() {
             </ToggleButton>
           </StyledToggleButtonGroup>
           <Button
+
             type="submit"
             variant="contained"
             color="primary"
@@ -164,4 +184,18 @@ function CommentAdd() {
 }
 
 
-export default CommentAdd
+
+
+
+
+
+
+
+
+
+
+export default CreateComments
+
+
+
+
