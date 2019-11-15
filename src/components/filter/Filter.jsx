@@ -75,7 +75,9 @@ const Filter = (props) => {
   };
 
   const removeTag = event => {
-    let updated = tags.filter(tag => event.target.value !== tag); // filter out the matching tag from the list
+    event.persist();
+    console.log(event);
+    let updated = tags.filter(tag => event.target.textContent !== tag); // filter out the matching tag from the list
     setTags(updated); // update with the tag filtered out
   };
 
@@ -87,7 +89,7 @@ const Filter = (props) => {
   const submitFilter = () => {
     // generate the proper link to make the request and pass back to post list?
     if (tags.length < 1) return false;
-    // buildRequest();
+    props.handleSubmit();
   };
 
 
@@ -116,8 +118,8 @@ const Filter = (props) => {
         <div className='tagContainer'>
           {tags.map(tag => {
             return (
-              <Button variant='outlined' className={classes.button} onClick={removeTag}>
-                {tag}
+              <Button variant='outlined' className={classes.button}>
+                <span onClick={removeTag}>{tag}</span>
               </Button>
             );
           })}
