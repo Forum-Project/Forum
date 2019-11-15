@@ -9,7 +9,7 @@ import Profile from '../components/profile/profile';
 import Categories from '../components/categories/Categories';
 import CreatePost from '../components/categories/postcard/CreatePost'
 import PostPage from '../components/postpage/PostPage';
-import CommentAdd from '../components/comment-text/CommentAdd'
+import CreateComments from '../components/comment-text/CreateComments'
 
 
 
@@ -21,7 +21,7 @@ const Routes = () => {
             <Route path="/categories" component={Categories} />
             <Route path="/postpage" component={PostPage} />
             <Route path="/post" component={CreatePost} />
-            <Route path="/comment" component={CommentAdd} />
+            <Route path="/comment" component={CreateComments} />
         </>
     );
 }

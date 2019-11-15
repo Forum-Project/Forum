@@ -32,7 +32,7 @@ import styles, { FilterDiv } from '../../filter/FilterStyle';
 const options = ['Submit filter', 'Clear all tags'];
 
 // component imports 
-import Navbar from '../../Navbar/Navbar';
+
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -203,7 +203,7 @@ function Post(props) {
     // setPost({...post, post_date: Date.now()})
     console.log('post', post)
     axios.post('localhost:5000/posts', 'fail')
-      .then(res => console.log(res))
+      .then(res => console.log('Hey there Andy', res))
       .catch(err => console.log(err))
   }
 
