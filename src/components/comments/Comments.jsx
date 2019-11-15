@@ -16,17 +16,12 @@ export default function PaperSheet() {
     const classes = useStyles();
 
     return (
-        <Paper className={classes.root}>
-            <Typography variant="h5" component="h3">
-                Comments
-      </Typography>
-            <Typography component="p">
-                <CommentsCard />
-                <CommentsCard />
-                <CommentsCard />
-                <CommentsCard />
-            </Typography>
-        </Paper>
+        <div className={classes.root}>
+            <CommentsCard />
+            <CommentsCard />
+            <CommentsCard />
+            <CommentsCard />
+        </div>
     );
 }
 

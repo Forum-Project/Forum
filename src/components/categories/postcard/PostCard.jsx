@@ -60,7 +60,7 @@ const PostCard = (props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Box dispay='flex'>
+        <Box display='flex' flexWrap='wrap'>
           {/* map over tags here */}
           {/* {post.post_category.map(tag => {
             return (
