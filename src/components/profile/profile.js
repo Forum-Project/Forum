@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import decoder from 'jwt-decode';
+import jwtDecode from 'jwt-decode';
 
 // Import styling
 import { makeStyles, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -231,10 +231,14 @@ const Profile = (props) => {
   });
 
   // Grab user information on render
-  useEffect(() => {
-    axios.get(`https://localhost:4000/users/:_id`)
+  useEffect(() => {      
+    if (localStorage.getItem('token')){
+      const decode = jwtDecode(localStorage.getItem('token'))
+      
+      axios.get(`https://localhost:4000/users/${decode.subject}`)
       .then(res => setUser(res))
       .catch(err => console.log(err))  
+    }
   }, [])
 
   // Call In functions for the render
