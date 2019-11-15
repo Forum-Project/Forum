@@ -1,14 +1,17 @@
 import React from 'react';
-import './App.css';
-import Filter from './components/filter/Filter';
+
+import { Route } from 'react-router-dom'; 
 
 // component imports
 // import Navbar from './components/navbar/Navbar';
 // import Routes from './routes/Routes';
 import CreateComments from './components/comment-text/CreateComments'
+import Routes from './routes/Routes';
+import Signin from './components/signin/Signin'; 
+import Signup from './components/signup/Signup'; 
 
 
-function App() {
+import './App.css';
 
 	return (
 		<>
@@ -18,6 +21,16 @@ function App() {
       <Filter />
 		</>
 	);
+function App() {
+  return (
+    <>
+		{/* <TabPanel /> */}
+    {/* <Navbar /> */}
+    <Route exact path="/" component={Signup} />
+    <Route path="/signin" component={Signin} />
+    <Routes />
+    </>
+  );
 }
 
 export default App;

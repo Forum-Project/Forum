@@ -14,11 +14,14 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import Box from '@material-ui/core/Box';
+
+import { shadows } from '@material-ui/system';
 
 const useStyles = makeStyles(theme => ({
     grow: {
         flexGrow: 1,
-        boxShadow: 'none'
+        boxShadow: 0
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -78,7 +81,7 @@ const useStyles = makeStyles(theme => ({
     },
     menuBackground: {
         background: '#58AF23',
-        boxShadow: 'none'
+        boxShadow: 0
     }
 }));
 
@@ -135,20 +138,19 @@ export default function PrimarySearchAppBar() {
             onClose={handleMobileMenuClose}
             className={classes.menuBackground}
         >
-            <MenuItem>
+            {/* <MenuItem>
                 <IconButton aria-label="show 4 new mails" color="inherit">
                     <Badge badgeContent={4} color="secondary">
                         <MailIcon />
-                    </Badge>
-                </IconButton>
+                    </Badge> 
                 <p>Messages</p>
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem>
-                <IconButton aria-label="show 11 new notifications" color="inherit">
+                {/* <IconButton aria-label="show 11 new notifications" color="inherit">
                     <Badge badgeContent={11} color="secondary">
                         <NotificationsIcon />
                     </Badge>
-                </IconButton>
+                </IconButton> */}
                 <p>Notifications</p>
             </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
@@ -167,7 +169,7 @@ export default function PrimarySearchAppBar() {
 
     return (
         <div className={classes.grow}>
-            <AppBar position="static" boxShadow={0} className={classes.menuBackground}>
+            <AppBar position="static" className={classes.menuBackground}>
                 <Toolbar>
                     <IconButton
                         edge="start"
@@ -179,7 +181,7 @@ export default function PrimarySearchAppBar() {
                     </IconButton>
                     <Typography className={classes.title} variant="h6" noWrap>
                         Forum Project
-          </Typography>
+                    </Typography>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
@@ -195,16 +197,6 @@ export default function PrimarySearchAppBar() {
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        <IconButton aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="secondary">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton aria-label="show 17 new notifications" color="inherit">
-                            <Badge badgeContent={17} color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
                         <IconButton
                             edge="end"
                             aria-label="account of current user"
@@ -229,8 +221,6 @@ export default function PrimarySearchAppBar() {
                     </div>
                 </Toolbar>
             </AppBar>
-            {renderMobileMenu}
-            {renderMenu}
         </div>
     );
 }
