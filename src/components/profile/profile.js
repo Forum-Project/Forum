@@ -120,8 +120,7 @@ const snackStyles = makeStyles(theme => ({
 const Container = styled.div`
 display: flex;
 flex-direction: column;
-justify-content: space-between;
-align-items: center;
+justify-content: center;
 `
 
 const TopSection = styled.section`
@@ -143,7 +142,6 @@ const MidSection = styled.section`
 display: flex;
 flex-direction: column;
 justify-content: space-between;
-align-items: space-between;
 margin-bottom:10px;
 `
 
@@ -159,7 +157,6 @@ const BotSection = styled.section`
 display: flex;
 flex-direction: column;
 justify-content: space-between;
-align-items: center;
 margin-bottom:10px;
 `
 
@@ -277,7 +274,7 @@ const Profile = (props) => {
 
 
   return(
-    <div className = 'container'>
+    <Container>
       {/* Top section dedicated to basic info on the user along with profile image */}
       <TopSection>
         <Avatar alt="Profile Picture" src="/static/images/avatar/1.jpg" className={avatar.bigAvatar} />
@@ -560,7 +557,7 @@ const Profile = (props) => {
           </div>
         </TabPanel>
       </div>
-    </div>
+    </Container>
   )
 }
 
