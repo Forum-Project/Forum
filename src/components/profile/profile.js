@@ -70,7 +70,7 @@ const cardStyles = makeStyles({
   card: {
     maxWidth: 345,
     minWidth: '22.5%',
-    paddingTop: 10,
+    paddingTop: 20,
   },
   media: {
     height: 140,
@@ -119,31 +119,37 @@ const snackStyles = makeStyles(theme => ({
 
 // Set Up Styled Components
 const Container = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
+width: 90%;
+margin: 0 auto;
 `
 
 const TopSection = styled.section`
 display: flex;
 flex-direction: row;
-justify-content: space-between;
+justify-content: flex-start;
 align-items: center;
-margin-bottom:10px;
+margin:10px 0;
 `
 
 const UserInfo = styled.div`
 display: flex;
 flex-direction: column;
-justify-content: flex-start;
+justify-content: center;
 color: black;
+`
+
+const UserInfoList = styled.div`
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+line-height: 1;
 `
 
 const MidSection = styled.section`
 display: flex;
 flex-direction: column;
 justify-content: space-between;
-margin-bottom:10px;
+margin:10px 0;
 `
 
 const MemberActivity = styled.div`
@@ -152,13 +158,13 @@ flex-direction: row;
 justify-content: space-between;
 flex-wrap: nowrap;
 align-items: center;
-margin-bottom:10px;
+margin:10px 0;
 `
 const BotSection = styled.section`
 display: flex;
 flex-direction: column;
 justify-content: space-between;
-margin-bottom:10px;
+margin:10px 0;
 `
 
 const MemberInfo = styled.div`
@@ -196,7 +202,8 @@ align-items: center;
 border-top: 1px solid black;
 border-bottom: 1px solid black;
 background-color:grey;
-margin-bottom: 10px;
+margin: 10px 0;
+drop-shadow: 10;
 `
 
 
@@ -284,11 +291,11 @@ const Profile = (props) => {
         <Avatar alt="Profile Picture" src="/static/images/avatar/1.jpg" className={avatar.bigAvatar} />
         <UserInfo>
           <Name>username</Name>
-          <div className = 'basicInfo'>
+          <UserInfoList>
             <PTag>account status: <span>moderator</span></PTag>
             <PTag>joined: <span>date</span></PTag>
             <PTag>title: <span>receptionist</span></PTag>
-          </div>
+          </UserInfoList>
         </UserInfo>
       </TopSection>
       {/* Content bar for checking profile stats, changing account information(edit), checking messages and subscriptions(favorites) */}
