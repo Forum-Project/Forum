@@ -69,6 +69,7 @@ const tabStyles = makeStyles(theme => ({
 const cardStyles = makeStyles({
   card: {
     maxWidth: 345,
+    minWidth: '22.5%',
   },
   media: {
     height: 140,
@@ -114,6 +115,89 @@ const snackStyles = makeStyles(theme => ({
     padding: theme.spacing(0.5),
   },
 }));
+
+// Set Up Styled Components
+const Container = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+`
+
+const TopSection = styled.section`
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+margin-bottom:10px;
+`
+
+const UserInfo = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+color: black;
+`
+
+const MidSection = styled.section`
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: space-between;
+margin-bottom:10px;
+`
+
+const MemberActivity = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+flex-wrap: nowrap;
+align-items: center;
+margin-bottom:10px;
+`
+const BotSection = styled.section`
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+margin-bottom:10px;
+`
+
+const MemberInfo = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+`
+
+const FormStyles = styled.section`
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+`
+
+// Multiple Item Tags
+const Name = styled.h2`
+text-font: 1rem * .625;
+`
+
+const PTag = styled.p`
+text-font: 1rem * .625;
+`
+
+const Title = styled.h3`
+
+`
+
+const BoxDesign = styled.div`
+display: flex;
+flex-direction: row;
+flex-wrap: nowrap;
+align-items: center;
+border: 1px dashed grey;
+`
+
 
 const Profile = (props) => {
   // // Set up state with hooks
@@ -195,17 +279,17 @@ const Profile = (props) => {
   return(
     <div className = 'container'>
       {/* Top section dedicated to basic info on the user along with profile image */}
-      <section className = 'top_section'>
+      <TopSection>
         <Avatar alt="Profile Picture" src="/static/images/avatar/1.jpg" className={avatar.bigAvatar} />
-        <div className = 'user basic info'>
-          <h2 className = 'Username'>username</h2>
+        <UserInfo>
+          <Name>username</Name>
           <div className = 'basicInfo'>
-            <p>account status: <span>moderator</span></p>
-            <p>joined: <span>date</span></p>
-            <p>title: <span>receptionist</span></p>
+            <PTag>account status: <span>moderator</span></PTag>
+            <PTag>joined: <span>date</span></PTag>
+            <PTag>title: <span>receptionist</span></PTag>
           </div>
-        </div>
-      </section>
+        </UserInfo>
+      </TopSection>
       {/* Content bar for checking profile stats, changing account information(edit), checking messages and subscriptions(favorites) */}
       <div className={tabbed.root}>
         <AppBar position="static">
@@ -218,9 +302,11 @@ const Profile = (props) => {
         </AppBar>
         <TabPanel value={tab} index={0}>
           {/* Mid section for member overall account activity */}
-          <section className = 'mid_section'>
-            <BarChartIcon/><h3 className = 'title'>Member Activity</h3>
-            <div className = 'statsContent'>
+          <MidSection>
+            <BoxDesign>
+              <BarChartIcon/><Title>Member Activity</Title>
+            </BoxDesign>
+            <MemberActivity>
               <Card className={card.card}>
                 <CardActionArea>
                   <Create/>
@@ -257,44 +343,48 @@ const Profile = (props) => {
                   </CardContent>
                 </CardActionArea>
               </Card>
-            </div>
-          </section>
+            </MemberActivity>
+          </MidSection>
           {/* Bottom section containing the rest of the members info */}
-          <ViewHeadlineIcon/><h3 className = 'title'>Member Information</h3>
-          <div className = 'infoContent'>
-            <List component="nav" className={list.root} aria-label="mailbox folders">
-              <ListItem button>
-                <ListItemText primary="Last Active" />
-              </ListItem>
-              <Divider />
-              <ListItem button divider>
-                <ListItemText primary="Location" />
-              </ListItem>
-              <ListItem button>
-                <ListItemText primary="Email" />
-              </ListItem>
-              <Divider light />
-              <ListItem button>
-                <ListItemText primary="Signature" />
-              </ListItem>
-            </List>
-            <List component="nav" className={list.root} aria-label="mailbox folders">
-              <ListItem button>
-                <ListItemText primary="Time" />
-              </ListItem>
-              <Divider />
-              <ListItem button divider>
-                <ListItemText primary="3rd Floor" />
-              </ListItem>
-              <ListItem button>
-                <ListItemText primary="Test@Me.com" />
-              </ListItem>
-              <Divider light />
-              <ListItem button>
-                <ListItemText primary="We are all meant for greatness!" />
-              </ListItem>
-            </List>
-          </div>
+          <BotSection>
+            <BoxDesign>
+              <ViewHeadlineIcon/><Title>Member Information</Title>
+            </BoxDesign>
+            <MemberInfo>
+              <List component="nav" className={list.root} aria-label="mailbox folders">
+                <ListItem button>
+                  <ListItemText primary="Last Active" />
+                </ListItem>
+                <Divider />
+                <ListItem button divider>
+                  <ListItemText primary="Location" />
+                </ListItem>
+                <ListItem button>
+                  <ListItemText primary="Email" />
+                </ListItem>
+                <Divider light />
+                <ListItem button>
+                  <ListItemText primary="Signature" />
+                </ListItem>
+              </List>
+              <List component="nav" className={list.root} aria-label="mailbox folders">
+                <ListItem button>
+                  <ListItemText primary="Time" />
+                </ListItem>
+                <Divider />
+                <ListItem button divider>
+                  <ListItemText primary="3rd Floor" />
+                </ListItem>
+                <ListItem button>
+                  <ListItemText primary="Test@Me.com" />
+                </ListItem>
+                <Divider light />
+                <ListItem button>
+                  <ListItemText primary="We are all meant for greatness!" />
+                </ListItem>
+              </List>
+            </MemberInfo>
+          </BotSection>
         </TabPanel>
         <TabPanel value={tab} index={1}>
           {/* Account settings tab */}
