@@ -15,9 +15,6 @@ import './App.css';
 function App() {
   return (
     <>
-      {/* <TabPanel /> */}
-      <Route exact path="/" component={Signup} />
-      <Route path="/signin" component={Signin} />
       <Routes />
     </>
   );
