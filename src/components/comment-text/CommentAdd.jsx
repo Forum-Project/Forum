@@ -74,6 +74,7 @@ const StyledToggleButtonGroup = withStyles(theme => ({
   const [formats, setFormats] = useState(() => ['italic']);
   const [comments, setComments] = useState();
   const [loading, setLoading] = useState(false);
+  const commentForm = useForm(() => null);
 
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);
@@ -88,7 +89,10 @@ const StyledToggleButtonGroup = withStyles(theme => ({
   return (
     <form className={classes.container}
      noValidate 
-     onSubmit = {useForm().onSubmit}
+     onSubmit = {event => {
+       event.preventDefault();
+       commentForm.handleSubmit(event);
+     }}
      autoComplete="off">
       <div>
         <TextField
@@ -100,7 +104,7 @@ const StyledToggleButtonGroup = withStyles(theme => ({
           margin="normal"
           variant="filled"
           name='comment'
-          onChange={useForm().handleChange}
+          onChange={commentForm.handleChange}
         />
    
    

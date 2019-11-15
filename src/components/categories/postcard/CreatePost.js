@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft'
@@ -16,6 +16,20 @@ import Paper from '@material-ui/core/Paper'
 import ToggleButton from '@material-ui/lab/ToggleButton'
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
 import axios from 'axios'
+import Filter from '../../filter/Filter';
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Typography from "@material-ui/core/Typography"; // not sure what this is for, but material-ui was using it
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Grow from "@material-ui/core/Grow";
+import Popper from "@material-ui/core/Popper";
+import MenuItem from "@material-ui/core/MenuItem";
+import MenuList from "@material-ui/core/MenuList";
+import styles, { FilterDiv } from '../../filter/FilterStyle';
+
+const options = ['Submit filter', 'Clear all tags'];
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -79,10 +93,20 @@ const StyledToggleButtonGroup = withStyles(theme => ({
 
 
 
- function Post() {
+ function Post(props) {
   const [alignment, setAlignment] = useState('left');
   const [formats, setFormats] = useState(() => ['italic']);
+  const [tags, setTags] = useState([]);
+  const [tagField, setTagField] = useState('');
+  let domain = 'localhost:5000';
+  let categoryID = props.categoryID || 0; // probably should get a better default
 
+  const [open, setOpen] = useState(false); // for the submit button
+  const anchorRef = useRef(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  // const tagEscapedSymbols = ['?', '&', '+', '#'];
+
+  const updateField = event => setTagField(event.target.value);
   const [post, setPost] = useState({
     post_title: '',
     post_body: '',
@@ -90,8 +114,91 @@ const StyledToggleButtonGroup = withStyles(theme => ({
     post_tag: [],
     post_category: ''
   });
+// console.log('post',post)
+   // const sterilizeTag = tag => {
+  //   for(let symbol of tagEscapedSymbols) {
+  //     tag = tag.replace(symbol, `\\${symbol}`);
+  //   }
+  //   return tag;
+  // };
+  // console.log('tags', tags)
+  // console.log('sdfgh@@@@',))
+  // function postPosts(){
+  //   if(tags){
+  //   tags.map(posts => setPost({...post, post_tag: posts}))
+  //   }
+   
+  // }
+  // postPosts()
+    
+    // setPost({ post_tag: tags.map})
+  // console.log(post)
 
-  
+  const buildRequest = () => {
+    // let base = `http://${domain}/category/${categoryID}/?tags=`;
+    let reduced = tags.reduce((acc, tag) => {
+      tag = encodeURIComponent(tag);
+
+      return tags.push(tag);      
+    });
+    console.log('@@@@@@',tags);
+    tags.map(posts => {
+      console.log(posts)
+    })
+    console.log('@@@',post);
+    setPost({ ...post, post_tag: tags})
+    
+    // request built, send it back through hook to controller
+  };
+
+  const dropdownClick = () => {
+    // do stuff for clicked item in dropdown
+    if(options[selectedIndex] === 'Submit filter') submitFilter();
+    else if(options[selectedIndex] === 'Clear all tags') clearTags();
+  };
+
+  const dropdownMenuItemClick = (event, index) => {
+    setSelectedIndex(index);
+    setOpen(false);
+    if(options[index] === 'Submit filter') submitFilter();
+    else if(options[index] === 'Clear all tags') clearTags();
+  };
+
+  const dropdownToggle = () => {
+    setOpen(prevOpen => !prevOpen); // didn't realize you could pass callbacks into hooks
+  };
+
+  const dropdownClose = event => {
+    if(anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const addTag = event => {
+    event.preventDefault();
+    if(typeof tagField === 'string' && tagField.length < 1) return false; // maybe warn them to add something to the field (later)
+    if(tags.includes(tagField)) return false; // warn them the tag exists (later)
+    setTags([...tags, tagField]);
+    setTagField('');
+  };
+
+  const removeTag = event => {
+    let updated = tags.filter(tag => event.target.value !== tag); // filter out the matching tag from the list
+    setTags(updated); // update with the tag filtered out
+  };
+
+  const clearTags = () => {
+    setTags([]); // clear all tags in the hook so the component updates with the empty list
+    // we're going to need to push a request bag to the post container so it can fetch with the filter
+  };
+
+  const submitFilter = () => {
+    // generate the proper link to make the request and pass back to post list?
+    if(tags.length < 1) return false;
+    buildRequest();
+  };
+
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);
   };
@@ -105,7 +212,7 @@ const StyledToggleButtonGroup = withStyles(theme => ({
       setPost({ ...post, [e.target.name]: e.target.value })
       // console.log(post)
   }
-  
+
 
   const onSubmit = (e) => {
       e.preventDefault()     
@@ -119,10 +226,12 @@ const StyledToggleButtonGroup = withStyles(theme => ({
   const classes = useStyles();
 
   return (
-    <form className={classes.container}
+   
+    <form className={classes.container}  
      noValidate 
      onSubmit = {onSubmit}
      autoComplete="off">
+       {console.log(post)}
       <div classname={classes.flex}>
         <TextField
           id="filled-basic"
@@ -200,7 +309,84 @@ const StyledToggleButtonGroup = withStyles(theme => ({
       </Button>
       </Paper>
       </div>
+      <CssBaseline />
+      <Container maxWidth='sm'>
+        <FilterDiv>
+          <form className='tagFilter' onSubmit={addTag}>
+            <div style={{ display: 'flex', 'alignItems': 'center', 'justifyContent': 'center' }}>
+              <TextField
+                id='tag'
+                className={classes.textField}
+                label='Tags'
+                margin='normal'
+                variant='filled'
+                onChange={updateField}
+                value={tagField}
+              />
+              <Button variant='contained' className={classes.button} onClick={addTag}>
+                Add Tag
+              </Button>
+            </div>
+          </form>
+        </FilterDiv>
+        <div className='tagContainer'>
+          {tags.map(tag => {
+            return (
+              <Button variant='outlined' className={classes.button} onClick={removeTag}>
+                {tag}
+              </Button>
+            );
+          })}
+        </div>
+        <div className='submitContainer'>
+          <Grid container direction='column' alignItems='center'>
+            <Grid item xs={12}>
+              <ButtonGroup variant='contained' color='primary' ref={anchorRef} aria-label='split button'>
+                <Button onClick={dropdownClick}>{options[selectedIndex]}</Button>
+                <Button
+                  color='primary'
+                  size='small'
+                  aria-control={open ? 'split-button-menu' : undefined}
+                  aria-expanded={open ? 'true' : undefined}
+                  aria-label='select merge strategy'
+                  aria-haspopup='menu'
+                  onClick={dropdownToggle}
+                >
+                    <ArrowDropDownIcon />
+                </Button>
+              </ButtonGroup>
+              <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+                {({TransitionProps, placement}) => (
+                  <Grow {...TransitionProps} style={{
+                    transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
+                  }}>
+                    <Paper>
+                      <ClickAwayListener onClickAway={dropdownClose}>
+                        <MenuList id='split-button-menu'>
+                          {options.map((option, index) => {
+                            return (
+                              <MenuItem
+                                key={option}
+                                disabled={index === 2}
+                                selected={index === selectedIndex}
+                                onClick={event => dropdownMenuItemClick(event, index)}
+                              >
+                                {option}
+                              </MenuItem>
+                            );
+                          })}
+                        </MenuList>
+                      </ClickAwayListener>
+                    </Paper>
+                  </Grow>
+                )}
+              </Popper>
+            </Grid>
+          </Grid>
+        </div>
+      </Container>
     </form>
+    
   );
 }
 
