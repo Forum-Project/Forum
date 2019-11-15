@@ -70,6 +70,7 @@ const cardStyles = makeStyles({
   card: {
     maxWidth: 345,
     minWidth: '22.5%',
+    paddingTop: 10,
   },
   media: {
     height: 140,
@@ -192,7 +193,10 @@ display: flex;
 flex-direction: row;
 flex-wrap: nowrap;
 align-items: center;
-border: 1px dashed grey;
+border-top: 1px solid black;
+border-bottom: 1px solid black;
+background-color:grey;
+margin-bottom: 10px;
 `
 
 
