@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
     const classes = useStyles();
 
     const [user, setUser] = useState({});
@@ -70,7 +70,7 @@ export default function SignIn() {
             axios.post(`http://localhost:5000/users/login`, user)
                 .then(res => {
                     console.log('Logged in', res)
-                    // history.push('/')
+                    props.history.push('/PostPage')
                     localStorage.setItem('token', res.data.token)
                 })
                 .catch(err => console.log('You failed to Login', err))
@@ -139,7 +139,7 @@ export default function SignIn() {
                         <Grid container>
 
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href="http://localhost:3000/" variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
@@ -151,6 +151,6 @@ export default function SignIn() {
                 </Box>
             </Container>
         </div>
-       
+
     );
 }
