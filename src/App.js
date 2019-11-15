@@ -3,9 +3,9 @@ import './App.css';
 import Filter from './components/filter/Filter';
 
 // component imports
-import Navbar from './components/navbar/Navbar';
+// import Navbar from './components/navbar/Navbar';
 // import Routes from './routes/Routes';
-import CommentAdd from './components/comment-text/CommentAdd'
+import CreateComments from './components/comment-text/CreateComments'
 
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
 		<>
 			{/* <Navbar />
 			<Routes /> */}
-			<CommentAdd />
+			<CreateComments />
       <Filter />
 		</>
 	);
