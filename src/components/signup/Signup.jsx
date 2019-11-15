@@ -12,7 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-import axios from 'axios'
+import axios from 'axios';
+
 
 function Copyright() {
     return (
@@ -52,7 +53,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function SignUp() {
+export default function SignUp(props) {
     const classes = useStyles();
     const [user, setUser] = useState({});
 
@@ -61,7 +62,10 @@ export default function SignUp() {
             event.preventDefault();
             console.log('This is what is being sent to ', user)
             axios.post('http://localhost:5000/users', user)
-                .then(res => console.log('You created a user!', res))
+                .then(res => {
+                    console.log('You created a user!', res)
+                    props.history.push('/PostPage')
+                })
                 .catch(err => console.log('You failed to Create a New User', err))
         } else {
             console.log('Validate')
@@ -137,7 +141,7 @@ export default function SignUp() {
           </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link href="" variant="body2">
+                            <Link href="http://localhost:3000/signin" variant="body2">
                                 Already have an account? Sign in
               </Link>
                         </Grid>
