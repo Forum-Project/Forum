@@ -114,28 +114,9 @@ const StyledToggleButtonGroup = withStyles(theme => ({
     post_tag: [],
     post_category: ''
   });
-// console.log('post',post)
-   // const sterilizeTag = tag => {
-  //   for(let symbol of tagEscapedSymbols) {
-  //     tag = tag.replace(symbol, `\\${symbol}`);
-  //   }
-  //   return tag;
-  // };
-  // console.log('tags', tags)
-  // console.log('sdfgh@@@@',))
-  // function postPosts(){
-  //   if(tags){
-  //   tags.map(posts => setPost({...post, post_tag: posts}))
-  //   }
-   
-  // }
-  // postPosts()
-    
-    // setPost({ post_tag: tags.map})
-  // console.log(post)
+
 
   const buildRequest = () => {
-    // let base = `http://${domain}/category/${categoryID}/?tags=`;
     let reduced = tags.reduce((acc, tag) => {
       tag = encodeURIComponent(tag);
 
@@ -231,7 +212,6 @@ const StyledToggleButtonGroup = withStyles(theme => ({
      noValidate 
      onSubmit = {onSubmit}
      autoComplete="off">
-       {console.log(post)}
       <div classname={classes.flex}>
         <TextField
           id="filled-basic"
