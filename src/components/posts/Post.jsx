@@ -17,14 +17,19 @@ const Post = (props) => {
   // const { post } = props
   const [post, setPost] = useState({ _id: '5dceeead7bd912553c9fc24c' }) //delete once we have props working and uncomment aboove
   const [pulledPost, setPulledPost] = useState({})
+  const [user, setUser] = useState({})
   const classes = postStyle()
   const backend = 'http://localhost:5000'
 
   useEffect(() => {
     if (post._id) {
       axios.get(`${backend}/posts/${post._id}`)
-      .then(res => {
-        setPulledPost(res.data)
+      .then(postData => {
+        //populates pulledPost with data from BE before grabbing user data
+        setPulledPost(postData.data)
+        axios.get(`${backend}/users/${postData.data.user_id}`)
+        .then(userData => setUser(userData.data))
+        .catch(err => console.log('Catch for user was invoked:', err))
       })
       .catch(err => console.log('Catch for post was invoked:', err))
     }
@@ -35,8 +40,7 @@ const Post = (props) => {
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            {/* profile image here, otherwise initials of person? */}
-            R
+            {user.username ? user.username.substr(0, 1).toUpperCase() : ''}
           </Avatar>
         }
         action={
@@ -50,9 +54,9 @@ const Post = (props) => {
           <Box>
             {pulledPost.post_date}
             <Box display='flex' justifyContent="flex-end" flexWrap='wrap' maxWidth='200' width='100%'>
-              {pulledPost.post_tags && pulledPost.post_tags.map(tag => {
+              {pulledPost.post_tags && pulledPost.post_tags.map((tag, index) => {
                 return (
-                  <Button className={classes.tag} onClick={() => console.log(`${tag} brings you to a different page with only ${tag}-related results`)}>
+                  <Button className={classes.tag} key={Date.now()+index} onClick={() => console.log(`${tag} brings you to a different page with only ${tag}-related results`)}>
                     #{tag}
                   </Button>
                 )
@@ -64,6 +68,11 @@ const Post = (props) => {
       <CardContent className={classes.body}>
         <Typography variant="body2" color="textSecondary" component="p">
           {pulledPost.post_body}
+        </Typography>
+      </CardContent>
+      <CardContent className={classes.footer}>
+        <Typography variant="body2" color="textSecondary" component="p">
+          Posted by {user.username}
         </Typography>
       </CardContent>
     </Card>

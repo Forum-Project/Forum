@@ -18,4 +18,7 @@ export const postStyle = makeStyles(theme => ({
   tag: {
     fontSize: '0.650rem'
   },
+  footer: {
+    
+  }
 }));
