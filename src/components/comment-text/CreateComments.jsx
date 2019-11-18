@@ -14,6 +14,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
@@ -22,14 +23,15 @@ const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    maxWidth: 1000,
+    width: '100%',
   },
   paper: {
     display: 'flex',
     border: `.5px solid ${theme.palette.divider}`,
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    width: 600
   },
   divider: {
     alignSelf: 'stretch',
@@ -48,9 +50,14 @@ const useStyles = makeStyles(theme => ({
     input1: {
       height: 600
     },
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 600
+    // marginLeft: theme.spacing(1),
+    // marginRight: theme.spacing(1),
+    maxWidth: 1000,
+    width: '100%',
+  },
+  box: {
+    maxWidth: 1000,
+    width: '100%',
   },
 }));
 
@@ -125,7 +132,7 @@ function CreateComments(props) {
       onSubmit={handleSubmit}
       noValidate
       autoComplete="off">
-      <div>
+      <Box className={classes.box}>
         <TextField
           id="filled-basic"
           className={classes.textField}
@@ -188,9 +195,9 @@ function CreateComments(props) {
             color="primary"
             className={classes.button}>
             Submit
-      </Button>
+          </Button>
         </Paper>
-      </div>
+      </Box>
     </form>
   );
 }

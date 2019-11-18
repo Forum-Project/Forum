@@ -6,7 +6,7 @@ import CommentsCard from './CommentsCard'
 
 const useStyles = makeStyles(theme => ({
     root: {
-        padding: theme.spacing(3, 2),
+        padding: theme.spacing(3, 0),
     },
 }));
 
