@@ -122,7 +122,6 @@ function Post(props) {
   const buildRequest = () => {
     let reduced = tags.reduce((acc, tag) => {
       tag = encodeURIComponent(tag);
-
       return tags.push(tag);
     });
     console.log('@@@@@@', tags);
@@ -202,7 +201,7 @@ function Post(props) {
     e.preventDefault()
     // setPost({...post, post_date: Date.now()})
     console.log('post', post)
-    axios.post('localhost:5000/posts', 'fail')
+    axios.post('localhost:5000/posts', post)
       .then(res => console.log('Hey there Andy', res))
       .catch(err => console.log(err))
   }

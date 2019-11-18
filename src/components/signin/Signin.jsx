@@ -17,7 +17,7 @@ import axios from 'axios';
 import jwtDecode from 'jwt-decode'
 
 // component imports 
-import Navbar from '../Navbar/Navbar';
+import Navbar from '../navbar/Navbar';
 
 function Copyright() {
     return (

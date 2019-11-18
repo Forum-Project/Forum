@@ -8,7 +8,7 @@ import Container from '@material-ui/core/Container';
 import Posts from '../posts/Post'
 import Comments from '../comments/Comments'
 import CommentInput from '../comment-text/CreateComments'
-import Navbar from '../Navbar/Navbar'; 
+import Navbar from '../navbar/Navbar'; 
 
 const postPageStyle = makeStyles(theme => ({
     container: {

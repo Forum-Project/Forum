@@ -2,7 +2,6 @@ import React from 'react'
 import { Route } from 'react-router-dom';
 
 //component imports 
-import Navbar from '../components/Navbar/Navbar';
 import Signup from '../components/signup/Signup';
 import Signin from '../components/signin/Signin';
 import Profile from '../components/profile/profile';
