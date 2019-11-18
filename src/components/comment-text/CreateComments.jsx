@@ -143,6 +143,7 @@ function CreateComments(props) {
           variant="filled"
           name='comments_body'
           onChange={handleChange}
+          value={values.comments_body}
         />
 
 
