@@ -7,8 +7,7 @@ import Container from '@material-ui/core/Container';
 // Importing Components
 import Posts from '../posts/Post'
 import Comments from '../comments/Comments'
-import CommentInput from '../comment-text/CommentAdd'
-import Navbar from '../Navbar/Navbar'; 
+import CommentInput from '../comment-text/CreateComments'
 
 const postPageStyle = makeStyles(theme => ({
     container: {
@@ -27,7 +26,6 @@ export default function SimpleContainer() {
 
     return (
         <React.Fragment>
-            <Navbar />
             <CssBaseline />
             <Container className={classes.container}>
                 <Posts />
