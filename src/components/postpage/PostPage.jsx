@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import axios from 'axios'
 
 // Importing Components
 import Post from '../posts/Post'
@@ -26,11 +26,22 @@ export default function SimpleContainer(props) {
     const [author, setAuthor] = useState({})
     const classes = postPageStyle()
     const postPagePath = props.location.pathname.substr(10, props.location.pathname.length) //there's probably a better way to grab id from location
+    const backend = 'http://localhost:5000'
 
     useEffect(() => {
         if (props.location.state) {
             setPost(props.location.state.post)
             setAuthor(props.location.state.author)
+        } else {
+            axios.get(`${backend}/posts/${postPagePath}`)
+            .then(postData => {
+                //populates pulledPost with data from BE before grabbing user data
+                setPost(postData.data)
+                axios.get(`${backend}/users/${postData.data.user_id}`)
+                .then(userData => setAuthor(userData.data))
+                .catch(err => console.log('Catch for user was invoked:', err))
+            })
+            .catch(err => console.log('Catch for post was invoked:', err))
         }
     }, [])
 
@@ -38,7 +49,7 @@ export default function SimpleContainer(props) {
         <React.Fragment>
             <CssBaseline />
             <Container className={classes.container}>
-                <Post post={post} user={author} postPagePath={postPagePath}/>
+                <Post post={post} user={author}/>
                 <CommentInput />
                 <Comments />
             </Container>
