@@ -8,7 +8,8 @@ export default function Categories() {
     // const [chrisMadeMeWriteThis, setChrisMadeMeWriteThis] = useState()
 
     useEffect(() => {
-        axios.get('http://localhost:5000/posts')
+        const id = 1; 
+        axios.get(`http://localhost:5000/categories/${id}/posts`)
         .then(res => {
             console.log(res)
             setPosts(res.data.data)
