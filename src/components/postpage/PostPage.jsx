@@ -25,10 +25,12 @@ const postPageStyle = makeStyles(theme => ({
 export default function SimpleContainer(props) {
     const [post, setPost] = useState({})
     const [author, setAuthor] = useState({})
+    const [comments, setComments] = useState([])
     const classes = postPageStyle()
     const postPagePath = props.location.pathname.substr(10, props.location.pathname.length) //there's probably a better way to grab id from location
     const domain = process.env.DOMAIN || 'localhost:5000'
 
+    //populates post and use(author)
     useEffect(() => {
         //populates from location state first
         if (props.location.state) {
@@ -47,13 +49,20 @@ export default function SimpleContainer(props) {
         }
     }, [])
 
+    //populates comments
+    useEffect(() => {
+        axios.get(`http://${domain}/posts/${postPagePath}/comments`)
+        .then(res => setComments(res.data))
+        .catch(err => console.log('Catch to grab comments was invoked:', err))
+    })
+
     return (
         <React.Fragment>
             <CssBaseline />
             <Container className={classes.container}>
-                <Post post={post} user={author}/>
-                <CommentInput />
-                <Comments />
+                <Post post={post} user={author} />
+                <CommentInput setComments={setComments} />
+                <Comments comments={comments} />
             </Container>
         </React.Fragment>
     );
