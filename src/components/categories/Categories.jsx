@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 import Filter from '../filter/Filter';
-import Post from './postcard/PostCard'
+import PostCard from './postcard/PostCard'
 
 export default function Categories(props) {
     const [posts, setPosts] = useState([])
@@ -77,7 +77,7 @@ export default function Categories(props) {
         <div>
             {/* (<Post post={post}/>) */}
             {posts && posts.map((post,index) => {return (
-                <Post key={Date.now()+index} post={post}/>
+                <PostCard key={Date.now()+index} post={post}/>
             )})}
             {/* something for chris */}
             {/* to comments */}
