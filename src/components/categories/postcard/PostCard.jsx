@@ -81,7 +81,7 @@ const PostCard = (props) => {
             })}
           </Box>
           <Link to={{
-            pathname: '/postpage',
+            pathname: `/postpage/${post._id}`,
             state: {
               post: post,
               author: user

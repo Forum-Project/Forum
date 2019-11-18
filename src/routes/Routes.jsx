@@ -23,7 +23,7 @@ const Routes = () => {
             <Route path="/signin" component={Signin} />
             <Route path="/profile" exact component={Profile} />
             <NavRoute path="/categories" component={Categories} />
-            <NavRoute path="/postpage" component={PostPage} />
+            <NavRoute path="/postpage/:post_id" component={PostPage} />
             <Route path="/post" component={CreatePost} />
             <Route path="/comment" component={CreateComments} />
             <Route path="/home" component={Home} />
