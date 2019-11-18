@@ -1,5 +1,5 @@
 // library imports
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
@@ -14,26 +14,9 @@ import axios from 'axios'
 import { postStyle } from './postStyle'
 
 const Post = (props) => {
-  // const { post } = props
-  const [post, setPost] = useState({ _id: '5dceeead7bd912553c9fc24c' }) //delete once we have props working and uncomment aboove
-  const [pulledPost, setPulledPost] = useState({})
-  const [user, setUser] = useState({})
+  const { post, user } = props
   const classes = postStyle()
   const backend = 'http://localhost:5000'
-
-  useEffect(() => {
-    if (post._id) {
-      axios.get(`${backend}/posts/${post._id}`)
-      .then(postData => {
-        //populates pulledPost with data from BE before grabbing user data
-        setPulledPost(postData.data)
-        axios.get(`${backend}/users/${postData.data.user_id}`)
-        .then(userData => setUser(userData.data))
-        .catch(err => console.log('Catch for user was invoked:', err))
-      })
-      .catch(err => console.log('Catch for post was invoked:', err))
-    }
-  }, [])
 
   return (
     <Card className={classes.card}>
@@ -48,13 +31,13 @@ const Post = (props) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={pulledPost.post_title}
+        title={post.post_title}
         titleTypographyProps={{ variant: 'h4' }}
         subheader={
           <Box>
-            {pulledPost.post_date}
+            {post.post_date}
             <Box display='flex' justifyContent="flex-end" flexWrap='wrap' maxWidth='200' width='100%'>
-              {pulledPost.post_tags && pulledPost.post_tags.map((tag, index) => {
+              {post.post_tags && post.post_tags.map((tag, index) => {
                 return (
                   <Button className={classes.tag} key={Date.now()+index} onClick={() => console.log(`${tag} brings you to a different page with only ${tag}-related results`)}>
                     #{tag}
@@ -67,7 +50,7 @@ const Post = (props) => {
       />
       <CardContent className={classes.body}>
         <Typography variant="body2" color="textSecondary" component="p">
-          {pulledPost.post_body}
+          {post.post_body}
         </Typography>
       </CardContent>
       <CardContent className={classes.footer}>
