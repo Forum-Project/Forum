@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
 // Importing Components
-import Posts from '../posts/Post'
+import Post from '../posts/Post'
 import Comments from '../comments/Comments'
 import CommentInput from '../comment-text/CreateComments'
 
@@ -21,14 +21,15 @@ const postPageStyle = makeStyles(theme => ({
     },
 }));
 
-export default function SimpleContainer() {
+export default function SimpleContainer(props) {
+    const { post, author } = props.location.state
     const classes = postPageStyle()
 
     return (
         <React.Fragment>
             <CssBaseline />
             <Container className={classes.container}>
-                <Posts />
+                <Post post={post} user={author}/>
                 <CommentInput />
                 <Comments />
             </Container>

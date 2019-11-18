@@ -25,7 +25,7 @@ const Routes = () => {
             <NavRoute path="/billing" component={Billing} />
             <NavRoute path="/account" component={Account} />
             <NavRoute path="/contact" component={Contact} />
-            <NavRoute path="/postpage" component={PostPage} />
+            <NavRoute path="/postpage/:post_id" component={PostPage} />
             <Route path="/post" component={CreatePost} />
             <Route path="/comment" component={CreateComments} />
         </>

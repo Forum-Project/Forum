@@ -5,7 +5,7 @@ import axios from 'axios';
 import Categories from './Categories'; 
 
 const Contact = (props) => {
-    const categoryId = '5dcde725f8297d491c8e92ea'; 
+    const categoryId = process.env.CONTACT_ID; 
     const catName = 'contact'
     return ( 
         <div>

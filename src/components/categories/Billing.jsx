@@ -5,7 +5,7 @@ import axios from 'axios';
 import Categories from './Categories'; 
 
 const Billing = (props) => {
-    const categoryId = '5dcde725f8297d491c8e92ea'; 
+    const categoryId = process.env.BILLING_ID; 
     const catName = 'billing'
     return ( 
         <div>
