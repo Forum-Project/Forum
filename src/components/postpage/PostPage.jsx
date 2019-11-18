@@ -8,6 +8,7 @@ import axios from 'axios'
 import Post from '../posts/Post'
 import Comments from '../comments/Comments'
 import CommentInput from '../comment-text/CreateComments'
+// import Navbar from '../navbar/Navbar'; 
 
 const postPageStyle = makeStyles(theme => ({
     container: {
