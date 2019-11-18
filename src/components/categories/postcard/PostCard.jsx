@@ -41,7 +41,7 @@ const PostCard = (props) => {
       .then(userData => setUser(userData.data))
       .catch(err => console.log('Catch for user was invoked:', err))
     }
-  })
+  }, [])
 
   return (
     <Card className={classes.card}>
