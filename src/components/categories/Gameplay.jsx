@@ -4,9 +4,9 @@ import axios from 'axios';
 // component imports 
 import Categories from './Categories'; 
 
-const Contact = (props) => {
-    const categoryId = process.env.CONTACT_ID; 
-    const catName = 'contact'
+const Gameplay = (props) => {
+    const categoryId = process.env.GAMEPLAY_ID; 
+    const catName = 'gameplay'
     return ( 
         <div>
             <Categories categoryID={categoryId} componentName={catName} />
@@ -14,4 +14,4 @@ const Contact = (props) => {
      );
 }
  
-export default Contact;
+export default Gameplay;

@@ -12,7 +12,7 @@ import PostPage from '../components/postpage/PostPage';
 import CreateComments from '../components/comment-text/CreateComments'
 import Billing from '../components/categories/Billing';
 import Account from '../components/categories/Account';
-import Contact from '../components/categories/Contact';
+import Gameplay from '../components/categories/Gameplay';
 
 
 const Routes = () => {
@@ -24,7 +24,7 @@ const Routes = () => {
             <Route path="/profile" exact component={Profile} />
             <NavRoute path="/billing" component={Billing} />
             <NavRoute path="/account" component={Account} />
-            <NavRoute path="/contact" component={Contact} />
+            <NavRoute path="/gameplay" component={Gameplay} />
             <NavRoute path="/postpage/:post_id" component={PostPage} />
             <Route path="/post" component={CreatePost} />
             <Route path="/comment" component={CreateComments} />
