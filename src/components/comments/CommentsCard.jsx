@@ -16,7 +16,7 @@ import axios from 'axios'
 const useStyles = makeStyles(theme => ({
     card: {
         maxWidth: 599,
-        margin: 'auto',
+        margin: '0 auto 1rem',
         justifyContent: 'center'
     },
     media: {
