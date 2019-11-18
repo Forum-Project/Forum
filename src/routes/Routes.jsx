@@ -1,8 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router-dom';
 
-//component imports
-import NavRoute from './NavRoute'
+//component imports 
 import Signup from '../components/signup/Signup';
 import Signin from '../components/signin/Signin';
 import Profile from '../components/profile/profile';
@@ -13,6 +12,7 @@ import CreateComments from '../components/comment-text/CreateComments'
 import Billing from '../components/categories/Billing';
 import Account from '../components/categories/Account';
 import Gameplay from '../components/categories/Gameplay';
+import NavRoute from './NavRoute'
 
 
 const Routes = () => {
