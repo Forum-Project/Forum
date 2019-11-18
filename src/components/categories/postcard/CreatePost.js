@@ -124,11 +124,9 @@ function Post(props) {
       tag = encodeURIComponent(tag);
       return tags.push(tag);
     });
-    console.log('@@@@@@', tags);
     tags.map(posts => {
       console.log(posts)
     })
-    console.log('@@@', post);
     setPost({ ...post, post_tag: tags })
 
     // request built, send it back through hook to controller
@@ -199,8 +197,6 @@ function Post(props) {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    // setPost({...post, post_date: Date.now()})
-    console.log('post', post)
     axios.post('localhost:5000/posts', post)
       .then(res => console.log('Hey there Andy', res))
       .catch(err => console.log(err))
