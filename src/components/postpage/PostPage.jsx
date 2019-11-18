@@ -29,13 +29,14 @@ export default function SimpleContainer(props) {
     const backend = 'http://localhost:5000'
 
     useEffect(() => {
+        //populates from location state first
         if (props.location.state) {
             setPost(props.location.state.post)
             setAuthor(props.location.state.author)
-        } else {
+        } else { //otherwise, take the pathname id and fetch the required data
             axios.get(`${backend}/posts/${postPagePath}`)
             .then(postData => {
-                //populates pulledPost with data from BE before grabbing user data
+                //populates post with data from BE before grabbing user data
                 setPost(postData.data)
                 axios.get(`${backend}/users/${postData.data.user_id}`)
                 .then(userData => setAuthor(userData.data))
