@@ -1,5 +1,5 @@
 // library imports
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import axios from 'axios'
+import { Link } from 'react-router-dom'
 // image imports
 import noImage from '../../assets/noImage.png'
 // css and styles
@@ -28,17 +30,25 @@ function trimBody(text) {
 }
 
 const PostCard = (props) => {
-  console.log('props',props)
-  const { post }  = props
+  const { post } = props
+  const [user, setUser] = useState({})
   const classes = postCardStyle();
+  const backend = 'http://localhost:5000'
+
+  useEffect(() => {
+    if (post._id) {
+      axios.get(`${backend}/users/${post.user_id}`)
+      .then(userData => setUser(userData.data))
+      .catch(err => console.log('Catch for user was invoked:', err))
+    }
+  })
 
   return (
     <Card className={classes.card}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            {/* profile image here, otherwise initials of person? */}
-            R
+            {user.username ? user.username.substr(0, 1).toUpperCase() : ''}
           </Avatar>
         }
         action={
@@ -60,16 +70,27 @@ const PostCard = (props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Box display='flex' flexWrap='wrap'>
-          {/* map over tags here */}
-          {/* {post.post_category.map(tag => {
-            return (
-              <Button className={classes.tag} onClick={() => console.log(`${tag} brings you to a different page with only ${tag}-related results`)}>
-                #{tag}
-              </Button>
-            )
-          })} */}
-        </Box> 
+        <Box display='flex' flexWrap='wrap' width='100%'>
+          <Box display='flex' flexWrap='wrap'>
+            {post.post_tags && post.post_tags.map((tag,index) => {
+              return (
+                <Button className={classes.tag} key={Date.now()+index} onClick={() => console.log(`${tag} brings you to a different page with only ${tag}-related results`)}>
+                  #{tag}
+                </Button>
+              )
+            })}
+          </Box>
+          <Link to={{
+            pathname: '/postpage',
+            state: {
+              post: post,
+              author: user
+            }}}
+            style={{textDecoration: 'none', width: '100%', textAlign: 'right', padding: '8px 6px'}}
+          >
+            Read More
+          </Link>  
+        </Box>
       </CardActions>
     </Card>
   );
