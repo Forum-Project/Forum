@@ -20,11 +20,11 @@ export default function Categories(props) {
     useEffect(() => {
         receiveQuery();
         axios.get(request) // add the query when necessary
-        .then(res => {
-            console.log(res)
-            setPosts(res.data.data)
-        })
-        .catch(err => console.log('err',err))
+            .then(res => {
+                console.log(res)
+                setPosts(res.data.data)
+            })
+            .catch(err => console.log('err', err))
     }, [])
 
     useEffect(() => {
@@ -49,15 +49,15 @@ export default function Categories(props) {
     };
 
     const decodeRequest = (query = props.location.search) => {
-        if(!query) return false;
-        if(query.indexOf('?') === 0) query = query.replace('?', '');
+        if (!query) return false;
+        if (query.indexOf('?') === 0) query = query.replace('?', '');
         let params = query.split('&');
         let attributes = {};
-        for(let property of params) {
+        for (let property of params) {
             let pair = property.split('=');
-            if(pair.length < 2) continue;
+            if (pair.length < 2) continue;
             let paramVals = pair[1].split('+');
-            if(Array.isArray(paramVals) && paramVals.length) {
+            if (Array.isArray(paramVals) && paramVals.length) {
                 paramVals = paramVals.map(val => decodeURIComponent(val));
             }
             attributes[pair[0]] = paramVals; // these should be our key value pairs, with the value holding an array of 'state', or values
@@ -67,20 +67,20 @@ export default function Categories(props) {
 
     const receiveQuery = () => {
         let decoded = decodeRequest(query);
-        if(decoded.tags) setTags(decoded.tags);
+        if (decoded.tags) setTags(decoded.tags);
     }
 
     console.log(posts)
 
     return (
-      <>
-        <div>
-            {/* (<Post post={post}/>) */}
-            {posts && posts.map(post => {return (<Post post={post}/>)})}
-            {/* something for chris */}
-            {/* to comments */}
-        </div>
-        <Filter {...props} tags={tags} setTags={setTags} handleSubmit={submitQuery} />
-      </>
+        <>
+            <div>
+                {/* (<Post post={post}/>) */}
+                {posts && posts.map(post => { return (<Post post={post} />) })}
+                {/* something for chris */}
+                {/* to comments */}
+            </div>
+            <Filter {...props} tags={tags} setTags={setTags} handleSubmit={submitQuery} />
+        </>
     )
 }

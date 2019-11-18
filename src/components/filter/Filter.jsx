@@ -24,7 +24,8 @@ import styles, { FilterDiv } from './FilterStyle';
 const options = ['Submit filter', 'Clear all tags'];
 
 const Filter = (props) => {
-  const [tags, setTags] = useState([]);
+  const tags = props.tags;
+  const setTags = props.setTags;
   const [tagField, setTagField] = useState('');
   const classes = styles();
   let domain = 'localhost:5000';
@@ -36,35 +37,8 @@ const Filter = (props) => {
 
   const updateField = event => setTagField(event.target.value);
 
-  const buildRequest = () => {
-    let base = `http://${domain}/category/${categoryID}/?tags=`;
-    let reduced = tags.reduce((acc, tag) => {
-      tag = encodeURIComponent(tag);
-      return acc + '+' + tag;
-    });
-    console.log(reduced);
-    base += reduced;
-    console.log(base);
-    // request built, send it back through hook to controller
-  };
 
-  const decodeRequest = () => {
-    let query = props.match.params.query;
-    if(!query) return false;
-    if(query.indexOf('?') === 0) query = query.replace('?', '');
-    let params = query.split('&');
-    let attributes = {};
-    for(let property of params) {
-      let pair = property.split('=');
-      if(pair.length < 2) continue;
-      let paramVals = pair[1].split('+');
-      if(Array.isArray(paramVals) && paramVals.length) {
-        paramVals = paramVals.map(val => decodeURIComponent(val));
-      }
-      attributes[pair[0]] = paramVals; // these should be our key value pairs, with the value holding an array of 'state', or values
-    }
-    //make request maybe? Nah, send back the request with the params added
-  };
+
   //decodeRequest();
 
   const dropdownClick = () => {
@@ -94,13 +68,16 @@ const Filter = (props) => {
   const addTag = event => {
     event.preventDefault();
     if (typeof tagField === 'string' && tagField.length < 1) return false; // maybe warn them to add something to the field (later)
+    if(tagField.trim() === '') return false;
     if (tags.includes(tagField)) return false; // warn them the tag exists (later)
     setTags([...tags, tagField]);
     setTagField('');
   };
 
   const removeTag = event => {
-    let updated = tags.filter(tag => event.target.value !== tag); // filter out the matching tag from the list
+    event.persist();
+    console.log(event);
+    let updated = tags.filter(tag => event.target.textContent !== tag); // filter out the matching tag from the list
     setTags(updated); // update with the tag filtered out
   };
 
@@ -112,7 +89,7 @@ const Filter = (props) => {
   const submitFilter = () => {
     // generate the proper link to make the request and pass back to post list?
     if (tags.length < 1) return false;
-    buildRequest();
+    props.handleSubmit();
   };
 
 
@@ -141,8 +118,8 @@ const Filter = (props) => {
         <div className='tagContainer'>
           {tags.map(tag => {
             return (
-              <Button variant='outlined' className={classes.button} onClick={removeTag}>
-                {tag}
+              <Button variant='outlined' className={classes.button}>
+                <span onClick={removeTag}>{tag}</span>
               </Button>
             );
           })}

@@ -65,6 +65,7 @@ export default function SignUp(props) {
                 .then(res => {
                     console.log('You created a user!', res)
                     props.history.push('/PostPage')
+                    localStorage.setItem('token', res.data.token)
                 })
                 .catch(err => console.log('You failed to Create a New User', err))
         } else {
