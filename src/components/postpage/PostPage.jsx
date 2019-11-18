@@ -26,7 +26,7 @@ export default function SimpleContainer(props) {
     const [author, setAuthor] = useState({})
     const classes = postPageStyle()
     const postPagePath = props.location.pathname.substr(10, props.location.pathname.length) //there's probably a better way to grab id from location
-    const backend = 'http://localhost:5000'
+    const domain = process.env.DOMAIN || 'localhost:5000'
 
     useEffect(() => {
         //populates from location state first
@@ -34,11 +34,11 @@ export default function SimpleContainer(props) {
             setPost(props.location.state.post)
             setAuthor(props.location.state.author)
         } else { //otherwise, take the pathname id and fetch the required data
-            axios.get(`${backend}/posts/${postPagePath}`)
+            axios.get(`http://${domain}/posts/${postPagePath}`)
             .then(postData => {
                 //populates post with data from BE before grabbing user data
                 setPost(postData.data)
-                axios.get(`${backend}/users/${postData.data.user_id}`)
+                axios.get(`http://${domain}/users/${postData.data.user_id}`)
                 .then(userData => setAuthor(userData.data))
                 .catch(err => console.log('Catch for user was invoked:', err))
             })
