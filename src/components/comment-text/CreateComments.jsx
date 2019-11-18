@@ -70,14 +70,17 @@ const StyledToggleButtonGroup = withStyles(theme => ({
 
 
 
-function CreateComments() {
+function CreateComments(props) {
+  const { postId, setComments } = props
   const [alignment, setAlignment] = useState('left');
   const [values, setValues] = useState({
     comments_body: '',
-    comments_timestamp: Date.now(),
+    comments_timestamp: Date.now(), //will need to update once actual comment is made
+    user_id: "5dcdbae07d7e2d258cdf6f40", //needs to somehow get the id of the logged in user to insert into comment; currently set to admintest
+    post_id: postId //for some reason, this is coming up as undefined; will need to set post_id somewhere else?
   });
   const [formats, setFormats] = useState(() => ['italic']);
-  const api = 'http://localhost:5000/comments'
+  const domain = 'localhost:5000'
 
 
   const handleFormat = (event, newFormats) => {
@@ -98,9 +101,18 @@ function CreateComments() {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('MOM WAS HERE', values)
-    axios.post( api, values )
+    //create a variable here containing the linked post id as well as updated timestamp
+    const editedValues = {...values, comments_timestamp: Date.now(), post_id: postId}
+    axios.post( `http://${domain}/comments`, editedValues )
       .then(function (response) {
         console.log('WHOA THERE', response)
+        axios.get(`http://${domain}/posts/${postId}/comments`)
+        .then(updatedComments => {
+          setComments(updatedComments.data)
+          //reset body to blank
+          setValues({...values, comments_body: ''})
+        })
+        .catch(error => console.log('ANOTHER ERROR FOR YOU', error))
       })
       .catch(function (error) {
         console.log('SHOW THAT FUNKY ERROR', error)
@@ -183,19 +195,4 @@ function CreateComments() {
   );
 }
 
-
-
-
-
-
-
-
-
-
-
-
 export default CreateComments
-
-
-
-

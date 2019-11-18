@@ -51,17 +51,27 @@ export default function SimpleContainer(props) {
 
     //populates comments
     useEffect(() => {
-        axios.get(`http://${domain}/posts/${postPagePath}/comments`)
-        .then(res => setComments(res.data))
-        .catch(err => console.log('Catch to grab comments was invoked:', err))
-    })
+        if (props.location.state) {
+            axios.get(`http://${domain}/posts/${props.location.state.post._id}/comments`)
+            .then(res => {
+                console.log(res.data)
+                setComments(res.data)})
+            .catch(err => console.log('Catch to grab comments was invoked:', err))
+        } else {
+            axios.get(`http://${domain}/posts/${postPagePath}/comments`)
+            .then(res => {
+                console.log(res.data)
+                setComments(res.data)})
+            .catch(err => console.log('Catch to grab comments was invoked:', err))
+        }
+    }, [])
 
     return (
         <React.Fragment>
             <CssBaseline />
             <Container className={classes.container}>
                 <Post post={post} user={author} />
-                <CommentInput setComments={setComments} />
+                <CommentInput postId={post._id} setComments={setComments} />
                 <Comments comments={comments} />
             </Container>
         </React.Fragment>
