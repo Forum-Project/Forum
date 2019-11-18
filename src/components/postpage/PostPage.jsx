@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
@@ -22,14 +22,23 @@ const postPageStyle = makeStyles(theme => ({
 }));
 
 export default function SimpleContainer(props) {
-    const { post, author } = props.location.state
+    const [post, setPost] = useState({})
+    const [author, setAuthor] = useState({})
     const classes = postPageStyle()
+    const postPagePath = props.location.pathname.substr(10, props.location.pathname.length) //there's probably a better way to grab id from location
+
+    useEffect(() => {
+        if (props.location.state) {
+            setPost(props.location.state.post)
+            setAuthor(props.location.state.author)
+        }
+    }, [])
 
     return (
         <React.Fragment>
             <CssBaseline />
             <Container className={classes.container}>
-                <Post post={post} user={author}/>
+                <Post post={post} user={author} postPagePath={postPagePath}/>
                 <CommentInput />
                 <Comments />
             </Container>

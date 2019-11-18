@@ -1,5 +1,5 @@
 // library imports
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
@@ -14,16 +14,32 @@ import axios from 'axios'
 import { postStyle } from './postStyle'
 
 const Post = (props) => {
-  const { post, user } = props
+  const { post, user, postPagePath } = props
+  const [pulledPost, setPulledPost] = useState(post)
+  const [pulledUser, setPulledUser] = useState(user)
   const classes = postStyle()
   const backend = 'http://localhost:5000'
+
+  useEffect(() => {
+    if (!post.post_id) {
+      axios.get(`${backend}/posts/${postPagePath}`)
+      .then(postData => {
+        //populates pulledPost with data from BE before grabbing user data
+        setPulledPost(postData.data)
+        axios.get(`${backend}/users/${postData.data.user_id}`)
+        .then(userData => setPulledUser(userData.data))
+        .catch(err => console.log('Catch for user was invoked:', err))
+      })
+      .catch(err => console.log('Catch for post was invoked:', err))
+    }
+  }, [])
 
   return (
     <Card className={classes.card}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            {user.username ? user.username.substr(0, 1).toUpperCase() : ''}
+            {pulledUser.username ? pulledUser.username.substr(0, 1).toUpperCase() : ''}
           </Avatar>
         }
         action={
@@ -31,13 +47,13 @@ const Post = (props) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={post.post_title}
+        title={pulledPost.post_title}
         titleTypographyProps={{ variant: 'h4' }}
         subheader={
           <Box>
-            {post.post_date}
+            {pulledPost.post_date}
             <Box display='flex' justifyContent="flex-end" flexWrap='wrap' maxWidth='200' width='100%'>
-              {post.post_tags && post.post_tags.map((tag, index) => {
+              {pulledPost.post_tags && pulledPost.post_tags.map((tag, index) => {
                 return (
                   <Button className={classes.tag} key={Date.now()+index} onClick={() => console.log(`${tag} brings you to a different page with only ${tag}-related results`)}>
                     #{tag}
@@ -50,12 +66,12 @@ const Post = (props) => {
       />
       <CardContent className={classes.body}>
         <Typography variant="body2" color="textSecondary" component="p">
-          {post.post_body}
+          {pulledPost.post_body}
         </Typography>
       </CardContent>
       <CardContent className={classes.footer}>
         <Typography variant="body2" color="textSecondary" component="p">
-          Posted by {user.username}
+          Posted by {pulledUser.username}
         </Typography>
       </CardContent>
     </Card>
