@@ -9,10 +9,10 @@ import './TabPanel.scss';
 const TabPanel = () => {
 	return (
 		<div className="tabpanel-container">
-			<NavLink className="tabs" activeClassName="tabs-active" to="/home">Home</NavLink>
+			{/* <NavLink className="tabs" activeClassName="tabs-active" to="/home">Home</NavLink>
 			<NavLink className="tabs" activeClassName="tabs-active" to="/account">Account</NavLink>
 			<NavLink className="tabs" activeClassName="tabs-active" to="/billing">Billing</NavLink>
-			<NavLink className="tabs" activeClassName="tabs-active" to="/gameplay">Gameplay</NavLink>
+	<NavLink className="tabs" activeClassName="tabs-active" to="/gameplay">Gameplay</NavLink> */}
 		</div>
 	);
 }
