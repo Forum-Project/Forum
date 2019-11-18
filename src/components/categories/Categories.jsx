@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Filter from '../filter/Filter';
+import { withRouter } from 'react-router-dom'; 
 
 import Post from './postcard/PostCard'
 
-export default function Categories(props) {
+function Categories(props) {
     const [posts, setPosts] = useState([])
     // const [chrisMadeMeWriteThis, setChrisMadeMeWriteThis] = useState()
     const [tags, setTags] = useState([]);
@@ -18,13 +19,8 @@ export default function Categories(props) {
 
 
     useEffect(() => {
-<<<<<<< HEAD
-        const id = 1; 
-        axios.get(`http://localhost:5000/categories/${id}/posts`)
-=======
         receiveQuery();
         axios.get(request) // add the query when necessary
->>>>>>> bb75b7c01c856368bc21a00221ac4f369e39f10a
         .then(res => {
             console.log(res)
             setPosts(res.data.data)
@@ -32,8 +28,9 @@ export default function Categories(props) {
         .catch(err => console.log('err',err))
     }, [])
 
+    console.log(props) ;
     useEffect(() => {
-        props.history.push(`/categories/${categoryID}/${query}`);
+        props.history.push(`/${props.componentName}/${categoryID}/${query}`);
     }, [query]);
 
     const submitQuery = () => {
@@ -41,6 +38,7 @@ export default function Categories(props) {
         buildTags();
     };
 
+    console.log(props); 
     const buildTags = () => {
         let base = `?tags=`;
         let reduced = tags.reduce((acc, tag) => {
@@ -89,3 +87,5 @@ export default function Categories(props) {
       </>
     )
 }
+
+export default withRouter(Categories); 
