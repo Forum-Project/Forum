@@ -4,6 +4,9 @@ import Filter from '../filter/Filter';
 import { withRouter } from 'react-router-dom'; 
 import PostCard from './postcard/PostCard'
 
+// stylesheet imports 
+import './Categories.scss'
+
 function Categories(props) {
     const [posts, setPosts] = useState([])
     // const [chrisMadeMeWriteThis, setChrisMadeMeWriteThis] = useState()
@@ -75,8 +78,8 @@ function Categories(props) {
     console.log(posts)
 
     return (
-      <>
-        <div>
+      <div className="cat-wrapper">
+        <div className="post-wrapper">
             {/* (<Post post={post}/>) */}
             {posts && posts.map((post,index) => {return (
                 <PostCard key={Date.now()+index} post={post}/>
@@ -84,8 +87,8 @@ function Categories(props) {
             {/* something for chris */}
             {/* to comments */}
         </div>
-        <Filter {...props} tags={tags} setTags={setTags} handleSubmit={submitQuery} />
-      </>
+        <Filter {...props} tags={tags} setTags={setTags} handleSubmit={submitQuery} className="filter"/>
+      </div>
     )
 }
 
