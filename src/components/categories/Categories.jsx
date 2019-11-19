@@ -30,6 +30,11 @@ function Categories(props) {
     console.log(props) ;
     useEffect(() => {
         props.history.push(`/${props.componentName}/${categoryID}/${query}`);
+        axios.get(request)
+          .then(res => {
+              setPosts(res.data);
+          })
+          .catch(e => console.error(e.response));
     }, [query]);
 
     const submitQuery = () => {

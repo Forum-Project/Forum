@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import TextField from '@material-ui/core/TextField';
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography"; // not sure what this is for, but material-ui was using it
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -28,9 +27,6 @@ const Filter = (props) => {
   const setTags = props.setTags;
   const [tagField, setTagField] = useState('');
   const classes = styles();
-  let domain = 'localhost:5000';
-  let categoryID = props.categoryID || 0; // probably should get a better default
-
   const [open, setOpen] = useState(false); // for the submit button
   const anchorRef = useRef(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
