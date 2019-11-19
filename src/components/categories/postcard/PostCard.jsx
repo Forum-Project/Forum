@@ -64,7 +64,7 @@ const PostCard = (props) => {
         className={classes.media}
         image={post.post_img ? post.post_img : noImage}
         title={post.post_img_description ? post.post_img_description : 'No image'}
-      />
+      />{console.log(Date(post.post_date.toString()))}
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {trimBody(post.post_body)}
@@ -73,9 +73,9 @@ const PostCard = (props) => {
       <CardActions>
         <Box display='flex' flexWrap='wrap' width='100%'>
           <Box display='flex' flexWrap='wrap'>
-            {post.post_tags && post.post_tags.map((tag,index) => {
+            {post.post_tags && post.post_tags.map((tag, index) => {
               return (
-                <Button className={classes.tag} key={Date.now()+index} onClick={() => console.log(`${tag} brings you to a different page with only ${tag}-related results`)}>
+                <Button className={classes.tag} key={Date.now() + index} onClick={() => console.log(`${tag} brings you to a different page with only ${tag}-related results`)}>
                   #{tag}
                 </Button>
               )
@@ -86,11 +86,12 @@ const PostCard = (props) => {
             state: {
               post: post,
               author: user
-            }}}
-            style={{textDecoration: 'none', width: '100%', textAlign: 'right', padding: '8px 6px'}}
+            }
+          }}
+            style={{ textDecoration: 'none', width: '100%', textAlign: 'right', padding: '8px 6px' }}
           >
             Read More
-          </Link>  
+          </Link>
         </Box>
       </CardActions>
     </Card>

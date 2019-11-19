@@ -67,7 +67,7 @@ export default function SignIn(props) {
             axios.post(`http://localhost:5000/users/login`, user)
                 .then(res => {
                     console.log('Logged in', res)
-                    props.history.push('/PostPage')
+                    props.history.push('/home')
                     localStorage.setItem('token', res.data.token)
                 })
                 .catch(err => console.log('You failed to Login', err))
