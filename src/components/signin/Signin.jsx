@@ -16,9 +16,6 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode'
 
-// component imports 
-import Navbar from '../Navbar/Navbar';
-
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
