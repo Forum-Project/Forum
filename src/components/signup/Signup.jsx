@@ -64,7 +64,7 @@ export default function SignUp(props) {
             axios.post('http://localhost:5000/users', user)
                 .then(res => {
                     console.log('You created a user!', res)
-                    props.history.push('/PostPage')
+                    props.history.push('/home')
                     localStorage.setItem('token', res.data.token)
                 })
                 .catch(err => console.log('You failed to Create a New User', err))

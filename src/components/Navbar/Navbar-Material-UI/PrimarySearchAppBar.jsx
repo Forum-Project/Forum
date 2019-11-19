@@ -17,6 +17,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import Box from '@material-ui/core/Box';
 
 import { shadows } from '@material-ui/system';
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -85,7 +86,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -205,7 +206,8 @@ export default function PrimarySearchAppBar() {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-                            <AccountCircle />
+                           
+			                      <NavLink to="/profile"><AccountCircle /></NavLink> 
                         </IconButton>
                     </div>
                     <div className={classes.sectionMobile}>
