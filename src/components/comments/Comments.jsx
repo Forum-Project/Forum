@@ -16,7 +16,7 @@ export default function PaperSheet(props) {
     
     return (
         <div className={classes.root}>
-            {comments && comments.map((comment,index) => { return (
+            {comments && comments.reverse().map((comment,index) => { return ( //we reverse to have the latest comments at the top
                 <CommentsCard key={Date.now()+index} comment={comment} setComments={setComments}/>
             )})}
         </div>
