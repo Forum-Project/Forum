@@ -121,7 +121,7 @@ function Post(props) {
     post_title: '',
     post_body: '',
     post_date: Date.now(),
-    post_tag: [],
+    post_tags: [],
     user_id: decode.subject,
     post_category: `${catID}`
   });
@@ -135,7 +135,7 @@ function Post(props) {
     tags.map(posts => {
       console.log(posts)
     })
-    setPost({ ...post, post_tag: tags })
+    setPost({ ...post, post_tags: tags })
 
     // request built, send it back through hook to controller
   };
