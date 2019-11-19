@@ -220,14 +220,16 @@ const Profile = (props) => {
   // const [open, setOpen] = React.useState(false);
   const [user, setUser] = useState({
     _id: '',
-    user_avatar: '',
+    // user_avatar: '',
     username: '',
     password: '',
     new_password:'',
     email: '',
     showPassword: false,
     showPassword2: false,
-    favorite_posts: []
+    // favorite_posts: [],
+    user_permission: 0,
+    _v: 0
   });
 
   // Grab user information on render
@@ -235,10 +237,9 @@ const Profile = (props) => {
     if (localStorage.getItem('token')){
       const decode = jwtDecode(localStorage.getItem('token'))
       console.log(decode)
-      axios.get(`https://localhost:5000/users/${decode.subject}`)
-      .then(res => setUser(res),
-      console.log(user))
-      .catch(err => console.log(err))  
+      axios.get(`http://localhost:5000/users/${decode.subject}`)
+      .then(res => setUser(res.data))
+      .catch(err => console.log(err))
     }
   }, [])
 
@@ -298,12 +299,13 @@ const Profile = (props) => {
 
 
   return(
+    console.log('data', user),
     <Container>
       {/* Top section dedicated to basic info on the user along with profile image */}
       <TopSection>
         <Avatar className={avatar.bigAvatar} >T</Avatar>
         <UserInfo>
-          <Name>username</Name>
+          <Name>{user.username}</Name>
           <UserInfoList>
             <PTag>Title: <span>receptionist</span></PTag>
             <PTag>Joined: <span>date</span></PTag>
@@ -399,7 +401,7 @@ const Profile = (props) => {
                   <ListItemText primary="3rd Floor" />
                 </ListItem>
                 <ListItem button>
-                  <ListItemText primary="Test@Me.com" />
+                  <ListItemText primary={user.email} />
                 </ListItem>
                 <Divider light />
                 <ListItem button>
@@ -560,7 +562,7 @@ const Profile = (props) => {
                 <InputLabel htmlFor="input-with-icon-adornment">Password</InputLabel>
                 <Input
                   id="standard-adornment-password"
-                  type={user.showPassword ? 'text' : 'password'}
+                  type={'password'}
                   value={user.password}
                   disabled={true}
                   startAdornment={
