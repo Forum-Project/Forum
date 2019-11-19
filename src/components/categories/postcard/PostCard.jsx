@@ -33,15 +33,15 @@ const PostCard = (props) => {
   const { post } = props
   const [user, setUser] = useState({})
   const classes = postCardStyle();
-  const backend = 'http://localhost:5000'
+  const domain = process.env.DOMAIN || 'localhost:5000'
 
   useEffect(() => {
     if (post._id) {
-      axios.get(`${backend}/users/${post.user_id}`)
+      axios.get(`http://${domain}/users/${post.user_id}`)
       .then(userData => setUser(userData.data))
       .catch(err => console.log('Catch for user was invoked:', err))
     }
-  })
+  }, [])
 
   return (
     <Card className={classes.card}>

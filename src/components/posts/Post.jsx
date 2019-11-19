@@ -1,5 +1,5 @@
 // library imports
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
-import axios from 'axios'
 // css and styles
 import { postStyle } from './postStyle'
 

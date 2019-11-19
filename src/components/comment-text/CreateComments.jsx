@@ -14,6 +14,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
@@ -22,14 +23,15 @@ const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    maxWidth: 1000,
+    width: '100%',
   },
   paper: {
     display: 'flex',
     border: `.5px solid ${theme.palette.divider}`,
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    width: 600
   },
   divider: {
     alignSelf: 'stretch',
@@ -48,9 +50,14 @@ const useStyles = makeStyles(theme => ({
     input1: {
       height: 600
     },
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 600
+    // marginLeft: theme.spacing(1),
+    // marginRight: theme.spacing(1),
+    maxWidth: 1000,
+    width: '100%',
+  },
+  box: {
+    maxWidth: 1000,
+    width: '100%',
   },
 }));
 
@@ -70,14 +77,17 @@ const StyledToggleButtonGroup = withStyles(theme => ({
 
 
 
-function CreateComments() {
+function CreateComments(props) {
+  const { postId, setComments } = props
   const [alignment, setAlignment] = useState('left');
   const [values, setValues] = useState({
     comments_body: '',
-    comments_timestamp: Date.now(),
+    comments_timestamp: Date.now(), //will need to update once actual comment is made
+    user_id: "5dcdbae07d7e2d258cdf6f40", //needs to somehow get the id of the logged in user to insert into comment; currently set to admintest
+    post_id: postId //for some reason, this is coming up as undefined; will need to set post_id somewhere else?
   });
   const [formats, setFormats] = useState(() => ['italic']);
-  const api = 'http://localhost:5000/comments'
+  const domain = 'localhost:5000'
 
 
   const handleFormat = (event, newFormats) => {
@@ -98,9 +108,18 @@ function CreateComments() {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('MOM WAS HERE', values)
-    axios.post( api, values )
+    //create a variable here containing the linked post id as well as updated timestamp
+    const editedValues = {...values, comments_timestamp: Date.now(), post_id: postId}
+    axios.post( `http://${domain}/comments`, editedValues )
       .then(function (response) {
         console.log('WHOA THERE', response)
+        axios.get(`http://${domain}/posts/${postId}/comments`)
+        .then(updatedComments => {
+          setComments(updatedComments.data)
+          //reset body to blank
+          setValues({...values, comments_body: ''})
+        })
+        .catch(error => console.log('ANOTHER ERROR FOR YOU', error))
       })
       .catch(function (error) {
         console.log('SHOW THAT FUNKY ERROR', error)
@@ -113,7 +132,7 @@ function CreateComments() {
       onSubmit={handleSubmit}
       noValidate
       autoComplete="off">
-      <div>
+      <Box className={classes.box}>
         <TextField
           id="filled-basic"
           className={classes.textField}
@@ -124,6 +143,7 @@ function CreateComments() {
           variant="filled"
           name='comments_body'
           onChange={handleChange}
+          value={values.comments_body}
         />
 
 
@@ -176,26 +196,11 @@ function CreateComments() {
             color="primary"
             className={classes.button}>
             Submit
-      </Button>
+          </Button>
         </Paper>
-      </div>
+      </Box>
     </form>
   );
 }
 
-
-
-
-
-
-
-
-
-
-
-
 export default CreateComments
-
-
-
-
