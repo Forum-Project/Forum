@@ -11,7 +11,9 @@ import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Button from '@material-ui/core/Button';
 import axios from 'axios'
+import jwtDecode from 'jwt-decode'
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -40,22 +42,45 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function RecipeReviewCard(props) {
-    const { comment } = props
+    const { comment, setComments } = props
     const [user, setUser] = useState({})
-    const [expanded, setExpanded] = React.useState(false);
+    const [loggedInUserId, setLoggedInUserId] = useState()
+    const [expanded, setExpanded] = useState(false);
     const domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000'
     const classes = useStyles();
-    console.log('This is comment timestamp', comment.comments_timestamp)
 
+    //populate user with author of comment
     useEffect(() => {
         axios.get(`${domain}/users/${comment.user_id}`)
         .then(userData => setUser(userData.data))
         .catch(err => console.log('Catch for user was invoked:', err))
     }, [])
 
+    //grab id of logged in user
+    useEffect(() => {
+        if (localStorage.getItem('token')) { //get the current logged in user's id
+            const decoded = jwtDecode(localStorage.getItem('token'))
+            setLoggedInUserId(decoded.subject)
+        }
+    }, [])
+
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
+    const editComment = () => {
+        console.log('hey')
+    }
+
+    const deleteComment = () => {
+        axios.delete(`${domain}/comments/${comment._id}`)
+        .then(deletedComment => {
+            axios.get(`${domain}/posts/${comment.post_id}/comments`)
+            .then(updatedComments => setComments(updatedComments.data))
+            .catch(err => console.log('Catch to update post comments was invoked:', err))
+        })
+        .catch(err => console.log('Catch to delete comment was invoked:', err))
+    }
 
     return (
         <Card className={classes.card}>
@@ -85,6 +110,16 @@ export default function RecipeReviewCard(props) {
                 <IconButton aria-label="share">
                     <ShareIcon />
                 </IconButton>
+                {comment.user_id === loggedInUserId ? (
+                    <>
+                        <Button onClick={() => editComment()}>
+                            Edit
+                        </Button>
+                        <Button onClick={() => deleteComment()}>
+                            Delete
+                        </Button>
+                    </>
+                ) : ''}
             </CardActions>
         </Card>
     );

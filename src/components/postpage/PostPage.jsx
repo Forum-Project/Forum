@@ -68,7 +68,7 @@ export default function SimpleContainer(props) {
             <Container className={classes.container}>
                 <Post post={post} user={author} />
                 <CommentInput postId={post._id} setComments={setComments} />
-                <Comments comments={comments} />
+                <Comments comments={comments} setComments={setComments}/>
             </Container>
         </React.Fragment>
     );
