@@ -34,7 +34,6 @@ const PostCard = (props) => {
   const [user, setUser] = useState({})
   const classes = postCardStyle();
   const domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000'
-  const dateConvert = new Date(post.post_date).toDateString()
 
   useEffect(() => {
     if (post._id) {
@@ -58,13 +57,13 @@ const PostCard = (props) => {
           </IconButton>
         }
         title={post.post_title}
-        subheader={dateConvert ? dateConvert : post.post_date}
+        subheader={new Date(post.post_date).toDateString()}
       />
       <CardMedia
         className={classes.media}
         image={post.post_img ? post.post_img : noImage}
         title={post.post_img_description ? post.post_img_description : 'No image'}
-      />{console.log(Date(post.post_date.toString()))}
+      />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {trimBody(post.post_body)}
