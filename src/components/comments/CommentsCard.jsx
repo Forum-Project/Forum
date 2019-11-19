@@ -12,8 +12,10 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
+import CreateComment from '../comment-text/CreateComments'
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -39,13 +41,21 @@ const useStyles = makeStyles(theme => ({
     avatar: {
         backgroundColor: red[500],
     },
+    textField: {
+      input1: {
+        height: 600
+      },
+      maxWidth: 1000,
+      width: '100%',
+    },
 }));
 
-export default function RecipeReviewCard(props) {
+export default function CommentsCard(props) {
     const { comment, setComments } = props
     const [user, setUser] = useState({})
     const [loggedInUserId, setLoggedInUserId] = useState()
     const [expanded, setExpanded] = useState(false);
+    const [isEditing, setIsEditing] = useState(false)
     const domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000'
     const classes = useStyles();
 
@@ -67,10 +77,6 @@ export default function RecipeReviewCard(props) {
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-
-    const editComment = () => {
-        console.log('hey')
-    }
 
     const deleteComment = () => {
         axios.delete(`${domain}/comments/${comment._id}`)
@@ -99,9 +105,13 @@ export default function RecipeReviewCard(props) {
                 subheader={new Date(comment.comments_timestamp).toDateString()}
             />
             <CardContent>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    {comment.comments_body}
-            </Typography>
+                {!isEditing ? (
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        {comment.comments_body}
+                    </Typography>
+                ) : (
+                    <CreateComment editComment={comment} setIsEditing={setIsEditing} setComments={setComments}/>
+                )}
             </CardContent>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to favorites">
@@ -112,7 +122,7 @@ export default function RecipeReviewCard(props) {
                 </IconButton>
                 {comment.user_id === loggedInUserId ? (
                     <>
-                        <Button onClick={() => editComment()}>
+                        <Button onClick={() => setIsEditing(!isEditing)}>
                             Edit
                         </Button>
                         <Button onClick={() => deleteComment()}>
