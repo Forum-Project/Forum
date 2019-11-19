@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 // component imports 
-import Categories from './Categories'; 
+import Categories from './Categories';
 
 const Billing = (props) => {
-    const categoryId = process.env.BILLING_ID; 
+    const categoryId = process.env.REACT_APP_BILLING_ID;
     const catName = 'billing'
-    return ( 
+    return (
         <div>
-            <Categories categoryID={categoryId}  componentName={catName} />
+            <Categories categoryID={categoryId} componentName={catName} />
         </div>
-     );
+    );
 }
- 
+
 export default Billing;

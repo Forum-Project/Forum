@@ -9,14 +9,12 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
-import axios from 'axios'
 // css and styles
 import { postStyle } from './postStyle'
 
 const Post = (props) => {
   const { post, user } = props
   const classes = postStyle()
-  const backend = 'http://localhost:5000'
 
   return (
     <Card className={classes.card}>
@@ -35,7 +33,7 @@ const Post = (props) => {
         titleTypographyProps={{ variant: 'h4' }}
         subheader={
           <Box>
-            {post.post_date}
+            {new Date(post.post_date).toDateString()}
             <Box display='flex' justifyContent="flex-end" flexWrap='wrap' maxWidth='200' width='100%'>
               {post.post_tags && post.post_tags.map((tag, index) => {
                 return (

@@ -1,26 +1,24 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 
 // Components Imported
 import CommentsCard from './CommentsCard'
 
 const useStyles = makeStyles(theme => ({
     root: {
-        padding: theme.spacing(3, 2),
+        padding: theme.spacing(3, 0),
     },
 }));
 
-export default function PaperSheet() {
+export default function PaperSheet(props) {
+    const { comments } = props
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
-            <CommentsCard />
-            <CommentsCard />
-            <CommentsCard />
-            <CommentsCard />
+            {comments && comments.map((comment,index) => { return (
+                <CommentsCard key={Date.now()+index} comment={comment} />
+            )})}
         </div>
     );
 }

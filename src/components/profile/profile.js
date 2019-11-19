@@ -223,7 +223,7 @@ const Profile = (props) => {
     // user_avatar: '',
     username: '',
     password: '',
-    new_password:'',
+    new_password: '',
     email: '',
     showPassword: false,
     showPassword2: false,
@@ -250,7 +250,7 @@ const Profile = (props) => {
   const form = formStyles();
   const badge = badgeStyles();
   const avatar = avatarStyles();
-  
+
 
   // Set up functions to be used immediately
   // const { enqueueSnackbar } = useSnackbar();
@@ -298,9 +298,9 @@ const Profile = (props) => {
   }
 
 
-  return(
-    console.log('data', user),
+  return (
     <Container>
+      <button onClick={clickMeAPI}>CLICK ME FOR API</button>
       {/* Top section dedicated to basic info on the user along with profile image */}
       <TopSection>
         <Avatar className={avatar.bigAvatar} >T</Avatar>
@@ -318,10 +318,10 @@ const Profile = (props) => {
         <ThemeProvider theme={theme}>
           <AppBar position="static" color='primary' className={tabbed.changeColor}>
             <Tabs value={tab} onChange={handleTabChange} aria-label="simple tabs example">
-              <Tab label="Profile" icon={<Person/>} {...a11yProps(0)} />
-              <Tab label="Account" icon={<Settings/>} {...a11yProps(1)} />
-              <Tab label="Messages" icon={<Badge className={badge.margin} badgeContent={4} color="primary"> <Email/> </Badge>} {...a11yProps(2)} />
-              <Tab label="Bookmarks" icon={<Bookmark/>} {...a11yProps(3)} />
+              <Tab label="Profile" icon={<Person />} {...a11yProps(0)} />
+              <Tab label="Account" icon={<Settings />} {...a11yProps(1)} />
+              <Tab label="Messages" icon={<Badge className={badge.margin} badgeContent={4} color="primary"> <Email /> </Badge>} {...a11yProps(2)} />
+              <Tab label="Bookmarks" icon={<Bookmark />} {...a11yProps(3)} />
             </Tabs>
           </AppBar>
         </ThemeProvider>
@@ -329,12 +329,12 @@ const Profile = (props) => {
           {/* Mid section for member overall account activity */}
           <MidSection>
             <BoxDesign>
-              <BarChartIcon/><Title>Member Activity</Title>
+              <BarChartIcon /><Title>Member Activity</Title>
             </BoxDesign>
             <MemberActivity>
               <Card className={card.card}>
                 <CardActionArea>
-                  <Create/>
+                  <Create />
                   <CardContent>
                     <h2> 100 </h2>
                     <p> Forum Posts </p>
@@ -343,7 +343,7 @@ const Profile = (props) => {
               </Card>
               <Card className={card.card}>
                 <CardActionArea>
-                  <Comment/>
+                  <Comment />
                   <CardContent>
                     <h2> 1000 </h2>
                     <p> Forum Comments </p>
@@ -352,7 +352,7 @@ const Profile = (props) => {
               </Card>
               <Card className={card.card}>
                 <CardActionArea>
-                  <ThumbUp/>
+                  <ThumbUp />
                   <CardContent>
                     <h2> 10 </h2>
                     <p> Likes </p>
@@ -361,7 +361,7 @@ const Profile = (props) => {
               </Card>
               <Card className={card.card}>
                 <CardActionArea>
-                  <ThumbsUpDown/>
+                  <ThumbsUpDown />
                   <CardContent>
                     <h2> 1 </h2>
                     <p> Received Likes </p>
@@ -373,7 +373,7 @@ const Profile = (props) => {
           {/* Bottom section containing the rest of the members info */}
           <BotSection>
             <BoxDesign>
-              <ViewHeadlineIcon/><Title>Member Information</Title>
+              <ViewHeadlineIcon /><Title>Member Information</Title>
             </BoxDesign>
             <MemberInfo>
               <List component="nav" className={list.root} aria-label="mailbox folders">
@@ -576,7 +576,7 @@ const Profile = (props) => {
             </FormStyles>
           </form>}
         </TabPanel>
-        <TabPanel value={tab} index={2}> 
+        <TabPanel value={tab} index={2}>
           {/* Messages tab */}
           <p> show me the message! </p>
         </TabPanel>

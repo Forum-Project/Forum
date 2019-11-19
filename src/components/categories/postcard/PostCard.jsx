@@ -33,15 +33,15 @@ const PostCard = (props) => {
   const { post } = props
   const [user, setUser] = useState({})
   const classes = postCardStyle();
-  const backend = 'http://localhost:5000'
+  const domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000'
 
   useEffect(() => {
     if (post._id) {
-      axios.get(`${backend}/users/${post.user_id}`)
+      axios.get(`${domain}/users/${post.user_id}`)
       .then(userData => setUser(userData.data))
       .catch(err => console.log('Catch for user was invoked:', err))
     }
-  })
+  }, [])
 
   return (
     <Card className={classes.card}>
@@ -57,7 +57,7 @@ const PostCard = (props) => {
           </IconButton>
         }
         title={post.post_title}
-        subheader={post.post_date}
+        subheader={new Date(post.post_date).toDateString()}
       />
       <CardMedia
         className={classes.media}
@@ -72,9 +72,9 @@ const PostCard = (props) => {
       <CardActions>
         <Box display='flex' flexWrap='wrap' width='100%'>
           <Box display='flex' flexWrap='wrap'>
-            {post.post_tags && post.post_tags.map((tag,index) => {
+            {post.post_tags && post.post_tags.map((tag, index) => {
               return (
-                <Button className={classes.tag} key={Date.now()+index} onClick={() => console.log(`${tag} brings you to a different page with only ${tag}-related results`)}>
+                <Button className={classes.tag} key={Date.now() + index} onClick={() => console.log(`${tag} brings you to a different page with only ${tag}-related results`)}>
                   #{tag}
                 </Button>
               )
@@ -85,11 +85,12 @@ const PostCard = (props) => {
             state: {
               post: post,
               author: user
-            }}}
-            style={{textDecoration: 'none', width: '100%', textAlign: 'right', padding: '8px 6px'}}
+            }
+          }}
+            style={{ textDecoration: 'none', width: '100%', textAlign: 'right', padding: '8px 6px' }}
           >
             Read More
-          </Link>  
+          </Link>
         </Box>
       </CardActions>
     </Card>
