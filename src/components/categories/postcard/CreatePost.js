@@ -104,7 +104,7 @@ function Post(props) {
   const [formats, setFormats] = useState(() => ['italic']);
   const [tags, setTags] = useState([]);
   const [tagField, setTagField] = useState('');
-  let domain = 'localhost:5000';
+  let domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000';
   let categoryID = props.categoryID || 0; // probably should get a better default
 
   const [open, setOpen] = useState(false); // for the submit button
@@ -206,7 +206,7 @@ function Post(props) {
   const onSubmit = (e) => {
     console.log('Here I am ', post)
     e.preventDefault()
-    axios.post('http://localhost:5000/posts', post)
+    axios.post(`${domain}/posts`, post)
       .then(res => {
         console.log('Hey there Andy', res)
         // props.history.push(`/${}`)
