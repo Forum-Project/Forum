@@ -16,6 +16,7 @@ const Post = (props) => {
   const { post, user } = props
   const classes = postStyle()
   const backend = 'http://localhost:5000'
+  const dateConvert = new Date(post.post_date).toDateString()
 
   return (
     <Card className={classes.card}>
@@ -34,7 +35,7 @@ const Post = (props) => {
         titleTypographyProps={{ variant: 'h4' }}
         subheader={
           <Box>
-            {post.post_date}
+            {dateConvert ? dateConvert : post.post_date}
             <Box display='flex' justifyContent="flex-end" flexWrap='wrap' maxWidth='200' width='100%'>
               {post.post_tags && post.post_tags.map((tag, index) => {
                 return (

@@ -43,11 +43,12 @@ export default function RecipeReviewCard(props) {
     const { comment } = props
     const [user, setUser] = useState({})
     const [expanded, setExpanded] = React.useState(false);
-    const domain = process.env.DOMAIN || 'localhost:5000'
+    const domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000'
     const classes = useStyles();
+    const dateConvert = new Date(comment.comments_timestamp).toDateString()
 
     useEffect(() => {
-        axios.get(`http://${domain}/users/${comment.user_id}`)
+        axios.get(`${domain}/users/${comment.user_id}`)
         .then(userData => setUser(userData.data))
         .catch(err => console.log('Catch for user was invoked:', err))
     }, [])
@@ -70,7 +71,7 @@ export default function RecipeReviewCard(props) {
                     </IconButton>
                 }
                 title={user.username}
-                subheader={comment.comments_timestamp}
+                subheader={dateConvert ? dateConvert : comment.comments_timestamp}
             />
             <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
