@@ -129,7 +129,7 @@ export default function CommentsCard(props) {
                             Delete
                         </Button>
                     </>
-                ) : ''}
+                ) : <></>}
             </CardActions>
         </Card>
     );
