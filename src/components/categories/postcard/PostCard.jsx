@@ -17,6 +17,7 @@ import { Link } from 'react-router-dom'
 import noImage from '../../assets/noImage.png'
 // css and styles
 import { postCardStyle } from './postCardStyle'
+import jwtDecode from 'jwt-decode'; 
 
 // function will trim length down to 140 characters
 function trimBody(text) {
@@ -42,6 +43,18 @@ const PostCard = (props) => {
       .catch(err => console.log('Catch for user was invoked:', err))
     }
   }, [])
+
+  console.log(props); 
+  const deletePost = () => {
+	const token = jwtDecode(localStorage.getItem('token')); 
+	const id = token.subject; 
+	
+	axios.delete(`http://localhost:5000/posts/${id}`)
+		.then(res => {
+			console.log(res); 
+		})
+		.catch(err => console.log(err)); 
+  }
 
   return (
     <Card className={classes.card}>
@@ -69,6 +82,7 @@ const PostCard = (props) => {
           {trimBody(post.post_body)}
         </Typography>
       </CardContent>
+      <button onClick={deletePost}>Delete</button>
       <CardActions>
         <Box display='flex' flexWrap='wrap' width='100%'>
           <Box display='flex' flexWrap='wrap'>
