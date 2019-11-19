@@ -96,7 +96,7 @@ function CreateComments(props) {
       if (localStorage.getItem('token')) { //get the current logged in user's id
         const decoded = jwtDecode(localStorage.getItem('token'))
         setValues({ ...values, user_id: decoded.subject })
-      } else setValues({ ...values, user_id: "5dcdbae07d7e2d258cdf6f40" }) //otherwise will be posting as admintest
+      }
     } else setValues(editComment)
   }, [])
 
@@ -119,23 +119,25 @@ function CreateComments(props) {
     e.preventDefault()
     console.log('MOM WAS HERE', values)
     if (!editComment) { //if editComment does not exist, go through the regular post comment
-    //create a variable here containing the linked post id as well as updated timestamp
-    const editedValues = {...values, comments_timestamp: Date.now(), post_id: postId}
-    axios.post( `${domain}/comments`, editedValues )
-      .then(function (response) {
-        console.log('WHOA THERE', response)
-        //get back all the comments of the post, including the one posted, and update the state
-        axios.get(`${domain}/posts/${postId}/comments`)
-        .then(updatedComments => {
-          setComments(updatedComments.data)
-          //reset body to blank
-          setValues({...values, comments_body: ''})
-        })
-        .catch(error => console.log('ANOTHER ERROR FOR YOU', error))
-      })
-      .catch(function (error) {
-        console.log('SHOW THAT FUNKY ERROR', error)
-      })
+      if(values.user_id) {
+        //create a variable here containing the linked post id as well as updated timestamp
+        const editedValues = {...values, comments_timestamp: Date.now(), post_id: postId}
+        axios.post( `${domain}/comments`, editedValues )
+          .then(function (response) {
+            console.log('WHOA THERE', response)
+            //get back all the comments of the post, including the one posted, and update the state
+            axios.get(`${domain}/posts/${postId}/comments`)
+            .then(updatedComments => {
+              setComments(updatedComments.data)
+              //reset body to blank
+              setValues({...values, comments_body: ''})
+            })
+            .catch(error => console.log('ANOTHER ERROR FOR YOU', error))
+          })
+          .catch(function (error) {
+            console.log('SHOW THAT FUNKY ERROR', error)
+          })
+      } else alert('You must be logged in to comment!')
     } else { //otherwise use this submit to edit the comment
       axios.put(`${domain}/comments/${editComment._id}`, values)
       .then(updatedComment => {
