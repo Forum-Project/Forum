@@ -28,7 +28,7 @@ const Routes = () => {
             <NavRoute path="/account" component={Account} />
             <NavRoute path="/gameplay" component={Gameplay} />
             <NavRoute path="/postpage/:post_id" component={PostPage} />
-            <Route path="/post" component={CreatePost} />
+            <NavRoute path="/post" component={CreatePost} />
             <Route path="/comment" component={CreateComments} />
         </>
     );

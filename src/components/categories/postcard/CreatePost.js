@@ -29,6 +29,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 import styles, { FilterDiv } from '../../filter/FilterStyle';
 
+import jwtDecode from 'jwt-decode';
+
+
 const options = ['Submit filter', 'Clear all tags'];
 
 // component imports 
@@ -109,13 +112,18 @@ function Post(props) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   // const tagEscapedSymbols = ['?', '&', '+', '#'];
 
+  const catID = localStorage.getItem('catID')
+  const decode = jwtDecode(localStorage.getItem('token'))
+
+
   const updateField = event => setTagField(event.target.value);
   const [post, setPost] = useState({
     post_title: '',
     post_body: '',
     post_date: Date.now(),
     post_tag: [],
-    post_category: ''
+    user_id: decode.subject,
+    post_category: `${catID}`
   });
 
 
@@ -196,9 +204,14 @@ function Post(props) {
 
 
   const onSubmit = (e) => {
+    console.log('Here I am ', post)
     e.preventDefault()
-    axios.post('localhost:5000/posts', post)
-      .then(res => console.log('Hey there Andy', res))
+    axios.post('http://localhost:5000/posts', post)
+      .then(res => {
+        console.log('Hey there Andy', res)
+        // props.history.push(`/${}`)
+        props.history.goBack();
+      })
       .catch(err => console.log(err))
   }
 
