@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios'
+import jwtDecode from 'jwt-decode'
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft';
@@ -83,12 +84,18 @@ function CreateComments(props) {
   const [values, setValues] = useState({
     comments_body: '',
     comments_timestamp: Date.now(), //will need to update once actual comment is made
-    user_id: "5dcdbae07d7e2d258cdf6f40", //needs to somehow get the id of the logged in user to insert into comment; currently set to admintest
+    user_id: '', //will be updated via useEffect
     post_id: postId //for some reason, this is coming up as undefined; will need to set post_id somewhere else?
   });
   const [formats, setFormats] = useState(() => ['italic']);
-  const domain = 'localhost:5000'
+  const domain = process.env.DOMAIN || 'localhost:5000'
 
+  useEffect(() => {
+    if (localStorage.getItem('token')) { //get the current logged in user's id
+      const decoded = jwtDecode(localStorage.getItem('token'))
+      setValues({ ...values, user_id: decoded.subject })
+    } else setValues({ ...values, user_id: "5dcdbae07d7e2d258cdf6f40" }) //otherwise will be posting as admintest
+  }, [])
 
   const handleFormat = (event, newFormats) => {
     setFormats(newFormats);
@@ -113,6 +120,7 @@ function CreateComments(props) {
     axios.post( `http://${domain}/comments`, editedValues )
       .then(function (response) {
         console.log('WHOA THERE', response)
+        //get back all the comments of the post, including the one posted, and update the state
         axios.get(`http://${domain}/posts/${postId}/comments`)
         .then(updatedComments => {
           setComments(updatedComments.data)
