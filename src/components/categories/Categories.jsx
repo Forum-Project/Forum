@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Filter from '../filter/Filter';
+import { withRouter } from 'react-router-dom'; 
+import PostCard from './postcard/PostCard'
 
-import Post from './postcard/PostCard'
-
-export default function Categories(props) {
+function Categories(props) {
     const [posts, setPosts] = useState([])
     // const [chrisMadeMeWriteThis, setChrisMadeMeWriteThis] = useState()
     const [tags, setTags] = useState([]);
 
     let domain = process.env.DOMAIN || 'localhost:5000';
-    let categoryID = props.categoryID || 1; // probably should get a better default
+    let categoryID = props.categoryID || '5dcde8a74379d61f5813bdc4'; // probably should get a better default
     let [query, setQuery] = useState(props.location.search || ''); // this wont work, its an array. Just testing rn
     let base = `http://${domain}/categories/${categoryID}/posts/`;
     let request = `${base + query}`; // add two strings with room to modify end result, query will be added later
@@ -22,13 +22,14 @@ export default function Categories(props) {
         axios.get(request) // add the query when necessary
         .then(res => {
             console.log(res)
-            setPosts(res.data.data)
+            setPosts(res.data)
         })
         .catch(err => console.log('err',err))
     }, [])
 
+    console.log(props) ;
     useEffect(() => {
-        props.history.push(`/categories/${categoryID}/${query}`);
+        props.history.push(`/${props.componentName}/${categoryID}/${query}`);
     }, [query]);
 
     const submitQuery = () => {
@@ -36,6 +37,7 @@ export default function Categories(props) {
         buildTags();
     };
 
+    console.log(props); 
     const buildTags = () => {
         let base = `?tags=`;
         let reduced = tags.reduce((acc, tag) => {
@@ -76,7 +78,9 @@ export default function Categories(props) {
       <>
         <div>
             {/* (<Post post={post}/>) */}
-            {posts && posts.map(post => {return (<Post post={post}/>)})}
+            {posts && posts.map((post,index) => {return (
+                <PostCard key={Date.now()+index} post={post}/>
+            )})}
             {/* something for chris */}
             {/* to comments */}
         </div>
@@ -84,3 +88,5 @@ export default function Categories(props) {
       </>
     )
 }
+
+export default withRouter(Categories); 

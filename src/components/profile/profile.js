@@ -234,9 +234,10 @@ const Profile = (props) => {
   useEffect(() => {      
     if (localStorage.getItem('token')){
       const decode = jwtDecode(localStorage.getItem('token'))
-      
-      axios.get(`https://localhost:4000/users/${decode.subject}`)
-      .then(res => setUser(res))
+      console.log(decode)
+      axios.get(`https://localhost:5000/users/${decode.subject}`)
+      .then(res => setUser(res),
+      console.log(user))
       .catch(err => console.log(err))  
     }
   }, [])
