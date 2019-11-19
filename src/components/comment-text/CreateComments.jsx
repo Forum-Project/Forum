@@ -80,6 +80,7 @@ const StyledToggleButtonGroup = withStyles(theme => ({
 
 function CreateComments(props) {
   const { postId, setComments } = props
+  const { editComment, setIsEditing } = props //strictly used for editting comments
   const [alignment, setAlignment] = useState('left');
   const [values, setValues] = useState({
     comments_body: '',
@@ -91,10 +92,12 @@ function CreateComments(props) {
   const domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000'
 
   useEffect(() => {
-    if (localStorage.getItem('token')) { //get the current logged in user's id
-      const decoded = jwtDecode(localStorage.getItem('token'))
-      setValues({ ...values, user_id: decoded.subject })
-    } else setValues({ ...values, user_id: "5dcdbae07d7e2d258cdf6f40" }) //otherwise will be posting as admintest
+    if (!editComment) { //go with the flow if editting is not happening
+      if (localStorage.getItem('token')) { //get the current logged in user's id
+        const decoded = jwtDecode(localStorage.getItem('token'))
+        setValues({ ...values, user_id: decoded.subject })
+      } else setValues({ ...values, user_id: "5dcdbae07d7e2d258cdf6f40" }) //otherwise will be posting as admintest
+    } else setValues(editComment)
   }, [])
 
   const handleFormat = (event, newFormats) => {
@@ -115,6 +118,7 @@ function CreateComments(props) {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('MOM WAS HERE', values)
+    if (!editComment) { //if editComment does not exist, go through the regular post comment
     //create a variable here containing the linked post id as well as updated timestamp
     const editedValues = {...values, comments_timestamp: Date.now(), post_id: postId}
     axios.post( `${domain}/comments`, editedValues )
@@ -132,6 +136,18 @@ function CreateComments(props) {
       .catch(function (error) {
         console.log('SHOW THAT FUNKY ERROR', error)
       })
+    } else { //otherwise use this submit to edit the comment
+      axios.put(`${domain}/comments/${editComment._id}`, values)
+      .then(updatedComment => {
+        axios.get(`${domain}/posts/${editComment.post_id}/comments`)
+        .then(updatedComments => {
+          setComments(updatedComments.data)
+          setIsEditing(false)
+        })
+        .catch(error => console.log('Catch to update all the comments in the post was invoked:', error))
+      })
+      .catch(error => console.log('Catch to edit the comment was invoked:', error))
+    } 
   }
 
   const classes = useStyles();
