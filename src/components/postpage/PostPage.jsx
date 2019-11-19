@@ -28,7 +28,7 @@ export default function SimpleContainer(props) {
     const [comments, setComments] = useState([])
     const classes = postPageStyle()
     const postPagePath = props.location.pathname.substr(10, props.location.pathname.length) //there's probably a better way to grab id from location
-    const domain = process.env.DOMAIN || 'localhost:5000'
+    const domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000'
 
     //populates post and use(author)
     useEffect(() => {
@@ -37,11 +37,11 @@ export default function SimpleContainer(props) {
             setPost(props.location.state.post)
             setAuthor(props.location.state.author)
         } else { //otherwise, take the pathname id and fetch the required data
-            axios.get(`http://${domain}/posts/${postPagePath}`)
+            axios.get(`${domain}/posts/${postPagePath}`)
             .then(postData => {
                 //populates post with data from BE before grabbing user data
                 setPost(postData.data)
-                axios.get(`http://${domain}/users/${postData.data.user_id}`)
+                axios.get(`${domain}/users/${postData.data.user_id}`)
                 .then(userData => setAuthor(userData.data))
                 .catch(err => console.log('Catch for user was invoked:', err))
             })
@@ -52,11 +52,11 @@ export default function SimpleContainer(props) {
     //populates comments
     useEffect(() => {
         if (props.location.state) {
-            axios.get(`http://${domain}/posts/${props.location.state.post._id}/comments`)
+            axios.get(`${domain}/posts/${props.location.state.post._id}/comments`)
             .then(res => setComments(res.data))
             .catch(err => console.log('Catch to grab comments was invoked:', err))
         } else {
-            axios.get(`http://${domain}/posts/${postPagePath}/comments`)
+            axios.get(`${domain}/posts/${postPagePath}/comments`)
             .then(res => setComments(res.data))
             .catch(err => console.log('Catch to grab comments was invoked:', err))
         }

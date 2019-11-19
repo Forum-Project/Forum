@@ -33,12 +33,12 @@ const PostCard = (props) => {
   const { post } = props
   const [user, setUser] = useState({})
   const classes = postCardStyle();
-  const domain = process.env.DOMAIN || 'localhost:5000'
+  const domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000'
   const dateConvert = new Date(post.post_date).toDateString()
 
   useEffect(() => {
     if (post._id) {
-      axios.get(`http://${domain}/users/${post.user_id}`)
+      axios.get(`${domain}/users/${post.user_id}`)
       .then(userData => setUser(userData.data))
       .catch(err => console.log('Catch for user was invoked:', err))
     }

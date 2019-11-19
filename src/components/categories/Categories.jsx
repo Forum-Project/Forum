@@ -9,10 +9,10 @@ function Categories(props) {
     // const [chrisMadeMeWriteThis, setChrisMadeMeWriteThis] = useState()
     const [tags, setTags] = useState([]);
 
-    let domain = process.env.DOMAIN || 'localhost:5000';
+    let domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000';
     let categoryID = props.categoryID || '5dcde8a74379d61f5813bdc4'; // probably should get a better default
     let [query, setQuery] = useState(props.location.search || ''); // this wont work, its an array. Just testing rn
-    let base = `http://${domain}/categories/${categoryID}/posts/`;
+    let base = `${domain}/categories/${categoryID}/posts/`;
     let request = `${base + query}`; // add two strings with room to modify end result, query will be added later
     console.log(props.location);
 

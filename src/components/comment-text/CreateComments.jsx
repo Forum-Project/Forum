@@ -88,7 +88,7 @@ function CreateComments(props) {
     post_id: postId //for some reason, this is coming up as undefined; will need to set post_id somewhere else?
   });
   const [formats, setFormats] = useState(() => ['italic']);
-  const domain = process.env.DOMAIN || 'localhost:5000'
+  const domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000'
 
   useEffect(() => {
     if (localStorage.getItem('token')) { //get the current logged in user's id
@@ -117,11 +117,11 @@ function CreateComments(props) {
     console.log('MOM WAS HERE', values)
     //create a variable here containing the linked post id as well as updated timestamp
     const editedValues = {...values, comments_timestamp: Date.now(), post_id: postId}
-    axios.post( `http://${domain}/comments`, editedValues )
+    axios.post( `${domain}/comments`, editedValues )
       .then(function (response) {
         console.log('WHOA THERE', response)
         //get back all the comments of the post, including the one posted, and update the state
-        axios.get(`http://${domain}/posts/${postId}/comments`)
+        axios.get(`${domain}/posts/${postId}/comments`)
         .then(updatedComments => {
           setComments(updatedComments.data)
           //reset body to blank
