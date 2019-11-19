@@ -1,5 +1,5 @@
 // library imports
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import CardContent from '@material-ui/core/CardContent'
@@ -15,8 +15,6 @@ import { postStyle } from './postStyle'
 const Post = (props) => {
   const { post, user } = props
   const classes = postStyle()
-  const backend = 'http://localhost:5000'
-  const dateConvert = new Date(post.post_date).toDateString()
 
   return (
     <Card className={classes.card}>
@@ -35,7 +33,7 @@ const Post = (props) => {
         titleTypographyProps={{ variant: 'h4' }}
         subheader={
           <Box>
-            {dateConvert ? dateConvert : post.post_date}
+            {new Date(post.post_date).toDateString()}
             <Box display='flex' justifyContent="flex-end" flexWrap='wrap' maxWidth='200' width='100%'>
               {post.post_tags && post.post_tags.map((tag, index) => {
                 return (

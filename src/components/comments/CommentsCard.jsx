@@ -45,7 +45,7 @@ export default function RecipeReviewCard(props) {
     const [expanded, setExpanded] = React.useState(false);
     const domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000'
     const classes = useStyles();
-    const dateConvert = new Date(comment.comments_timestamp).toDateString()
+    console.log('This is comment timestamp', comment.comments_timestamp)
 
     useEffect(() => {
         axios.get(`${domain}/users/${comment.user_id}`)
@@ -71,7 +71,7 @@ export default function RecipeReviewCard(props) {
                     </IconButton>
                 }
                 title={user.username}
-                subheader={dateConvert ? dateConvert : comment.comments_timestamp}
+                subheader={new Date(comment.comments_timestamp).toDateString()}
             />
             <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
