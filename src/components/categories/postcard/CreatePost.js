@@ -31,9 +31,8 @@ import styles, { FilterDiv } from '../../filter/FilterStyle';
 import jwtDecode from 'jwt-decode';
 
 
-const options = ['Submit filter', 'Clear all tags'];
-
-// component imports 
+// const options = ['Submit filter', 'Clear all tags'];
+const options = ['Clear all tags']
 
 
 const useStyles = makeStyles(theme => ({
@@ -206,7 +205,9 @@ function Post(props) {
   const onSubmit = (e) => {
     console.log('Here I am ', post)
     e.preventDefault()
-    axios.post(`${domain}/posts`, post)
+    //insert the created tags into the post
+    const newPost = {...post, post_tags: tags}
+    axios.post(`${domain}/posts`, newPost)
       .then(res => {
         console.log('Hey there Andy', res)
         // props.history.push(`/${}`)
@@ -335,7 +336,7 @@ function Post(props) {
             <Grid item xs={12}>
               <ButtonGroup variant='contained' color='primary' ref={anchorRef} aria-label='split button'>
                 <Button onClick={dropdownClick}>{options[selectedIndex]}</Button>
-                <Button
+                {/* <Button
                   color='primary'
                   size='small'
                   // aria-control={open ? 'split-button-menu' : undefined}
@@ -345,7 +346,7 @@ function Post(props) {
                   onClick={dropdownToggle}
                 >
                   <ArrowDropDownIcon />
-                </Button>
+                </Button> */}
               </ButtonGroup>
               <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
                 {({ TransitionProps, placement }) => (
