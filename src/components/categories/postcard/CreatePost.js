@@ -323,9 +323,9 @@ function Post(props) {
           </form>
         </FilterDiv>
         <div className='tagContainer'>
-          {tags.map(tag => {
+          {tags.map((tag,index) => {
             return (
-              <Button variant='outlined' className={classes.button} onClick={removeTag}>
+              <Button variant='outlined' key={Date.now()+index} className={classes.button} onClick={removeTag}>
                 {tag}
               </Button>
             );
