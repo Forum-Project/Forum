@@ -300,7 +300,7 @@ const Profile = (props) => {
 
   return (
     <Container>
-      <button onClick={clickMeAPI}>CLICK ME FOR API</button>
+      {/* <button onClick={clickMeAPI}>CLICK ME FOR API</button> */}
       {/* Top section dedicated to basic info on the user along with profile image */}
       <TopSection>
         <Avatar className={avatar.bigAvatar} >T</Avatar>
