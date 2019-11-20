@@ -132,7 +132,7 @@ const Filter = (props) => {
                 <Button
                   color='primary'
                   size='small'
-                  aria-control={open ? 'split-button-menu' : undefined}
+                  // aria-control={open ? 'split-button-menu' : undefined}
                   aria-expanded={open ? 'true' : undefined}
                   aria-label='select merge strategy'
                   aria-haspopup='menu'
