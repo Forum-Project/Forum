@@ -9,12 +9,20 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
+import axios from 'axios'
 // css and styles
 import { postStyle } from './postStyle'
 
 const Post = (props) => {
-  const { post, user } = props
+  const { post, user, loggedInUserId } = props
   const classes = postStyle()
+  const domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000'
+  
+  const deletePost = () => {
+    axios.delete(`${domain}/posts/${post._id}`)
+    .then(deletedPost => props.history.goBack())
+    .catch(err => console.log('Catch for deleting a post was invoked:', err))
+  }
 
   return (
     <Card className={classes.card}>
@@ -55,6 +63,16 @@ const Post = (props) => {
         <Typography variant="body2" color="textSecondary" component="p">
           Posted by {user.username}
         </Typography>
+        {post.user_id === loggedInUserId ? (
+          <Box>
+            <Button onClick={() => console.log('WIP')}>
+              Edit
+            </Button>
+            <Button onClick={() => deletePost()}>
+              Delete
+            </Button>
+          </Box>
+        ) : <></>}
       </CardContent>
     </Card>
   )
