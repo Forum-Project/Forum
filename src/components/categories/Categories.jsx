@@ -88,7 +88,7 @@ function Categories(props) {
                 <button onClick={createPost}>Click here to create a post</button>
                 {/* (<Post post={post}/>) */}
                 {/* {console.log('This should be catID', props.categoryID)} */}
-                {posts && posts.map((post, index) => {
+                {posts && posts.reverse().map((post, index) => {
                     return (
                         <PostCard key={Date.now() + index} post={post} />
                     )
