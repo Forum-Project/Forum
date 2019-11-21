@@ -31,6 +31,7 @@ export default function SimpleContainer(props) {
     const classes = postPageStyle()
     const postPagePath = props.location.pathname.substr(10, props.location.pathname.length) //there's probably a better way to grab id from location
     const domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000'
+
     //populates post and use(author)
     useEffect(() => {
         //populates from location state first

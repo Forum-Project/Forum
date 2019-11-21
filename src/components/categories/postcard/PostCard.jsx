@@ -84,7 +84,7 @@ const PostCard = (props) => {
             pathname: `/postpage/${post._id}`,
             state: {
               post: post,
-              author: user
+              author: user,
             }
           }}
             style={{ textDecoration: 'none', width: '100%', textAlign: 'right', padding: '8px 6px' }}
