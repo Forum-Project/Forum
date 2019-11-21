@@ -88,7 +88,7 @@ function Categories(props) {
                 <button onClick={createPost}>Click here to create a post</button>
                 {/* (<Post post={post}/>) */}
                 {/* {console.log('This should be catID', props.categoryID)} */}
-                {posts && posts.reverse().map((post, index) => {
+                {posts && posts.reverse().map((post, index) => { //reversing has the unintended bug/feature/bugture/fug of allowing the category to sort asc/desc if clicked again
                     return (
                         <PostCard key={Date.now() + index} post={post} />
                     )
