@@ -3,12 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
+import jwtDecode from 'jwt-decode'
 
 // Importing Components
 import Post from '../posts/Post'
 import Comments from '../comments/Comments'
 import CommentInput from '../comment-text/CreateComments'
-// import Navbar from '../navbar/Navbar'; 
 
 const postPageStyle = makeStyles(theme => ({
     container: {
@@ -23,9 +23,11 @@ const postPageStyle = makeStyles(theme => ({
 }));
 
 export default function SimpleContainer(props) {
+    const { history } = props
     const [post, setPost] = useState({})
     const [author, setAuthor] = useState({})
     const [comments, setComments] = useState([])
+    const [loggedInUserId, setLoggedInUserId] = useState()
     const classes = postPageStyle()
     const postPagePath = props.location.pathname.substr(10, props.location.pathname.length) //there's probably a better way to grab id from location
     const domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000'
@@ -62,13 +64,21 @@ export default function SimpleContainer(props) {
         }
     }, [])
 
+    //grab id of logged in user
+    useEffect(() => {
+        if (localStorage.getItem('token')) { //get the current logged in user's id
+            const decoded = jwtDecode(localStorage.getItem('token'))
+            setLoggedInUserId(decoded.subject)
+        }
+    }, [])
+
     return (
         <React.Fragment>
             <CssBaseline />
             <Container className={classes.container}>
-                <Post post={post} user={author} />
+                <Post post={post} user={author} loggedInUserId={loggedInUserId} history={history} />
                 <CommentInput postId={post._id} setComments={setComments} />
-                <Comments comments={comments} setComments={setComments}/>
+                <Comments comments={comments} setComments={setComments} loggedInUserId={loggedInUserId}/>
             </Container>
         </React.Fragment>
     );

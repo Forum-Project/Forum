@@ -16,9 +16,11 @@ export const postStyle = makeStyles(theme => ({
     backgroundColor: green[600],
   },
   tag: {
-    fontSize: '0.650rem'
+    fontSize: '0.650rem',
   },
   footer: {
-    
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   }
 }));

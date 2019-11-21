@@ -1,9 +1,11 @@
+//library imports
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Filter from '../filter/Filter';
 import { withRouter } from 'react-router-dom';
+import Button from '@material-ui/core/Button'
+//component imports
+import Filter from '../filter/Filter';
 import PostCard from './postcard/PostCard'
-
 // stylesheet imports 
 import './Categories.scss'
 
@@ -17,7 +19,7 @@ function Categories(props) {
     let [query, setQuery] = useState(props.location.search || ''); // this wont work, its an array. Just testing rn
     let base = `${domain}/categories/${categoryID}/posts/`;
     let request = `${base + query}`; // add two strings with room to modify end result, query will be added later
-    console.log(props.location);
+    // console.log(props.location);
 
 
     useEffect(() => {
@@ -25,13 +27,13 @@ function Categories(props) {
         receiveQuery();
         axios.get(request) // add the query when necessary
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 setPosts(res.data)
             })
             .catch(err => console.log('err', err))
     }, [])
 
-    console.log(props);
+    // console.log(props);
     useEffect(() => {
         props.history.push(`/${props.componentName}/${categoryID}/${query}`);
     }, [query]);
@@ -41,7 +43,7 @@ function Categories(props) {
         buildTags();
     };
 
-    console.log(props);
+    // console.log(props);
     const buildTags = () => {
         let base = `?tags=`;
         let reduced = tags.reduce((acc, tag) => {
@@ -80,15 +82,15 @@ function Categories(props) {
         props.history.push('/post')
     }
 
-    console.log(posts)
+    // console.log(posts)
 
     return (
         <div className="cat-wrapper">
             <div className="post-wrapper">
-                <button onClick={createPost}>Click here to create a post</button>
+                <Button onClick={createPost} className='create-post'>Click here to create a post</Button>
                 {/* (<Post post={post}/>) */}
-                {console.log('This should be catID', props.categoryID)}
-                {posts && posts.map((post, index) => {
+                {/* {console.log('This should be catID', props.categoryID)} */}
+                {posts && posts.reverse().map((post, index) => { //reversing has the unintended bug/feature/bugture/fug of allowing the category to sort asc/desc if clicked again
                     return (
                         <PostCard key={Date.now() + index} post={post} />
                     )

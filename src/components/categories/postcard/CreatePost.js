@@ -16,11 +16,10 @@ import Paper from '@material-ui/core/Paper'
 import ToggleButton from '@material-ui/lab/ToggleButton'
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
 import axios from 'axios'
-import Filter from '../../filter/Filter';
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography"; // not sure what this is for, but material-ui was using it
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Grow from "@material-ui/core/Grow";
@@ -32,16 +31,15 @@ import styles, { FilterDiv } from '../../filter/FilterStyle';
 import jwtDecode from 'jwt-decode';
 
 
-const options = ['Submit filter', 'Clear all tags'];
-
-// component imports 
+// const options = ['Submit filter', 'Clear all tags'];
+const options = ['Clear all tags']
 
 
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   paper: {
     display: 'flex',
@@ -69,18 +67,19 @@ const useStyles = makeStyles(theme => ({
     },
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 600
+    maxWidth: 1000,
+    width: '100%',
   },
   flex: {
     display: 'flex',
     flexFlow: 'column nowrap',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
-  flex2: {
-    display: 'flex',
-    flexFlow: 'column wrap',
-  }
+  // flex2: {
+  //   display: 'flex',
+  //   flexFlow: 'column wrap',
+  // }
 }));
 
 const StyledToggleButtonGroup = withStyles(theme => ({
@@ -206,7 +205,9 @@ function Post(props) {
   const onSubmit = (e) => {
     console.log('Here I am ', post)
     e.preventDefault()
-    axios.post(`${domain}/posts`, post)
+    //insert the created tags into the post
+    const newPost = {...post, post_tags: tags}
+    axios.post(`${domain}/posts`, newPost)
       .then(res => {
         console.log('Hey there Andy', res)
         // props.history.push(`/${}`)
@@ -218,89 +219,90 @@ function Post(props) {
   const classes = useStyles();
 
   return (
+    <Box display='flex'>
+      <form className={classes.container}
+        noValidate
+        onSubmit={onSubmit}
+        autoComplete="off">
+        <div className={classes.flex}>
+          <TextField
+            id="filled-basic"
+            className={classes.textField}
+            multiline={true}
+            rows={10}
+            label="Enter Your Title"
+            margin="normal"
+            variant="filled"
+            name='post_title'
+            onChange={handleChange}
+          />
 
-    <form className={classes.container}
-      noValidate
-      onSubmit={onSubmit}
-      autoComplete="off">
-      <div classname={classes.flex}>
-        <TextField
-          id="filled-basic"
-          className={classes.textField, classes.flex2}
-          multiline={true}
-          rows={10}
-          label="Enter Your Title"
-          margin="normal"
-          variant="filled"
-          name='post_title'
-          onChange={handleChange}
-        />
-
-        <TextField
-          id="filled-basic"
-          className={classes.textField, classes.flex2}
-          multiline={true}
-          rows={10}
-          label="Enter Your Post"
-          margin="normal"
-          variant="filled"
-          name='post_body'
-          onChange={handleChange}
-        />
+          <TextField
+            id="filled-basic"
+            className={classes.textField}
+            multiline={true}
+            rows={10}
+            label="Enter Your Post"
+            margin="normal"
+            variant="filled"
+            name='post_body'
+            onChange={handleChange}
+          />
 
 
-        <Paper elevation={0} className={classes.paper}>
-          <StyledToggleButtonGroup
-            size="small"
-            value={alignment}
-            exclusive
-            onChange={handleAlignment}
-            aria-label="text alignment"
-          >
-            <ToggleButton value="left" aria-label="left aligned">
-              <FormatAlignLeftIcon />
-            </ToggleButton>
-            <ToggleButton value="center" aria-label="centered">
-              <FormatAlignCenterIcon />
-            </ToggleButton>
-            <ToggleButton value="right" aria-label="right aligned">
-              <FormatAlignRightIcon />
-            </ToggleButton>
-            <ToggleButton value="justify" aria-label="justified" disabled>
-              <FormatAlignJustifyIcon />
-            </ToggleButton>
-          </StyledToggleButtonGroup>
-          <Divider orientation="vertical" className={classes.divider} />
-          <StyledToggleButtonGroup
-            size="small"
-            value={formats}
-            onChange={handleFormat}
-            arial-label="text formatting"
-          >
-            <ToggleButton value="bold" aria-label="bold">
-              <FormatBoldIcon />
-            </ToggleButton>
-            <ToggleButton value="italic" aria-label="italic">
-              <FormatItalicIcon />
-            </ToggleButton>
-            <ToggleButton value="underlined" aria-label="underlined">
-              <FormatUnderlinedIcon />
-            </ToggleButton>
-            <ToggleButton value="color" aria-label="color" disabled>
-              <FormatColorFillIcon />
-              <ArrowDropDownIcon />
-            </ToggleButton>
-          </StyledToggleButtonGroup>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.button}>
-            Submit
-      </Button>
-        </Paper>
-      </div>
-      <CssBaseline />
+          <Paper elevation={0} className={classes.paper}>
+            <StyledToggleButtonGroup
+              size="small"
+              value={alignment}
+              exclusive
+              onChange={handleAlignment}
+              aria-label="text alignment"
+            >
+              <ToggleButton value="left" aria-label="left aligned">
+                <FormatAlignLeftIcon />
+              </ToggleButton>
+              <ToggleButton value="center" aria-label="centered">
+                <FormatAlignCenterIcon />
+              </ToggleButton>
+              <ToggleButton value="right" aria-label="right aligned">
+                <FormatAlignRightIcon />
+              </ToggleButton>
+              <ToggleButton value="justify" aria-label="justified" disabled>
+                <FormatAlignJustifyIcon />
+              </ToggleButton>
+            </StyledToggleButtonGroup>
+            <Divider orientation="vertical" className={classes.divider} />
+            <StyledToggleButtonGroup
+              size="small"
+              value={formats}
+              onChange={handleFormat}
+              arial-label="text formatting"
+            >
+              <ToggleButton value="bold" aria-label="bold">
+                <FormatBoldIcon />
+              </ToggleButton>
+              <ToggleButton value="italic" aria-label="italic">
+                <FormatItalicIcon />
+              </ToggleButton>
+              <ToggleButton value="underlined" aria-label="underlined">
+                <FormatUnderlinedIcon />
+              </ToggleButton>
+              <ToggleButton value="color" aria-label="color" disabled>
+                <FormatColorFillIcon />
+                <ArrowDropDownIcon />
+              </ToggleButton>
+            </StyledToggleButtonGroup>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.button}>
+              Submit
+            </Button>
+          </Paper>
+        </div>
+      </form>
+      {/* <CssBaseline /> */}
       <Container maxWidth='sm'>
         <FilterDiv>
           <form className='tagFilter' onSubmit={addTag}>
@@ -321,9 +323,9 @@ function Post(props) {
           </form>
         </FilterDiv>
         <div className='tagContainer'>
-          {tags.map(tag => {
+          {tags.map((tag,index) => {
             return (
-              <Button variant='outlined' className={classes.button} onClick={removeTag}>
+              <Button variant='outlined' key={Date.now()+index} className={classes.button} onClick={removeTag}>
                 {tag}
               </Button>
             );
@@ -334,17 +336,17 @@ function Post(props) {
             <Grid item xs={12}>
               <ButtonGroup variant='contained' color='primary' ref={anchorRef} aria-label='split button'>
                 <Button onClick={dropdownClick}>{options[selectedIndex]}</Button>
-                <Button
+                {/* <Button
                   color='primary'
                   size='small'
-                  aria-control={open ? 'split-button-menu' : undefined}
+                  // aria-control={open ? 'split-button-menu' : undefined}
                   aria-expanded={open ? 'true' : undefined}
                   aria-label='select merge strategy'
                   aria-haspopup='menu'
                   onClick={dropdownToggle}
                 >
                   <ArrowDropDownIcon />
-                </Button>
+                </Button> */}
               </ButtonGroup>
               <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
                 {({ TransitionProps, placement }) => (
@@ -376,8 +378,7 @@ function Post(props) {
           </Grid>
         </div>
       </Container>
-    </form>
-
+    </Box>
   );
 }
 

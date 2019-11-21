@@ -51,9 +51,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function CommentsCard(props) {
-    const { comment, setComments } = props
+    const { comment, setComments, loggedInUserId } = props
     const [user, setUser] = useState({})
-    const [loggedInUserId, setLoggedInUserId] = useState()
     const [expanded, setExpanded] = useState(false);
     const [isEditing, setIsEditing] = useState(false)
     const domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000'
@@ -64,14 +63,6 @@ export default function CommentsCard(props) {
         axios.get(`${domain}/users/${comment.user_id}`)
         .then(userData => setUser(userData.data))
         .catch(err => console.log('Catch for user was invoked:', err))
-    }, [])
-
-    //grab id of logged in user
-    useEffect(() => {
-        if (localStorage.getItem('token')) { //get the current logged in user's id
-            const decoded = jwtDecode(localStorage.getItem('token'))
-            setLoggedInUserId(decoded.subject)
-        }
     }, [])
 
     const handleExpandClick = () => {
