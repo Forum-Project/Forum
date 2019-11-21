@@ -16,7 +16,7 @@ import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip'
 import axios from 'axios'
 //component imports
-import CreateComment from '../comment-text/CreateComments'
+import EditComment from './editcomment/EditComment'
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -110,7 +110,7 @@ export default function CommentsCard(props) {
                         {comment.comments_body}
                     </Typography>
                 ) : (
-                    <CreateComment editComment={comment} setIsEditing={setIsEditing} setComments={setComments}/>
+                    <EditComment comment={comment} setIsEditing={setIsEditing} setComments={setComments}/>
                 )}
             </CardContent>
             <CardActions disableSpacing>

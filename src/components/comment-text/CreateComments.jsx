@@ -80,7 +80,6 @@ const StyledToggleButtonGroup = withStyles(theme => ({
 
 function CreateComments(props) {
   const { postId, setComments } = props
-  const { editComment, setIsEditing } = props //strictly used for editting comments
   const [alignment, setAlignment] = useState('left');
   const [values, setValues] = useState({
     comments_body: '',
@@ -92,12 +91,10 @@ function CreateComments(props) {
   const domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000'
 
   useEffect(() => {
-    if (!editComment) { //go with the flow if editting is not happening
-      if (localStorage.getItem('token')) { //get the current logged in user's id
-        const decoded = jwtDecode(localStorage.getItem('token'))
-        setValues({ ...values, user_id: decoded.subject })
-      }
-    } else setValues(editComment)
+    if (localStorage.getItem('token')) { //get the current logged in user's id
+      const decoded = jwtDecode(localStorage.getItem('token'))
+      setValues({ ...values, user_id: decoded.subject })
+    }
   }, [])
 
   const handleFormat = (event, newFormats) => {
@@ -118,38 +115,25 @@ function CreateComments(props) {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('MOM WAS HERE', values)
-    if (!editComment) { //if editComment does not exist, go through the regular post comment
-      if(values.user_id) {
-        //create a variable here containing the linked post id as well as updated timestamp
-        const editedValues = {...values, comments_timestamp: Date.now(), post_id: postId}
-        axios.post( `${domain}/comments`, editedValues )
-          .then(function (response) {
-            console.log('WHOA THERE', response)
-            //get back all the comments of the post, including the one posted, and update the state
-            axios.get(`${domain}/posts/${postId}/comments`)
-            .then(updatedComments => {
-              setComments(updatedComments.data)
-              //reset body to blank
-              setValues({...values, comments_body: ''})
-            })
-            .catch(error => console.log('ANOTHER ERROR FOR YOU', error))
+    if(values.user_id) { //needs a better way to validate; probably check against localStorage, and then see if the id and token are actually valid
+      //create a variable here containing the linked post id as well as updated timestamp
+      const editedValues = {...values, comments_timestamp: Date.now(), post_id: postId}
+      axios.post( `${domain}/comments`, editedValues )
+        .then(function (response) {
+          console.log('WHOA THERE', response)
+          //get back all the comments of the post, including the one posted, and update the state
+          axios.get(`${domain}/posts/${postId}/comments`)
+          .then(updatedComments => {
+            setComments(updatedComments.data)
+            //reset body to blank
+            setValues({...values, comments_body: ''})
           })
-          .catch(function (error) {
-            console.log('SHOW THAT FUNKY ERROR', error)
-          })
-      } else alert('You must be logged in to comment!')
-    } else { //otherwise use this submit to edit the comment
-      axios.put(`${domain}/comments/${editComment._id}`, values)
-      .then(updatedComment => {
-        axios.get(`${domain}/posts/${editComment.post_id}/comments`)
-        .then(updatedComments => {
-          setComments(updatedComments.data)
-          setIsEditing(false)
+          .catch(error => console.log('ANOTHER ERROR FOR YOU', error))
         })
-        .catch(error => console.log('Catch to update all the comments in the post was invoked:', error))
-      })
-      .catch(error => console.log('Catch to edit the comment was invoked:', error))
-    } 
+        .catch(function (error) {
+          console.log('SHOW THAT FUNKY ERROR', error)
+        })
+    } else alert('You must be logged in to comment!')
   }
 
   const classes = useStyles();
