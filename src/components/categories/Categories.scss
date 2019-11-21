@@ -7,6 +7,16 @@
     // div {
     //     width: 80%; 
     // }
+    .post-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .create-post {
+            border-radius: 0 0 5px 5px;
+            border: 1px solid #58AF24;
+        }
+    }
 
     .filter {
         width: 20%; 

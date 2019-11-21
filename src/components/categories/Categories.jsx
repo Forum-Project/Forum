@@ -1,9 +1,11 @@
+//library imports
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Filter from '../filter/Filter';
 import { withRouter } from 'react-router-dom';
+import Button from '@material-ui/core/Button'
+//component imports
+import Filter from '../filter/Filter';
 import PostCard from './postcard/PostCard'
-
 // stylesheet imports 
 import './Categories.scss'
 
@@ -85,7 +87,7 @@ function Categories(props) {
     return (
         <div className="cat-wrapper">
             <div className="post-wrapper">
-                <button onClick={createPost}>Click here to create a post</button>
+                <Button onClick={createPost} className='create-post'>Click here to create a post</Button>
                 {/* (<Post post={post}/>) */}
                 {/* {console.log('This should be catID', props.categoryID)} */}
                 {posts && posts.reverse().map((post, index) => { //reversing has the unintended bug/feature/bugture/fug of allowing the category to sort asc/desc if clicked again
