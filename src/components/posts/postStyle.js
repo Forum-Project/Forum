@@ -22,5 +22,11 @@ export const postStyle = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-  }
+  },
+  post_body: {
+    whiteSpace: 'pre-line'
+  },
+  time_tooltip: {
+    maxWidth: 350,
+  },
 }));

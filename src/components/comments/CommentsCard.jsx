@@ -1,3 +1,4 @@
+//library imports
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -12,10 +13,10 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip'
 import axios from 'axios'
-import jwtDecode from 'jwt-decode'
-import CreateComment from '../comment-text/CreateComments'
+//component imports
+import EditComment from './editcomment/EditComment'
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -42,11 +43,17 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: red[500],
     },
     textField: {
-      input1: {
-        height: 600
-      },
-      maxWidth: 1000,
-      width: '100%',
+        input1: {
+            height: 600
+        },
+        maxWidth: 1000,
+        width: '100%',
+    },
+    comment_body: {
+        whiteSpace: 'pre-line'
+    },
+    time_tooltip: {
+        maxWidth: 350,
     },
 }));
 
@@ -93,15 +100,20 @@ export default function CommentsCard(props) {
                     </IconButton>
                 }
                 title={user.username}
-                subheader={new Date(comment.comments_timestamp).toDateString()}
+                subheader={
+                    <Tooltip title={new Date(comment.comments_timestamp).toString()} placement='bottom-start' classes={{ tooltip: classes.time_tooltip }}>
+                      <Typography variant="body2" color="textSecondary" component="p">
+                        {new Date(comment.comments_timestamp).toDateString()}
+                      </Typography>
+                    </Tooltip>}
             />
             <CardContent>
                 {!isEditing ? (
-                    <Typography variant="body2" color="textSecondary" component="p">
+                    <Typography variant="body2" color="textSecondary" component="p" className={classes.comment_body}>
                         {comment.comments_body}
                     </Typography>
                 ) : (
-                    <CreateComment editComment={comment} setIsEditing={setIsEditing} setComments={setComments}/>
+                    <EditComment comment={comment} setIsEditing={setIsEditing} setComments={setComments}/>
                 )}
             </CardContent>
             <CardActions disableSpacing>

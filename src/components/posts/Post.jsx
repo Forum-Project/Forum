@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import Box from '@material-ui/core/Box'
+import Tooltip from '@material-ui/core/Tooltip'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import axios from 'axios'
 //component imports
@@ -50,7 +51,11 @@ const Post = (props) => {
         titleTypographyProps={{ variant: 'h4' }}
         subheader={
           <Box>
-            {new Date(currentPost.post_date).toDateString()}
+            <Tooltip title={new Date(currentPost.post_date).toString()} placement='bottom-start' classes={{ tooltip: classes.time_tooltip }}>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {new Date(currentPost.post_date).toDateString()}
+              </Typography>
+            </Tooltip>  
             <Box display='flex' justifyContent="flex-end" flexWrap='wrap' maxWidth='200' width='100%'>
               {currentPost.post_tags && currentPost.post_tags.map((tag, index) => {
                 return (
@@ -65,7 +70,7 @@ const Post = (props) => {
       />
       <CardContent className={classes.body}>
         {!isEditing ? (
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="body2" color="textSecondary" component="p" className={classes.post_body}>
             {currentPost.post_body}
           </Typography>
         ) : (

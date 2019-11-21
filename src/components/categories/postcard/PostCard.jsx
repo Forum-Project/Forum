@@ -1,16 +1,17 @@
 // library imports
-import React, { useEffect, useState } from 'react';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import React, { useEffect, useState } from 'react'
+import Card from '@material-ui/core/Card'
+import CardHeader from '@material-ui/core/CardHeader'
+import CardMedia from '@material-ui/core/CardMedia'
+import CardContent from '@material-ui/core/CardContent'
+import CardActions from '@material-ui/core/CardActions'
+import Avatar from '@material-ui/core/Avatar'
+import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+import Box from '@material-ui/core/Box'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+import Tooltip from '@material-ui/core/Tooltip'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 // image imports
@@ -32,7 +33,7 @@ function trimBody(text) {
 const PostCard = (props) => {
   const { post } = props
   const [user, setUser] = useState({})
-  const classes = postCardStyle();
+  const classes = postCardStyle()
   const domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000'
 
   useEffect(() => {
@@ -57,7 +58,13 @@ const PostCard = (props) => {
           </IconButton>
         }
         title={post.post_title}
-        subheader={new Date(post.post_date).toDateString()}
+        subheader={
+          <Tooltip title={new Date(post.post_date).toString()} placement='bottom-start' classes={{ tooltip: classes.time_tooltip }}>
+            <Typography variant="body2" color="textSecondary" component="p" className={classes.post_body}>
+              {new Date(post.post_date).toDateString()}
+            </Typography>
+          </Tooltip> 
+        }
       />
       <CardMedia
         className={classes.media}
@@ -65,7 +72,7 @@ const PostCard = (props) => {
         title={post.post_img_description ? post.post_img_description : 'No image'}
       />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant="body2" color="textSecondary" component="p"  className={classes.post_body}>
           {trimBody(post.post_body)}
         </Typography>
       </CardContent>
@@ -94,7 +101,7 @@ const PostCard = (props) => {
         </Box>
       </CardActions>
     </Card>
-  );
+  )
 }
 
 export default PostCard
