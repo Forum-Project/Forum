@@ -20,6 +20,9 @@ export const postCardStyle = makeStyles(theme => ({
   tag: {
     fontSize: '0.750rem'
   },
+  post_body: {
+    whiteSpace: 'pre-line'
+  },
   time_tooltip: {
     maxWidth: 350,
   },

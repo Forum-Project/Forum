@@ -43,14 +43,17 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: red[500],
     },
     textField: {
-      input1: {
-        height: 600
-      },
-      maxWidth: 1000,
-      width: '100%',
+        input1: {
+            height: 600
+        },
+        maxWidth: 1000,
+        width: '100%',
+    },
+    comment_body: {
+        whiteSpace: 'pre-line'
     },
     time_tooltip: {
-      maxWidth: 350,
+        maxWidth: 350,
     },
 }));
 
@@ -106,7 +109,7 @@ export default function CommentsCard(props) {
             />
             <CardContent>
                 {!isEditing ? (
-                    <Typography variant="body2" color="textSecondary" component="p">
+                    <Typography variant="body2" color="textSecondary" component="p" className={classes.comment_body}>
                         {comment.comments_body}
                     </Typography>
                 ) : (

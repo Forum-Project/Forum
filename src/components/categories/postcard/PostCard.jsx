@@ -60,7 +60,7 @@ const PostCard = (props) => {
         title={post.post_title}
         subheader={
           <Tooltip title={new Date(post.post_date).toString()} placement='bottom-start' classes={{ tooltip: classes.time_tooltip }}>
-            <Typography variant="body2" color="textSecondary" component="p">
+            <Typography variant="body2" color="textSecondary" component="p" className={classes.post_body}>
               {new Date(post.post_date).toDateString()}
             </Typography>
           </Tooltip> 
@@ -72,7 +72,7 @@ const PostCard = (props) => {
         title={post.post_img_description ? post.post_img_description : 'No image'}
       />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography variant="body2" color="textSecondary" component="p"  className={classes.post_body}>
           {trimBody(post.post_body)}
         </Typography>
       </CardContent>

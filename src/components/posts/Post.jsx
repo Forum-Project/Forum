@@ -70,7 +70,7 @@ const Post = (props) => {
       />
       <CardContent className={classes.body}>
         {!isEditing ? (
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="body2" color="textSecondary" component="p" className={classes.post_body}>
             {currentPost.post_body}
           </Typography>
         ) : (
