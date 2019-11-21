@@ -22,5 +22,8 @@ export const postStyle = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-  }
+  },
+  time_tooltip: {
+    maxWidth: 350,
+  },
 }));

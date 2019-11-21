@@ -1,3 +1,4 @@
+//library imports
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -12,9 +13,9 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip'
 import axios from 'axios'
-import jwtDecode from 'jwt-decode'
+//component imports
 import CreateComment from '../comment-text/CreateComments'
 
 const useStyles = makeStyles(theme => ({
@@ -47,6 +48,9 @@ const useStyles = makeStyles(theme => ({
       },
       maxWidth: 1000,
       width: '100%',
+    },
+    time_tooltip: {
+      maxWidth: 350,
     },
 }));
 
@@ -93,7 +97,12 @@ export default function CommentsCard(props) {
                     </IconButton>
                 }
                 title={user.username}
-                subheader={new Date(comment.comments_timestamp).toDateString()}
+                subheader={
+                    <Tooltip title={new Date(comment.comments_timestamp).toString()} placement='bottom-start' classes={{ tooltip: classes.time_tooltip }}>
+                      <Typography variant="body2" color="textSecondary" component="p">
+                        {new Date(comment.comments_timestamp).toDateString()}
+                      </Typography>
+                    </Tooltip>}
             />
             <CardContent>
                 {!isEditing ? (
