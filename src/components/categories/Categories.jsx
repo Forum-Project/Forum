@@ -79,7 +79,8 @@ function Categories(props) {
     }
 
     const createPost = () => {
-        props.history.push('/post')
+        if (localStorage.getItem('token')) props.history.push('/post')
+        else alert('You must be logged in to post!')
     }
 
     // console.log(posts)
