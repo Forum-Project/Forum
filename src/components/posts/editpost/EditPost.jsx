@@ -1,6 +1,7 @@
+//library imports
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { makeStyles, withStyles } from '@material-ui/core/styles'
+import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import FormatAlignLeftIcon from '@material-ui/icons/FormatAlignLeft'
 import FormatAlignCenterIcon from '@material-ui/icons/FormatAlignCenter'
@@ -17,48 +18,8 @@ import Paper from '@material-ui/core/Paper'
 import Box from '@material-ui/core/Box'
 import ToggleButton from '@material-ui/lab/ToggleButton'
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
-
-const useStyles = makeStyles(theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    maxWidth: 1000,
-    width: '100%',
-  },
-  paper: {
-    display: 'flex',
-    border: `.5px solid ${theme.palette.divider}`,
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-  divider: {
-    alignSelf: 'stretch',
-    height: 'auto',
-    margin: theme.spacing(1, -10.5),
-    transform: 'skew(-15deg, -15deg)',
-  },
-  button: {
-    display: 'flex',
-    margin: theme.spacing(1),
-  },
-  input: {
-    display: 'none',
-  },
-  textField: {
-    input1: {
-      height: 600
-    },
-    // marginLeft: theme.spacing(1),
-    // marginRight: theme.spacing(1),
-    maxWidth: 1000,
-    width: '100%',
-  },
-  box: {
-    maxWidth: 1000,
-    width: '100%',
-  },
-}))
+//css and styles
+import { editPostStyle } from './editPostStyle'
 
 const StyledToggleButtonGroup = withStyles(theme => ({
   grouped: {
@@ -80,6 +41,8 @@ const EditPost = (props) => {
   //formatting
   const [alignment, setAlignment] = useState('left')
   const [formats, setFormats] = useState(() => ['italic'])
+  //classes
+  const classes = editPostStyle()
   const domain = process.env.REACT_APP_DOMAIN || 'http://localhost:5000'
 
   const handleFormat = (event, newFormats) => {
@@ -106,7 +69,6 @@ const EditPost = (props) => {
     .catch(error => console.log('Catch to edit the post was invoked:', error))
   }
 
-  const classes = useStyles()
   return (
     <form className={classes.container}
       onSubmit={handleSubmit}
