@@ -206,8 +206,7 @@ export default function PrimarySearchAppBar(props) {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-                           
-			                      <NavLink to="/profile"><AccountCircle /></NavLink> 
+                            <NavLink to={localStorage.getItem('token') ? "/profile" : '/signin'}><AccountCircle /></NavLink> 
                         </IconButton>
                     </div>
                     <div className={classes.sectionMobile}>
