@@ -126,7 +126,12 @@ export default function PrimarySearchAppBar(props) {
     }
 
     const sendToSignIn = event => {
-        props.history.push('/signin')
+        props.history.push({
+            pathname: '/signin',
+            state: {
+                prevLocation: props.path
+            }
+        })
     }
 
     const menuId = 'primary-search-account-menu';
