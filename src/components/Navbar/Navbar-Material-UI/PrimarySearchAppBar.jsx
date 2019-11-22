@@ -147,15 +147,15 @@ export default function PrimarySearchAppBar(props) {
                 onClose={handleMenuClose}
             >
                 {localStorage.getItem('token') ? (
-                    <>
+                    <div>
                         <MenuItem onClick={sendToProfile}>Profile</MenuItem>
                         <MenuItem onClick={logoutUser}>Logout</MenuItem>
-                    </>
+                    </div>
                 ) : (
-                    <>
+                    <div>
                         <MenuItem onClick={sendToSignUp}>Sign Up</MenuItem>
                         <MenuItem onClick={sendToSignIn}>Sign In</MenuItem>
-                    </>
+                    </div>
                 )}
             </Menu>
         )   
