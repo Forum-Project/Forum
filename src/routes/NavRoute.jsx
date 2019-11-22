@@ -9,7 +9,7 @@ const NavRoute = ({ exact, path, component: Component }) => {
   return (
     <Route exact={exact} path={path} render={props => (
       <>
-        <Navbar />
+        <Navbar path={path}/>
         <Component {...props} />
       </>
     )} />

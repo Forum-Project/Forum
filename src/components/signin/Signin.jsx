@@ -56,7 +56,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignIn(props) {
     const classes = useStyles();
-
     const [user, setUser] = useState({});
 
     const onSumbit = event => {
@@ -67,8 +66,10 @@ export default function SignIn(props) {
             axios.post(`http://localhost:5000/users/login`, user)
                 .then(res => {
                     console.log('Logged in', res)
-                    props.history.push('/home')
                     localStorage.setItem('token', res.data.token)
+                    if (!props.location.state || props.location.state.prevLocation === '/') { //if state does not exist (hard refresh/first page user goes to) or as long as previous page wasn't root
+                        props.history.push('/home')
+                    } else props.history.goBack()
                 })
                 .catch(err => console.log('You failed to Login', err))
         } else {

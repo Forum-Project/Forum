@@ -1,14 +1,14 @@
 import React from 'react';
 
 // component imports 
-import PrimarySearchAppBar from './TabPanel';
-import TabPanel from './Navbar-Material-UI/PrimarySearchAppBar';
+import TabPanel from './TabPanel';
+import PrimarySearchAppBar from './Navbar-Material-UI/PrimarySearchAppBar';
 
-const Navbar = () => {
+const Navbar = (props) => {
     return (
-        <div >
+        <div>
+            <PrimarySearchAppBar path={props.path} />
             <TabPanel />
-            <PrimarySearchAppBar />
         </div>
     );
 }
