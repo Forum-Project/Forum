@@ -121,6 +121,14 @@ export default function PrimarySearchAppBar(props) {
         window.location.reload()
     }
 
+    const sendToSignUp = event => {
+        props.history.push('/')
+    }
+
+    const sendToSignIn = event => {
+        props.history.push('/signin')
+    }
+
     const menuId = 'primary-search-account-menu';
     const RenderMenu = () => {
         return (
@@ -133,8 +141,17 @@ export default function PrimarySearchAppBar(props) {
                 open={isMenuOpen}
                 onClose={handleMenuClose}
             >
-                <MenuItem onClick={sendToProfile}>Profile</MenuItem>
-                <MenuItem onClick={logoutUser}>Logout</MenuItem>
+                {localStorage.getItem('token') ? (
+                    <>
+                        <MenuItem onClick={sendToProfile}>Profile</MenuItem>
+                        <MenuItem onClick={logoutUser}>Logout</MenuItem>
+                    </>
+                ) : (
+                    <>
+                        <MenuItem onClick={sendToSignUp}>Sign Up</MenuItem>
+                        <MenuItem onClick={sendToSignIn}>Sign In</MenuItem>
+                    </>
+                )}
             </Menu>
         )   
     };
