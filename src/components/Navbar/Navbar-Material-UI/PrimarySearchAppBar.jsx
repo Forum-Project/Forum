@@ -111,21 +111,50 @@ export default function PrimarySearchAppBar(props) {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const sendToProfile = event => {
+        props.history.push('/profile')
+    }
+
+    const logoutUser = event => {
+        localStorage.removeItem('token')
+        //force the window to refresh to update state everywhere
+        window.location.reload()
+    }
+
+    const sendToSignUp = event => {
+        props.history.push('/')
+    }
+
+    const sendToSignIn = event => {
+        props.history.push('/signin')
+    }
+
     const menuId = 'primary-search-account-menu';
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-        </Menu>
-    );
+    const RenderMenu = () => {
+        return (
+            <Menu
+                anchorEl={anchorEl}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                id={menuId}
+                keepMounted
+                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                open={isMenuOpen}
+                onClose={handleMenuClose}
+            >
+                {localStorage.getItem('token') ? (
+                    <>
+                        <MenuItem onClick={sendToProfile}>Profile</MenuItem>
+                        <MenuItem onClick={logoutUser}>Logout</MenuItem>
+                    </>
+                ) : (
+                    <>
+                        <MenuItem onClick={sendToSignUp}>Sign Up</MenuItem>
+                        <MenuItem onClick={sendToSignIn}>Sign In</MenuItem>
+                    </>
+                )}
+            </Menu>
+        )   
+    };
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
@@ -177,9 +206,11 @@ export default function PrimarySearchAppBar(props) {
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="open drawer"
+                        onClick={handleProfileMenuOpen}
                     >
                         <MenuIcon />
                     </IconButton>
+                    <RenderMenu />
                     <Typography className={classes.title} variant="h6" noWrap>
                         Forum Project
                     </Typography>
@@ -206,8 +237,14 @@ export default function PrimarySearchAppBar(props) {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-                           
-			                      <NavLink to="/profile"><AccountCircle /></NavLink> 
+                            <NavLink to={{
+                                pathname: localStorage.getItem('token') ? "/profile" : '/signin',
+                                state: {
+                                    prevLocation: props.path
+                                }
+                            }}>
+                                <AccountCircle />
+                            </NavLink> 
                         </IconButton>
                     </div>
                     <div className={classes.sectionMobile}>
