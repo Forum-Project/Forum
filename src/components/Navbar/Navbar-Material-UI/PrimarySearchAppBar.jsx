@@ -111,6 +111,10 @@ export default function PrimarySearchAppBar(props) {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const sendToProfile = event => {
+        props.history.push('/profile')
+    }
+
     const menuId = 'primary-search-account-menu';
     const RenderMenu = () => {
         return (
@@ -123,7 +127,7 @@ export default function PrimarySearchAppBar(props) {
                 open={isMenuOpen}
                 onClose={handleMenuClose}
             >
-                <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+                <MenuItem onClick={sendToProfile}>Profile</MenuItem>
                 <MenuItem onClick={handleMenuClose}>My account</MenuItem>
             </Menu>
         )   

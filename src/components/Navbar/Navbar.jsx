@@ -7,7 +7,7 @@ import PrimarySearchAppBar from './Navbar-Material-UI/PrimarySearchAppBar';
 const Navbar = (props) => {
     return (
         <div>
-            <PrimarySearchAppBar path={props.path} />
+            <PrimarySearchAppBar path={props.path} history={props.history} />
             <TabPanel />
         </div>
     );
