@@ -112,20 +112,22 @@ export default function PrimarySearchAppBar(props) {
     };
 
     const menuId = 'primary-search-account-menu';
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-        </Menu>
-    );
+    const RenderMenu = () => {
+        return (
+            <Menu
+                anchorEl={anchorEl}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                id={menuId}
+                keepMounted
+                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                open={isMenuOpen}
+                onClose={handleMenuClose}
+            >
+                <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+                <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            </Menu>
+        )   
+    };
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
@@ -177,9 +179,11 @@ export default function PrimarySearchAppBar(props) {
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="open drawer"
+                        onClick={handleProfileMenuOpen}
                     >
                         <MenuIcon />
                     </IconButton>
+                    <RenderMenu />
                     <Typography className={classes.title} variant="h6" noWrap>
                         Forum Project
                     </Typography>
