@@ -115,6 +115,12 @@ export default function PrimarySearchAppBar(props) {
         props.history.push('/profile')
     }
 
+    const logoutUser = event => {
+        localStorage.removeItem('token')
+        //force the window to refresh to update state everywhere
+        window.location.reload()
+    }
+
     const menuId = 'primary-search-account-menu';
     const RenderMenu = () => {
         return (
@@ -128,7 +134,7 @@ export default function PrimarySearchAppBar(props) {
                 onClose={handleMenuClose}
             >
                 <MenuItem onClick={sendToProfile}>Profile</MenuItem>
-                <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+                <MenuItem onClick={logoutUser}>Logout</MenuItem>
             </Menu>
         )   
     };
